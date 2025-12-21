@@ -3,10 +3,17 @@
 /resources/_gen/
 /assets/jsconfig.json
 hugo_stats.json
+.hugo_build.lock
 
 # Logs
 *.log
 *.log.gz
+caddy.log
+hugo.log
+api/logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # OS
 .DS_Store
@@ -29,6 +36,9 @@ caddy-*.log
 # Node
 node_modules/
 package-lock.json
+
+# PM2
+.pm2/
 
 # Build artifacts
 *.tar.gz
