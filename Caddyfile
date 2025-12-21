@@ -11,15 +11,34 @@
 }
 
 # Development configuration
-:80 {
-	# Set server root
-	root * /home/hugo/qcgrant-website-build/public
+:8080 {
+	# API reverse proxy - handle this first
+	handle /api/* {
+		reverse_proxy localhost:3001
+	}
 
-	# Enable file server
-	file_server
+	# Hugo livereload - proxy to Hugo dev server
+	handle /livereload* {
+		reverse_proxy localhost:1313 {
+			header_up Host {host}
+			header_up X-Real-IP {remote}
+		}
+	}
 
-	# Enable gzip and Brotli compression
-	encode gzip zstd
+	# Handle everything else
+	handle {
+		# Set server root
+		root * /home/hugo/qcgrant-website-build/public
+
+		# Enable file server
+		file_server
+
+		# Enable gzip and Brotli compression
+		encode gzip zstd
+
+		# Handle SPA routing
+		try_files {path} {path}.html {path}/ /404.html
+	}
 
 	# Security Headers
 	header {
@@ -36,11 +55,11 @@
 		# Permissions Policy (formerly Feature-Policy)
 		Permissions-Policy "geolocation=(), microphone=(), camera=()"
 		
-		# HSTS (HTTP Strict Transport Security)
-		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		# HSTS (HTTP Strict Transport Security) - Disabled for development
+		# Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 		
 		# Content Security Policy
-		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net data:; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests;"
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com data:; img-src 'self' data: https:; connect-src 'self' ws://10.147.17.62:1313 https://www.google-analytics.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
 		
 		# Remove server information
 		-Server
@@ -57,9 +76,6 @@
 		path *.html
 	}
 	header @html Cache-Control "public, max-age=3600, must-revalidate"
-
-	# Handle SPA routing
-	try_files {path} {path}.html {path}/ /404.html
 
 	# Logging
 	log {
