@@ -1,0 +1,130 @@
+{{- $scratchtpl := newScratch -}}
+
+<!-- Organization Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{ site.Title }}",
+  "url": "{{ site.BaseURL }}",
+  "logo": "{{ (site.Params.logo | absURL) }}",
+  "description": "{{ site.Params.description }}",
+  "email": "{{ site.Params.email }}",
+  "telephone": "{{ site.Params.phone }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "32 Kennedy Avenue",
+    "addressLocality": "Roseau",
+    "addressCountry": "DM"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Customer Service",
+    "email": "{{ site.Params.email }}",
+    "telephone": "{{ site.Params.phone }}"
+  }{{- with site.Params.social -}},
+  "sameAs": [
+    {{- range $i, $e := . -}}
+    {{- if $i }},{{ end }}"{{ .link }}"
+    {{- end -}}
+  ]
+  {{- end -}}
+}
+</script>
+
+<!-- WebSite Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site.Title }}",
+  "url": "{{ site.BaseURL }}",
+  "description": "{{ site.Params.description }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.Title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ (site.Params.logo | absURL) }}"
+    }
+  }
+}
+</script>
+
+<!-- LocalBusiness Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Q C Grant Ltd.",
+  "image": "{{ (site.Params.logo | absURL) }}",
+  "url": "{{ site.BaseURL }}",
+  "telephone": "{{ site.Params.phone }}",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "32 Kennedy Avenue",
+    "addressLocality": "Roseau",
+    "addressCountry": "DM"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 15.3092,
+    "longitude": -61.3790
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "opens": "09:00",
+    "closes": "17:00"
+  },
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 15.3092,
+      "longitude": -61.3790
+    },
+    "geoRadius": "500"
+  }
+}
+</script>
+
+{{- if .IsPage -}}
+{{- if eq .Section "resources" -}}
+<!-- BlogPosting Schema for Resources/Blog -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ .Title }}",
+  "description": "{{ .Description | default .Summary }}",
+  "image": "{{ (.Params.image | absURL) }}",
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Params.author | default site.Params.author }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.Title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ (site.Params.logo | absURL) }}"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  }
+}
+</script>
+{{- end -}}
+{{- end -}}

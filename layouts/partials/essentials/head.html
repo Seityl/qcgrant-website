@@ -1,0 +1,57 @@
+<head>
+  <meta charset="utf-8" />
+  <title>{{ .Title }}</title>
+
+  {{ "<!-- Mobile Responsive Meta -->" | safeHTML }}
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="description" content="{{ .Params.Description | default site.Params.description }}" />
+  {{ with site.Params.author }}
+  <meta name="author" content="{{ . }}" />{{ end }}
+  {{ hugo.Generator }}
+
+  {{ "<!-- Favicon -->" | safeHTML }}
+  <link rel="shortcut icon" href="{{ site.Params.favicon | absURL }}" type="image/x-icon" />
+  <link rel="icon" href="{{ site.Params.favicon | absURL }}" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="{{ "images/icon-192.png" | absURL }}" />
+
+  {{ "<!-- PWA Manifest -->" | safeHTML }}
+  <link rel="manifest" href="{{ "manifest.webmanifest" | absURL }}" />
+
+  {{ "<!-- SEO Meta Tags -->" | safeHTML }}
+  {{ partial "basic-seo.html" . }}
+
+  {{ "<!-- Structured Data -->" | safeHTML }}
+  {{ partial "structured-data.html" . }}
+
+  {{ "<!-- Site Verification (Optional) -->" | safeHTML }}
+  {{ with site.Params.google_verification_tag }}
+  <meta name="google-site-verification" content="{{ . }}" />{{ end }}
+
+  {{ "<!-- CSS Plugins -->" | safeHTML }}
+  {{ range site.Params.plugins.css }}
+  {{ if findRE "^http" .link }}
+  <link rel="stylesheet" href="{{ .link | safeURL }}" {{ with .attributes }} {{ . | safeHTMLAttr }} {{ end }} />
+  {{ else }}
+  <link rel="stylesheet" href="{{ .link | absURL }}" {{ with .attributes }} {{ . | safeHTMLAttr }} {{ end }} />
+  {{ end }}
+  {{ end }}
+
+  {{ "<!-- Main Stylesheet -->" | safeHTML }}
+  {{ $styles := resources.Get "scss/custom.scss" }}
+  {{ if $styles }}
+  {{ $styles := $styles | resources.ToCSS }}
+  {{ $styles := $styles | minify }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" media="screen" />
+  {{ end }}
+
+  {{ "<!-- Service Worker Registration -->" | safeHTML }}
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then((registration) => console.log('SW registered'))
+          .catch((error) => console.log('SW registration failed'));
+      });
+    }
+  </script>
+</head>

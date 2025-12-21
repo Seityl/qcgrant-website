@@ -1,0 +1,9 @@
+{{- if site.Params.preloader.enable }}
+<div class="preloader">
+  {{- if site.Params.preloader.preloader }}
+  <img src="{{ site.Params.preloader.preloader | absURL }}" alt="preloader" />
+  {{- else }}
+  <div class="spinner"></div>
+  {{- end }}
+</div>
+{{- end }}

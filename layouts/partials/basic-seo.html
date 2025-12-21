@@ -1,0 +1,36 @@
+{{- $title := .Title -}}
+{{- $description := .Description | default .Summary | default site.Params.description -}}
+{{- $image := .Params.image | default site.Params.image | absURL -}}
+{{- $url := .Permalink -}}
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:title" content="{{ $title }}" />
+<meta property="og:description" content="{{ $description }}" />
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+<meta property="og:url" content="{{ $url }}" />
+<meta property="og:image" content="{{ $image }}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="{{ site.Title }}" />
+<meta property="og:locale" content="{{ .Lang }}" />
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ $title }}" />
+<meta name="twitter:description" content="{{ $description }}" />
+<meta name="twitter:image" content="{{ $image }}" />
+{{- with site.Params.twitter_handle }}
+<meta name="twitter:site" content="@{{ . }}" />
+{{- end }}
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ $url }}" />
+
+<!-- DNS Prefetch for Performance -->
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+<link rel="dns-prefetch" href="//fonts.gstatic.com" />
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+
+<!-- Theme Color -->
+<meta name="theme-color" content="{{ site.Params.theme_color | default "#00D9FF" }}" />
+<meta name="msapplication-TileColor" content="{{ site.Params.theme_color | default "#00D9FF" }}" />
