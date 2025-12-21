@@ -22,3 +22,5 @@ github.com/gethugothemes/hugo-modules/table-of-contents v0.0.0-20251204045621-e6
 github.com/gethugothemes/hugo-modules/table-of-contents v0.0.0-20251204045621-e6dcb6d7954f/go.mod h1:bEDw4veccQQQYEdVrfu13ATRUWfW8ptDIjJZuhYh4Tw=
 github.com/gethugothemes/hugo-modules/videos v0.0.0-20251204045621-e6dcb6d7954f h1:2alY3Dn6p4Mkrl/WUgkkBvljtr+sMWDhZOC/FXOdXzM=
 github.com/gethugothemes/hugo-modules/videos v0.0.0-20251204045621-e6dcb6d7954f/go.mod h1:P722lLWdnNhdZVq6gvMrOLqECUwrAYQWaOWlChta5H0=
+github.com/twbs/bootstrap v5.3.2+incompatible h1:tuiO5acc6xnZUR77Sbi5aKWXxjYxbmsSbJwYrhAKoQQ=
+github.com/twbs/bootstrap v5.3.2+incompatible/go.mod h1:fZTSrkpSf0/HkL0IIJzvVspTt1r9zuf7XlZau8kpcY0=

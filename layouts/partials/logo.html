@@ -1,0 +1,21 @@
+{{- $logo := .Site.Params.logo }}
+{{- $logo_width := .Site.Params.logo_width }}
+{{- $logo_height := .Site.Params.logo_height }}
+{{- $logo_text := .Site.Params.logo_text }}
+
+<a class="navbar-brand" href="{{ .Site.BaseURL | relLangURL }}">
+  {{- if $logo }}
+  <img 
+    loading="preload" 
+    decoding="async" 
+    class="img-fluid" 
+    width="{{ $logo_width }}" 
+    height="{{ $logo_height }}"
+    src="{{ $logo | relURL }}" 
+    alt="{{ .Site.Title }}">
+  {{- else if $logo_text }}
+  <span>{{ $logo_text }}</span>
+  {{- else }}
+  <span>{{ .Site.Title }}</span>
+  {{- end }}
+</a>

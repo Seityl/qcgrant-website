@@ -4,6 +4,10 @@
 [[imports]]
   path = "github.com/gethugothemes/andromeda-light"
 
+# Import Bootstrap dependency
+[[imports]]
+  path = "github.com/twbs/bootstrap"
+
 # Import Hugo modules for extended functionality
 [[imports]]
   path = "github.com/gethugothemes/hugo-modules/icons/font-awesome"
