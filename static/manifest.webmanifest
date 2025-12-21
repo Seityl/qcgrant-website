@@ -1,11 +1,11 @@
 {
   "name": "Q C Grant Ltd.",
-  "short_name": "QC Grant",
-  "description": "Caribbean Cybersecurity & IT Services",
+  "short_name": "Q C Grant",
+  "description": "Cybersecurity & IT Services",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1A1A1A",
-  "theme_color": "#00D9FF",
+  "background_color": "#42454B",
+  "theme_color": "#08BCB0",
   "orientation": "portrait-primary",
   "icons": [
     {
