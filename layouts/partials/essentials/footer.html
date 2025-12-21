@@ -1,40 +1,110 @@
-{{/* Simple footer */}}
-<footer class="py-5 bg-dark text-white">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <h5>Q C Grant Ltd.</h5>
-        <p>Caribbean Cybersecurity & IT Services</p>
-        <p class="small mb-0">
-          32 Kennedy Avenue<br>
-          Roseau, Dominica<br>
-          <a href="tel:+17672753290" class="text-white">+1 767 275 3290</a><br>
-          <a href="mailto:support@qcgrant.com" class="text-white">support@qcgrant.com</a>
-        </p>
+{{/* Enhanced footer with branding and social links */}}
+<footer class="bg-dark text-white">
+  <div class="container py-5">
+    <div class="row g-4">
+      {{/* Company Info */}}
+      <div class="col-lg-4 mb-4">
+        <div class="mb-3">
+          <img src="{{ "/images/qc-grant-logo-text-wide-light.png" | relURL }}" alt="Q C Grant Ltd." style="max-width: 200px; height: auto;">
+        </div>
+        <p class="mb-3">Caribbean's leading provider of cybersecurity, managed IT services, and technology consulting for businesses and institutions.</p>
+        <div class="d-flex gap-3 mb-3">
+          {{/* Social Media Icons */}}
+          <a href="https://www.linkedin.com/in/charles-d-grant/" class="text-white" aria-label="LinkedIn" title="Follow us on LinkedIn" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-linkedin fa-lg"></i>
+          </a>
+        </div>
       </div>
-      <div class="col-md-4 mb-4">
-        <h5>Services</h5>
-        <ul class="list-unstyled">
-          <li><a href="/services/cybersecurity" class="text-white">Cybersecurity</a></li>
-          <li><a href="/services/managed-it" class="text-white">Managed IT</a></li>
-          <li><a href="/services/cloud-ai" class="text-white">Cloud & AI</a></li>
-          <li><a href="/services/consulting" class="text-white">IT Consulting</a></li>
+
+      {{/* Services */}}
+      <div class="col-lg-2 col-md-6 mb-4">
+        <h5 class="mb-3 fw-bold" style="color: #08BCB0;">Services</h5>
+        <ul class="list-unstyled footer-links">
+          <li class="mb-2"><a href="/services/cybersecurity" class="text-white text-decoration-none">Cybersecurity</a></li>
+          <li class="mb-2"><a href="/services/managed-it" class="text-white text-decoration-none">Managed IT</a></li>
+          <li class="mb-2"><a href="/services/cloud-ai" class="text-white text-decoration-none">Cloud & AI</a></li>
+          <li class="mb-2"><a href="/services/consulting" class="text-white text-decoration-none">IT Consulting</a></li>
         </ul>
       </div>
-      <div class="col-md-4 mb-4">
-        <h5>Company</h5>
-        <ul class="list-unstyled">
-          <li><a href="/about" class="text-white">About</a></li>
-          <li><a href="/contact" class="text-white">Contact</a></li>
-          <li><a href="/resources" class="text-white">Resources</a></li>
-          <li><a href="/privacy-policy" class="text-white">Privacy</a></li>
-          <li><a href="/terms-and-conditions" class="text-white">Terms</a></li>
+
+      {{/* Industries */}}
+      <div class="col-lg-2 col-md-6 mb-4">
+        <h5 class="mb-3 fw-bold" style="color: #08BCB0;">Industries</h5>
+        <ul class="list-unstyled footer-links">
+          <li class="mb-2"><a href="/industries/finance" class="text-white text-decoration-none">Finance</a></li>
+          <li class="mb-2"><a href="/industries/healthcare" class="text-white text-decoration-none">Healthcare</a></li>
+          <li class="mb-2"><a href="/industries/professional-services" class="text-white text-decoration-none">Professional Services</a></li>
+          <li class="mb-2"><a href="/industries/industrial" class="text-white text-decoration-none">Industrial</a></li>
         </ul>
+      </div>
+
+      {{/* Company & Contact */}}
+      <div class="col-lg-4 mb-4">
+        <h5 class="mb-3 fw-bold" style="color: #08BCB0;">Get In Touch</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <i class="fas fa-map-marker-alt me-2" style="color: #08BCB0;"></i>
+            32 Kennedy Avenue<br>
+            <span class="ms-4">Roseau, Dominica</span>
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-phone me-2" style="color: #08BCB0;"></i>
+            <a href="tel:+17672753290" class="text-white text-decoration-none">+1 767 275 3290</a>
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-envelope me-2" style="color: #08BCB0;"></i>
+            <a href="mailto:support@qcgrant.com" class="text-white text-decoration-none">support@qcgrant.com</a>
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-clock me-2" style="color: #08BCB0;"></i>
+            Mon-Fri: 9:00 AM - 5:00 PM AST
+          </li>
+        </ul>
+        <div class="mt-3">
+          <a href="/contact" class="btn btn-sm btn-outline-light">Contact Us</a>
+        </div>
       </div>
     </div>
-    <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
-    <div class="text-center">
-      <p class="small mb-0">&copy; {{ now.Year }} Q C Grant Ltd. All rights reserved.</p>
+  </div>
+
+  {{/* Bottom Bar */}}
+  <div class="border-top" style="border-color: rgba(255,255,255,0.1) !important;">
+    <div class="container py-3">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+          <p class="small mb-0">&copy; {{ now.Year }} Q C Grant Ltd. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <ul class="list-inline mb-0 small">
+            <li class="list-inline-item"><a href="/privacy-policy" class="text-white text-decoration-none">Privacy Policy</a></li>
+            <li class="list-inline-item">|</li>
+            <li class="list-inline-item"><a href="/terms-and-conditions" class="text-white text-decoration-none">Terms of Service</a></li>
+            <li class="list-inline-item">|</li>
+            <li class="list-inline-item"><a href="/about" class="text-white text-decoration-none">About</a></li>
+            <li class="list-inline-item">|</li>
+            <li class="list-inline-item"><a href="/resources" class="text-white text-decoration-none">Resources</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
+
+<style>
+  footer .footer-links a {
+    transition: all 0.3s ease;
+  }
+  footer .footer-links a:hover {
+    color: #08BCB0 !important;
+    padding-left: 5px;
+  }
+  footer a:hover i {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+  }
+  footer .btn-outline-light:hover {
+    background-color: #08BCB0;
+    border-color: #08BCB0;
+    color: #FDFDFD;
+  }
+</style>

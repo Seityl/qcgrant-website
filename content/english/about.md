@@ -1,13 +1,7 @@
 ---
-title: "About Q C Grant Ltd. | Caribbean Cybersecurity Experts"
+title: "About Q C Grant Ltd."
 description: "Learn about Q C Grant Ltd., Dominica's trusted cybersecurity and IT consulting firm. Led by Charles D. Grant, delivering enterprise-grade security solutions."
 draft: false
----
-
-## Building Caribbean Cyber Resilience
-
-**Enterprise-grade technology solutions with local expertise**
-
 ---
 
 ## Our Story
@@ -31,8 +25,6 @@ We engage with clients as trusted partners, not just service providers. This mea
 ## Leadership
 
 ### Charles D. Grant, CEO & Founder
-
-*[Client to provide: 2-3 sentence professional bio]*
 
 Charles D. Grant brings over two decades of IT and cybersecurity experience to Q C Grant Ltd., with expertise spanning infrastructure management, security architecture, and digital transformation initiatives across the Caribbean region.
 

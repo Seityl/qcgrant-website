@@ -6,13 +6,14 @@
 <a class="navbar-brand" href="{{ .Site.BaseURL | relLangURL }}">
   {{- if $logo }}
   <img 
-    loading="preload" 
+    loading="eager" 
     decoding="async" 
     class="img-fluid" 
     width="{{ $logo_width }}" 
     height="{{ $logo_height }}"
     src="{{ $logo | relURL }}" 
-    alt="{{ .Site.Title }}">
+    alt="{{ .Site.Title }} Logo"
+    style="display: block;">
   {{- else if $logo_text }}
   <span>{{ $logo_text }}</span>
   {{- else }}

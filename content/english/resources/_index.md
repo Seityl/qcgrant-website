@@ -1,46 +1,25 @@
 ---
-title: "Resources & Insights | Q C Grant Ltd."
+title: "Resources & Insights"
 description: "Cybersecurity insights, IT best practices, and technology guidance for Caribbean organizations from Q C Grant Ltd."
 draft: false
 ---
 
-## Resources & Insights
-
 **Cybersecurity guidance, technology insights, and best practices for Caribbean organizations.**
-
----
 
 Welcome to the Q C Grant Ltd. resources center. Here you'll find articles, case studies, and practical guidance on cybersecurity, IT infrastructure, and technology strategy designed specifically for Caribbean businesses and institutions.
 
-### Categories
+### Coming Soon
+
+We're preparing in-depth articles and resources covering critical technology and security topics for Caribbean organizations. Check back soon for content on:
 
 - **Cybersecurity** - Threat intelligence, security best practices, and risk management
-- **Cloud & Infrastructure** - Cloud migration, Azure guidance, and infrastructure optimization
+- **Cloud & Infrastructure** - Cloud migration, Azure guidance, and infrastructure optimization  
 - **IT Strategy** - Technology planning, digital transformation, and business continuity
-- **Case Studies** - Real-world implementations and lessons learned
 - **Compliance & Governance** - Regulatory guidance and policy frameworks
 
----
+### Stay Informed
 
-### Subscribe for Updates
+Stay up-to-date with the latest cybersecurity threats, technology trends, and best practices relevant to Caribbean organizations. New articles will be published regularly covering topics that matter to your business.
 
-Stay informed about the latest cybersecurity threats, technology trends, and best practices relevant to Caribbean organizations.
+For specific guidance or consultation, [contact our team](/contact/) directly.
 
-**Email:** support@qcgrant.com *(Newsletter Coming Soon)*
-
----
-
-### Featured Topics
-
-#### Cybersecurity Essentials for Caribbean SMEs
-Key security controls every small and medium enterprise should implement to protect against common cyber threats.
-
-#### Understanding Data Sovereignty in the Caribbean
-Navigating data residency requirements, cloud provider selection, and privacy considerations for regional organizations.
-
-#### Open Source ERP: Why ERPNext Makes Sense
-The business case for open-source enterprise resource planning systems in Caribbean markets.
-
----
-
-*More articles and resources coming soon. Check back regularly for updates.*
