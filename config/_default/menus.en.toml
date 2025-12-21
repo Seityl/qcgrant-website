@@ -1,0 +1,106 @@
+############################# Main Menu #############################
+[[main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[main]]
+  name = "About"
+  url = "about"
+  weight = 2
+
+[[main]]
+  name = "Services"
+  url = "services"
+  weight = 3
+  hasChildren = true
+
+  [[main]]
+    parent = "Services"
+    name = "Cybersecurity"
+    url = "services/cybersecurity"
+    weight = 1
+
+  [[main]]
+    parent = "Services"
+    name = "Managed IT Services"
+    url = "services/managed-it"
+    weight = 2
+
+  [[main]]
+    parent = "Services"
+    name = "Cloud & AI Services"
+    url = "services/cloud-ai"
+    weight = 3
+
+  [[main]]
+    parent = "Services"
+    name = "IT Consulting"
+    url = "services/consulting"
+    weight = 4
+
+[[main]]
+  name = "Industries"
+  url = "industries"
+  weight = 4
+  hasChildren = true
+
+  [[main]]
+    parent = "Industries"
+    name = "Finance"
+    url = "industries/finance"
+    weight = 1
+
+  [[main]]
+    parent = "Industries"
+    name = "Healthcare"
+    url = "industries/healthcare"
+    weight = 2
+
+  [[main]]
+    parent = "Industries"
+    name = "Professional Services"
+    url = "industries/professional-services"
+    weight = 3
+
+  [[main]]
+    parent = "Industries"
+    name = "Industrial Operations"
+    url = "industries/industrial"
+    weight = 4
+
+[[main]]
+  name = "Resources"
+  url = "resources"
+  weight = 5
+
+[[main]]
+  name = "Contact"
+  url = "contact"
+  weight = 6
+
+############################# Footer Menu #############################
+[[footer]]
+  name = "About"
+  url = "about"
+  weight = 1
+
+[[footer]]
+  name = "Services"
+  url = "services"
+  weight = 2
+
+[[footer]]
+  name = "Contact"
+  url = "contact"
+  weight = 3
+
+[[footer]]
+  name = "Privacy Policy"
+  url = "privacy-policy"
+  weight = 4
+
+[[footer]]
+  name = "Terms & Conditions"
+  url = "terms-and-conditions"
+  weight = 5

@@ -1,0 +1,72 @@
+#################### default parameters ################################
+# favicon
+favicon = "images/favicon.png"
+
+# logo
+logo = "images/qc-grant-logo-text-wide.png"
+logo_darkmode = "images/qc-grant-logo-text-wide-dark.png"
+logo_width = "200px"
+logo_height = "32px"
+logo_text = "Q C Grant Ltd."
+
+# OpenGraph / Twitter Card
+title = "Q C Grant Ltd. - Caribbean Cybersecurity & IT Services"
+description = "Caribbean's leading cybersecurity and IT infrastructure provider. Enterprise-grade solutions for SMEs, financial institutions, and government agencies across the Caribbean."
+author = "Q C Grant Ltd."
+image = "images/og-image.png"
+email = "support@qcgrant.com"
+
+# contact info
+phone = "+1 767 275 3290"
+address = "32 Kennedy Avenue, Roseau, Dominica"
+
+# contact form action
+contact_form_action = "#" # Will be configured with Formspree/Netlify Forms later
+
+# Preloader
+[preloader]
+  enable = false
+  preloader = ""
+
+# Navigation button
+[navigation_button]
+  enable = true
+  label = "Contact Us"
+  link = "contact"
+
+# cookies
+[cookies]
+  enable = true
+  expire_days = 60
+  content = "This site uses cookies to enhance your experience. By continuing to use this website, you agree to their use."
+  button = "I Accept"
+
+############################# search ###############################
+[search]
+  enable = true
+  primary_color = "#00D9FF"
+  include_sections = ["resources"]
+  show_image = true
+  show_description = true
+  show_tags = true
+  show_categories = true
+
+# PWA Configuration
+theme_color = "#00D9FF"
+background_color = "#1A1A1A"
+
+# Social media links (footer)
+[[params.social]]
+  title = "LinkedIn"
+  icon = "fab fa-linkedin"
+  link = "#" # Client to provide
+
+[[params.social]]
+  title = "Facebook"
+  icon = "fab fa-facebook"
+  link = "#" # Client to provide
+
+[[params.social]]
+  title = "Twitter"
+  icon = "fab fa-twitter"
+  link = "#" # Optional

@@ -1,0 +1,22 @@
+############################# Plugins ############################
+
+# CSS Plugins
+[[plugins.css]]
+  link = "plugins/swiper/swiper-bundle.css"
+  attributes = "media='screen'"
+[[plugins.css]]
+  link = "plugins/aos/aos.css"
+[[plugins.css]]
+  link = "plugins/glightbox/glightbox.min.css"
+
+# JS Plugins
+[[plugins.js]]
+  link = "plugins/jquery/jquery.min.js"
+[[plugins.js]]
+  link = "plugins/bootstrap/bootstrap.min.js"
+[[plugins.js]]
+  link = "plugins/swiper/swiper-bundle.js"
+[[plugins.js]]
+  link = "plugins/aos/aos.js"
+[[plugins.js]]
+  link = "plugins/glightbox/glightbox.min.js"

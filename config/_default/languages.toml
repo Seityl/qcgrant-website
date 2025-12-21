@@ -1,0 +1,13 @@
+############################# English ############################
+[en]
+  languageName = "En"
+  languageCode = "en-us"
+  contentDir = "content/english"
+  weight = 1
+  
+  # Copyright
+  copyright = "© 2025 Q C Grant Ltd. All Rights Reserved."
+  
+  # Footer Content
+  [en.params]
+    footer_content = "Caribbean's trusted cybersecurity and IT infrastructure partner. Enterprise-grade solutions with local expertise."

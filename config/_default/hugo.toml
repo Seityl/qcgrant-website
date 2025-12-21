@@ -1,0 +1,86 @@
+######################## default configuration ####################
+baseURL = "https://qcgrant.com/"
+title = "Q C Grant Ltd. | Caribbean Cybersecurity & IT Services"
+languageName = "En"
+languageCode = "en-us"
+summaryLength = 15
+disqusShortname = ""
+disableLanguages = []
+hasCJKLanguage = false
+
+########################## Permalinks ############################
+[permalinks.page]
+  "pages" = "/:slugorfilename/"
+
+############################# Modules ############################
+[module]
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "hugo_stats.json"
+    target = "assets/watching/hugo_stats.json"
+
+############################# Build ##############################
+[build]
+  noJSConfigInAssets = false
+  useResourceCacheWhen = 'fallback'
+  [build.buildStats]
+    enable = true
+  [[build.cachebusters]]
+    source = 'assets/.*\.(js|ts|jsx|tsx)'
+    target = '(js|scripts|javascript)'
+  [[build.cachebusters]]
+    source = 'assets/.*\.(css|sass|scss)$'
+    target = '(css|styles|scss|sass)'
+  [[build.cachebusters]]
+    source = 'assets/.*\.(.*)$'
+    target = '$1'
+
+############################# Outputs ############################
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+############################# Imaging ############################
+[imaging]
+  resampleFilter = "Lanczos"
+  quality = 90
+  anchor = "smart"
+
+############################ Caches ##############################
+[caches]
+  [caches.images]
+    dir = ":resourceDir/_gen"
+    maxAge = "720h"
+  [caches.assets]
+    dir = ":resourceDir/_gen"
+    maxAge = "720h"
+
+############################ Markup ##############################
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.highlight]
+    style = 'monokai'
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 5
+    ordered = false
+
+########################### Media types ###########################
+[mediaTypes]
+  [mediaTypes."text/netlify"]
+    delimiter = ""
+
+########################### Output Format ##########################
+[outputFormats]
+  [outputFormats.REDIRECTS]
+    mediaType = "text/netlify"
+    baseName = "_redirects"
+    isPlainText = true
+    notAlternative = true
+  [outputFormats.HEADERS]
+    mediaType = "text/netlify"
+    baseName = "_headers"
+    isPlainText = true
+    notAlternative = true
