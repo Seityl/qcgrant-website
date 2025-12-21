@@ -1,6 +1,6 @@
 ######################## default configuration ####################
 baseURL = "https://qcgrant.com/"
-title = "Q C Grant Ltd. | Caribbean Cybersecurity & IT Services"
+title = "Q C Grant Ltd. | Cybersecurity & IT Services"
 languageName = "En"
 languageCode = "en-us"
 summaryLength = 15
