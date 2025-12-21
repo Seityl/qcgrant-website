@@ -6,7 +6,10 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-8 text-white">
-          <h1 class="display-4 fw-bold mb-4">{{ .title }}</h1>
+          <h1 class="display-4 fw-bold mb-3">{{ .title }}</h1>
+          {{ if .subtitle }}
+          <h2 class="h3 mb-4" style="color: var(--cyber-teal);">{{ .subtitle }}</h2>
+          {{ end }}
           <p class="lead mb-4">{{ .content }}</p>
           {{ if .button.enable }}
           <a href="{{ .button.link }}" class="btn btn-primary btn-lg">{{ .button.label }}</a>
@@ -22,22 +25,36 @@
   </section>
   {{ end }}
 
+  {{/* Value Proposition Section */}}
+  {{ with .Params.value_prop }}
+  {{ if .enable }}
+  <section class="value-prop py-5 bg-white">
+    <div class="container text-center">
+      <h2 class="display-6 fw-bold mb-3">{{ .title }}</h2>
+      <p class="lead text-muted">{{ .content }}</p>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+
   {{/* Features Section */}}
   {{ with .Params.features }}
   <section class="features py-5">
     <div class="container">
       <div class="row g-4">
         {{ range . }}
-        <div class="col-md-4">
-          <div class="card h-100">
-            {{ if .image }}
-            <img src="{{ .image | relURL }}" class="card-img-top" alt="{{ .title }}">
-            {{ end }}
+        <div class="col-lg-3 col-md-6">
+          <div class="card h-100 text-center">
             <div class="card-body">
-              <h3 class="card-title h4">{{ .title }}</h3>
+              {{ if .icon }}
+              <i class="{{ .icon }} fa-4x mb-3" style="color: var(--cyber-teal);"></i>
+              {{ else if .image }}
+              <img src="{{ .image | relURL }}" class="card-img-top mb-3" alt="{{ .title }}" style="max-height: 100px; object-fit: contain;">
+              {{ end }}
+              <h3 class="card-title h5 fw-bold">{{ .title }}</h3>
               <p class="card-text">{{ .content }}</p>
               {{ if .button.enable }}
-              <a href="{{ .button.link }}" class="btn btn-primary">{{ .button.label }}</a>
+              <a href="{{ .button.link }}" class="btn btn-outline-primary mt-3">{{ .button.label }}</a>
               {{ end }}
             </div>
           </div>
@@ -59,8 +76,8 @@
       </div>
       <div class="row g-4">
         {{ range .benefits }}
-        <div class="col-md-4">
-          <div class="text-center">
+        <div class="col-lg-4 col-md-6">
+          <div class="text-center p-3">
             <i class="{{ .icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
             <h4>{{ .title }}</h4>
             <p>{{ .content }}</p>
@@ -73,20 +90,60 @@
   {{ end }}
   {{ end }}
 
+  {{/* Service Approach Section */}}
+  {{ with .Params.service_approach }}
+  {{ if .enable }}
+  <section class="service-approach py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">{{ .title }}</h2>
+        {{ if .subtitle }}
+        <p class="lead text-muted">{{ .subtitle }}</p>
+        {{ end }}
+      </div>
+      <div class="row g-4">
+        {{ range .steps }}
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center">
+              <i class="{{ .icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+              <h4 class="card-title">{{ .title }}</h4>
+              <p class="card-text">{{ .content }}</p>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+
   {{/* Industries Section */}}
   {{ with .Params.industries }}
   {{ if .enable }}
-  <section class="industries py-5">
+  <section class="industries py-5 bg-light">
     <div class="container">
-      <h2 class="display-5 fw-bold text-center mb-5">{{ .title }}</h2>
-      <div class="row g-3">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">{{ .title }}</h2>
+        {{ if .subtitle }}
+        <p class="h5 mb-3" style="color: var(--cyber-teal);">{{ .subtitle }}</p>
+        {{ end }}
+        {{ if .content }}
+        <p class="lead">{{ .content }}</p>
+        {{ end }}
+      </div>
+      <div class="row g-4">
         {{ range .industries_list }}
-        <div class="col-md-3 col-sm-6">
+        <div class="col-lg-3 col-md-6">
           <a href="{{ .link }}" class="text-decoration-none">
-            <div class="card text-center h-100">
+            <div class="card text-center h-100 shadow-sm hover-lift">
               <div class="card-body">
                 <i class="{{ .icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
-                <h5 class="card-title">{{ .name }}</h5>
+                <h5 class="card-title fw-bold">{{ .title | default .name }}</h5>
+                {{ if .description }}
+                <p class="card-text text-muted small">{{ .description }}</p>
+                {{ end }}
               </div>
             </div>
           </a>
@@ -98,15 +155,224 @@
   {{ end }}
   {{ end }}
 
+  {{/* Testimonials Section */}}
+  {{ with .Params.testimonials }}
+  {{ if .enable }}
+  <section class="testimonials py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">{{ .title }}</h2>
+        {{ if .subtitle }}
+        <p class="lead text-muted">{{ .subtitle }}</p>
+        {{ end }}
+      </div>
+      <div class="row g-4">
+        {{ range .testimonials_list }}
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow">
+            <div class="card-body">
+              <i class="fas fa-quote-left fa-2x mb-3" style="color: var(--cyber-teal); opacity: 0.3;"></i>
+              <p class="card-text mb-4">{{ .quote }}</p>
+              <div class="border-top pt-3">
+                <p class="mb-0 fw-bold">{{ .author }}</p>
+                <small class="text-muted">{{ .role }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+
+  {{/* Security Stats Section */}}
+  {{ with .Params.security_stats }}
+  {{ if .enable }}
+  <section class="security-stats py-5 bg-dark text-white">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">{{ .title }}</h2>
+        {{ if .subtitle }}
+        <p class="lead">{{ .subtitle }}</p>
+        {{ end }}
+      </div>
+      <div class="row g-4 text-center">
+        {{ range .stats }}
+        <div class="col-md-3 col-sm-6">
+          <i class="{{ .icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+          <h3 class="display-4 fw-bold" style="color: var(--cyber-teal);">{{ .number }}</h3>
+          <p class="lead">{{ .label }}</p>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+
+  {{/* Tech Partners Section */}}
+  {{ with .Params.tech_partners }}
+  {{ if .enable }}
+  <section class="tech-partners py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">{{ .title }}</h2>
+        {{ if .subtitle }}
+        <p class="lead text-muted">{{ .subtitle }}</p>
+        {{ end }}
+        {{ if .content }}
+        <p>{{ .content }}</p>
+        {{ end }}
+      </div>
+      <div class="row g-4">
+        {{ range .partners }}
+        <div class="col-lg-3 col-md-6">
+          <div class="card text-center h-100 border-0 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">{{ .name }}</h5>
+              <small class="text-muted">{{ .category }}</small>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+
+  {{/* Our Story Section */}}
+  {{ with .Params.our_story }}
+  {{ if .enable }}
+  <section class="our-story py-5 bg-light">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-12">
+          <div class="text-center mb-4">
+            <h2 class="display-5 fw-bold">{{ .title }}</h2>
+            {{ if .subtitle }}
+            <p class="h5 mb-4" style="color: var(--cyber-teal);">{{ .subtitle }}</p>
+            {{ end }}
+          </div>
+          <div class="lead" style="white-space: pre-line;">{{ .content }}</div>
+          {{ if .button.enable }}
+          <div class="text-center mt-4">
+            <a href="{{ .button.link }}" class="btn btn-primary btn-lg">{{ .button.label }}</a>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+
+  {{/* Guarantees Section */}}
+  {{ with .Params.guarantees }}
+  {{ if .enable }}
+  <section class="guarantees py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">{{ .title }}</h2>
+        {{ if .subtitle }}
+        <p class="lead text-muted">{{ .subtitle }}</p>
+        {{ end }}
+      </div>
+      <div class="row g-4">
+        {{ range .guarantees_list }}
+        <div class="col-lg-4 col-md-6">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center">
+              <i class="{{ .icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+              <h5 class="card-title fw-bold">{{ .title }}</h5>
+              <p class="card-text">{{ .content }}</p>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+
+  {{/* Blog Preview Section */}}
+  {{ with .Params.blog_preview }}
+  {{ if .enable }}
+  <section class="blog-preview py-5 bg-light">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">{{ .title }}</h2>
+        <p class="lead">{{ .content }}</p>
+      </div>
+      {{ if .featured_resources }}
+      <div class="row g-4">
+        {{ range .featured_resources }}
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <span class="badge bg-primary mb-3">{{ .category }}</span>
+              <h5 class="card-title fw-bold">{{ .title }}</h5>
+              <p class="card-text text-muted">{{ .excerpt }}</p>
+              <a href="{{ .link }}" class="btn btn-outline-primary mt-3">Read More</a>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+
+  {{/* FAQ Section */}}
+  {{ with .Params.faq }}
+  {{ if .enable }}
+  <section class="faq py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">{{ .title }}</h2>
+        {{ if .subtitle }}
+        <p class="lead text-muted">{{ .subtitle }}</p>
+        {{ end }}
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="accordion" id="faqAccordion">
+            {{ range $index, $item := .questions }}
+            <div class="accordion-item border-0 mb-3 shadow-sm">
+              <h3 class="accordion-header">
+                <button class="accordion-button {{ if ne $index 0 }}collapsed{{ end }}" type="button" data-bs-toggle="collapse" data-bs-target="#faq{{ $index }}" aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}" aria-controls="faq{{ $index }}">
+                  {{ .question }}
+                </button>
+              </h3>
+              <div id="faq{{ $index }}" class="accordion-collapse collapse {{ if eq $index 0 }}show{{ end }}" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  {{ .answer }}
+                </div>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+
   {{/* Call to Action Section */}}
   {{ with .Params.call_to_action }}
   {{ if .enable }}
-  <section class="cta py-5" style="background: linear-gradient(135deg, #00D9FF 0%, #00B8D4 100%);">
+  <section class="cta py-5" style="background: linear-gradient(135deg, #08BCB0 0%, #06A89E 100%);">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-8">
-          <h2 class="display-6 fw-bold text-dark">{{ .title }}</h2>
-          <p class="lead text-dark mb-0">{{ .content }}</p>
+          <h2 class="display-6 fw-bold text-white">{{ .title }}</h2>
+          <p class="lead text-white mb-0">{{ .content }}</p>
         </div>
         <div class="col-lg-4 text-end">
           {{ if .button.enable }}
