@@ -1,0 +1,35 @@
+# Hugo
+/public/
+/resources/_gen/
+/assets/jsconfig.json
+hugo_stats.json
+
+# Logs
+*.log
+*.log.gz
+
+# OS
+.DS_Store
+Thumbs.db
+*~
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+
+# Caddy
+caddy-*.log
+
+# Node
+node_modules/
+package-lock.json
+
+# Build artifacts
+*.tar.gz
+*.zip
