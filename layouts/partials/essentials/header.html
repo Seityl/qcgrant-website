@@ -1,33 +1,276 @@
-{{/* Simple header with logo and navigation */}}
-<header>
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-      {{ partial "logo.html" . }}
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          {{ range site.Menus.main }}
-          {{ if .HasChildren }}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-              {{ .Name }}
-            </a>
-            <ul class="dropdown-menu">
-              {{ range .Children }}
-              <li><a class="dropdown-item" href="{{ .URL }}">{{ .Name }}</a></li>
-              {{ end }}
-            </ul>
-          </li>
-          {{ else }}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ .URL }}">{{ .Name }}</a>
-          </li>
-          {{ end }}
-          {{ end }}
-        </ul>
+{{/* Enhanced header with separate mobile and desktop versions */}}
+
+{{/* Desktop Header */}}
+{{ partial "header-desktop.html" . }}
+
+{{/* Mobile Header */}}
+{{ partial "header-mobile.html" . }}
+
+{{/* Consultation Booking Modal */}}
+<div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background-color: #42454B; color: #ffffff;">
+      <div class="modal-header border-bottom" style="border-color: #08BCB0 !important; border-width: 3px !important; background-color: #2a2d31;">
+        <h3 class="modal-title text-center w-100" id="consultationModalLabel" style="color: #08BCB0; font-weight: 600;">
+          Schedule Your Free Consultation
+        </h3>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body px-4 py-4">
+        <form id="consultationForm" class="needs-validation" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="firstName" class="form-label fw-semibold" style="color: #ffffff !important;">First name <span style="color: #08BCB0;">*</span></label>
+              <input type="text" class="form-control" id="firstName" name="firstName" required>
+              <div class="invalid-feedback">Please enter your first name.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="lastName" class="form-label fw-semibold" style="color: #ffffff !important;">Last name <span style="color: #08BCB0;">*</span></label>
+              <input type="text" class="form-control" id="lastName" name="lastName" required>
+              <div class="invalid-feedback">Please enter your last name.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="consultEmail" class="form-label fw-semibold" style="color: #ffffff !important;">Email <span style="color: #08BCB0;">*</span></label>
+              <input type="email" class="form-control" id="consultEmail" name="email" required>
+              <div class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="consultPhone" class="form-label fw-semibold" style="color: #ffffff !important;">Phone number <span style="color: #08BCB0;">*</span></label>
+              <input type="tel" class="form-control" id="consultPhone" name="phone" required>
+              <div class="invalid-feedback">Please enter your phone number.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="jobRole" class="form-label fw-semibold" style="color: #ffffff !important;">Job role</label>
+              <select class="form-select" id="jobRole" name="jobRole">
+                <option value="">Please Select</option>
+                <option value="C-Level Executive">C-Level Executive</option>
+                <option value="IT Manager">IT Manager</option>
+                <option value="Business Owner">Business Owner</option>
+                <option value="Operations Manager">Operations Manager</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="department" class="form-label fw-semibold" style="color: #ffffff !important;">Department</label>
+              <select class="form-select" id="department" name="department">
+                <option value="">Please Select</option>
+                <option value="IT">IT</option>
+                <option value="Security">Security</option>
+                <option value="Operations">Operations</option>
+                <option value="Finance">Finance</option>
+                <option value="Executive">Executive</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="companyName" class="form-label fw-semibold" style="color: #ffffff !important;">Company name</label>
+              <input type="text" class="form-control" id="companyName" name="companyName">
+            </div>
+            <div class="col-md-6">
+              <label for="numEmployees" class="form-label fw-semibold" style="color: #ffffff !important;">Number of employees</label>
+              <select class="form-select" id="numEmployees" name="numEmployees">
+                <option value="">Please Select</option>
+                <option value="1-10">1-10</option>
+                <option value="11-50">11-50</option>
+                <option value="51-200">51-200</option>
+                <option value="201-500">201-500</option>
+                <option value="500+">500+</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label for="consultMessage" class="form-label fw-semibold" style="color: #ffffff !important;">How can we help you?</label>
+              <textarea class="form-control" id="consultMessage" name="message" rows="4"></textarea>
+            </div>
+            <!-- Honeypot field (hidden from users, catches bots) -->
+            <input type="text" id="consultWebsite" name="honeypot" style="display:none" tabindex="-1" autocomplete="off" />
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="salesCallback" name="salesCallback">
+                <label class="form-check-label" style="color: #ffffff !important; font-weight: 400;">
+                  I'd like to request a Sales callback
+                </label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="marketing" name="marketing">
+                <label class="form-check-label" style="color: #ffffff !important; font-weight: 400;">
+                  Yes! I would like to receive marketing communications from Q C Grant including special offers, articles and other content relating to IT and cyber security. I may unsubscribe at any time.
+                </label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div id="consultFormStatus" class="alert d-none" role="alert"></div>
+            </div>
+          </div>
+          <div class="modal-footer border-0 px-0 pb-0 pt-4">
+            <button type="submit" class="btn btn-lg px-5" id="consultSubmitBtn" style="background-color: #08BCB0; border-color: #08BCB0; color: white;">
+              <span class="btn-text">SUBMIT</span>
+              <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-  </nav>
-</header>
+  </div>
+</div>
+
+<script>
+// Consultation form handler
+document.getElementById('consultationForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const form = e.target;
+  const submitBtn = document.getElementById('consultSubmitBtn');
+  const btnText = submitBtn.querySelector('.btn-text');
+  const spinner = submitBtn.querySelector('.spinner-border');
+  const formStatus = document.getElementById('consultFormStatus');
+  
+  if (!form.checkValidity()) {
+    form.classList.add('was-validated');
+    return;
+  }
+  
+  submitBtn.disabled = true;
+  btnText.textContent = 'Sending...';
+  spinner.classList.remove('d-none');
+  formStatus.classList.add('d-none');
+  
+  const firstName = document.getElementById('firstName').value;
+  const lastName = document.getElementById('lastName').value;
+  const jobRole = document.getElementById('jobRole').value;
+  const department = document.getElementById('department').value;
+  const numEmployees = document.getElementById('numEmployees').value;
+  const consultMessage = document.getElementById('consultMessage').value;
+  const salesCallback = document.getElementById('salesCallback').checked;
+  const marketing = document.getElementById('marketing').checked;
+  
+  // Build detailed message
+  let detailedMessage = 'Consultation Request\n\n';
+  if (jobRole) detailedMessage += `Job Role: ${jobRole}\n`;
+  if (department) detailedMessage += `Department: ${department}\n`;
+  if (numEmployees) detailedMessage += `Number of Employees: ${numEmployees}\n`;
+  if (consultMessage) detailedMessage += `\nMessage:\n${consultMessage}`;
+  
+  const formData = {
+    name: `${firstName} ${lastName}`,
+    company: document.getElementById('companyName').value,
+    email: document.getElementById('consultEmail').value,
+    phone: document.getElementById('consultPhone').value,
+    service: 'consultation',
+    message: detailedMessage,
+    requestCallback: salesCallback,
+    marketingConsent: marketing,
+    honeypot: document.getElementById('consultWebsite').value
+  };
+  
+  try {
+    // Determine the API endpoint based on current location
+    const apiEndpoint = window.location.port === '8080' 
+      ? `${window.location.protocol}//${window.location.hostname}:8080`
+      : 'http://10.147.17.62:8080';
+    
+    const response = await fetch(`${apiEndpoint}/api/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+    
+    // Check if response is JSON
+    const contentType = response.headers.get('content-type');
+    let data;
+    
+    if (contentType && contentType.includes('application/json')) {
+      data = await response.json();
+    } else {
+      // If not JSON, get text and show generic error
+      const text = await response.text();
+      console.error('Non-JSON response:', text);
+      throw new Error('Invalid server response. Please call us directly at +1 767 275 3290');
+    }
+    
+    if (response.ok) {
+      formStatus.className = 'alert alert-success';
+      formStatus.textContent = 'Thank you! We will contact you soon to schedule your consultation.';
+      formStatus.classList.remove('d-none');
+      form.reset();
+      form.classList.remove('was-validated');
+      setTimeout(() => {
+        bootstrap.Modal.getInstance(document.getElementById('consultationModal')).hide();
+      }, 2000);
+    } else {
+      throw new Error(data.error || 'Failed to submit');
+    }
+  } catch (error) {
+    formStatus.className = 'alert alert-danger';
+    formStatus.textContent = error.message || 'Failed to submit. Please call us directly at +1 767 275 3290';
+    formStatus.classList.remove('d-none');
+  } finally {
+    submitBtn.disabled = false;
+    btnText.textContent = 'SUBMIT';
+    spinner.classList.add('d-none');
+  }
+});
+</script>
+
+<script>
+// Mobile sidebar backdrop handler
+if (window.innerWidth <= 991) {
+  const backdrop = document.getElementById('sidebarBackdrop');
+  const navbarCollapse = document.getElementById('navbarNav');
+  const navbarToggler = document.querySelector('.navbar-toggler');
+  const closeBtn = document.querySelector('.sidebar-close-btn');
+  
+  // Show backdrop and close button when sidebar opens
+  navbarCollapse.addEventListener('show.bs.collapse', function () {
+    backdrop.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    if (closeBtn) {
+      closeBtn.style.opacity = '1';
+      closeBtn.style.pointerEvents = 'all';
+    }
+  });
+  
+  // Hide backdrop and close button when sidebar closes
+  navbarCollapse.addEventListener('hide.bs.collapse', function () {
+    backdrop.classList.remove('show');
+    document.body.style.overflow = '';
+    if (closeBtn) {
+      closeBtn.style.opacity = '0';
+      closeBtn.style.pointerEvents = 'none';
+    }
+  });
+  
+  navbarCollapse.addEventListener('hidden.bs.collapse', function () {
+    backdrop.classList.remove('show');
+    document.body.style.overflow = '';
+    if (closeBtn) {
+      closeBtn.style.opacity = '0';
+      closeBtn.style.pointerEvents = 'none';
+    }
+  });
+  
+  // Prevent sidebar from closing when clicking inside it
+  navbarCollapse.addEventListener('click', function (e) {
+    // Only allow closing if clicking a direct link (not dropdown toggles)
+    if (e.target.classList.contains('nav-link') && !e.target.classList.contains('dropdown-toggle')) {
+      // Allow navigation links to close sidebar
+      return;
+    }
+    if (e.target.classList.contains('dropdown-item')) {
+      // Allow dropdown items to close sidebar
+      return;
+    }
+    // Prevent closing for everything else
+    e.stopPropagation();
+  });
+  
+  // Close sidebar when clicking backdrop
+  backdrop.addEventListener('click', function () {
+    const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+      toggle: false
+    });
+    bsCollapse.hide();
+  });
+}
+</script>
