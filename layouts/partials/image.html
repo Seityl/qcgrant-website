@@ -1,0 +1,50 @@
+{{- $Src := .Src }}
+{{- $Alt := .Alt | default "image" }}
+{{- $Class := .Class | default "" }}
+{{- $Width := .Width }}
+{{- $Height := .Height }}
+{{- $Loading := .Loading | default "lazy" }}
+
+{{- if $Src }}
+  {{- $image := "" }}
+  {{- if or (hasPrefix $Src "http://") (hasPrefix $Src "https://") }}
+    {{/* External image */}}
+    <img 
+      src="{{ $Src }}" 
+      alt="{{ $Alt }}"
+      {{- with $Class }} class="{{ . }}"{{ end }}
+      {{- with $Width }} width="{{ . }}"{{ end }}
+      {{- with $Height }} height="{{ . }}"{{ end }}
+      loading="{{ $Loading }}"
+      decoding="async">
+  {{- else }}
+    {{- $image = resources.Get $Src }}
+    {{- if $image }}
+      {{/* Process image with Hugo */}}
+      {{- $img := $image }}
+      {{- if and $Width $Height }}
+        {{- $img = $image.Resize (printf "%dx%d webp" $Width $Height) }}
+      {{- else if $Width }}
+        {{- $img = $image.Resize (printf "%dx webp" $Width) }}
+      {{- end }}
+      <img 
+        src="{{ $img.RelPermalink }}" 
+        alt="{{ $Alt }}"
+        {{- with $Class }} class="{{ . }}"{{ end }}
+        width="{{ $img.Width }}"
+        height="{{ $img.Height }}"
+        loading="{{ $Loading }}"
+        decoding="async">
+    {{- else }}
+      {{/* Fallback for static images */}}
+      <img 
+        src="{{ $Src | relURL }}" 
+        alt="{{ $Alt }}"
+        {{- with $Class }} class="{{ . }}"{{ end }}
+        {{- with $Width }} width="{{ . }}"{{ end }}
+        {{- with $Height }} height="{{ . }}"{{ end }}
+        loading="{{ $Loading }}"
+        decoding="async">
+    {{- end }}
+  {{- end }}
+{{- end }}

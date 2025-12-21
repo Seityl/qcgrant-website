@@ -7,6 +7,12 @@
 # Import Bootstrap dependency
 [[imports]]
   path = "github.com/twbs/bootstrap"
+  [[imports.mounts]]
+    source = "scss"
+    target = "assets/scss/bootstrap"
+  [[imports.mounts]]
+    source = "js"
+    target = "assets/js/bootstrap"
 
 # Import Hugo modules for extended functionality
 [[imports]]

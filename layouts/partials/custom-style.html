@@ -1,0 +1,7 @@
+{{/* Custom stylesheet to override theme */}}
+
+{{- $style := resources.Get "scss/custom.scss" }}
+{{- if $style }}
+  {{- $style = $style | resources.ToCSS (dict "outputStyle" "compressed") }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+{{- end }}

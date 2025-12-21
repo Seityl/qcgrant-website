@@ -1,0 +1,122 @@
+{{ define "main" }}
+<main>
+  {{/* Banner Section */}}
+  {{ with .Params.banner }}
+  <section class="banner py-5" style="background: linear-gradient(135deg, #1A1A1A 0%, #2C2C2C 100%);">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8 text-white">
+          <h1 class="display-4 fw-bold mb-4">{{ .title }}</h1>
+          <p class="lead mb-4">{{ .content }}</p>
+          {{ if .button.enable }}
+          <a href="{{ .button.link }}" class="btn btn-primary btn-lg">{{ .button.label }}</a>
+          {{ end }}
+        </div>
+        <div class="col-lg-4">
+          {{ if .image }}
+          <img src="{{ .image | relURL }}" alt="{{ .title }}" class="img-fluid">
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+
+  {{/* Features Section */}}
+  {{ with .Params.features }}
+  <section class="features py-5">
+    <div class="container">
+      <div class="row g-4">
+        {{ range . }}
+        <div class="col-md-4">
+          <div class="card h-100">
+            {{ if .image }}
+            <img src="{{ .image | relURL }}" class="card-img-top" alt="{{ .title }}">
+            {{ end }}
+            <div class="card-body">
+              <h3 class="card-title h4">{{ .title }}</h3>
+              <p class="card-text">{{ .content }}</p>
+              {{ if .button.enable }}
+              <a href="{{ .button.link }}" class="btn btn-primary">{{ .button.label }}</a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+
+  {{/* Why Choose Us Section */}}
+  {{ with .Params.why_choose_us }}
+  {{ if .enable }}
+  <section class="why-choose-us py-5 bg-light">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">{{ .title }}</h2>
+        <p class="lead">{{ .content }}</p>
+      </div>
+      <div class="row g-4">
+        {{ range .benefits }}
+        <div class="col-md-4">
+          <div class="text-center">
+            <i class="{{ .icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+            <h4>{{ .title }}</h4>
+            <p>{{ .content }}</p>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+
+  {{/* Industries Section */}}
+  {{ with .Params.industries }}
+  {{ if .enable }}
+  <section class="industries py-5">
+    <div class="container">
+      <h2 class="display-5 fw-bold text-center mb-5">{{ .title }}</h2>
+      <div class="row g-3">
+        {{ range .industries_list }}
+        <div class="col-md-3 col-sm-6">
+          <a href="{{ .link }}" class="text-decoration-none">
+            <div class="card text-center h-100">
+              <div class="card-body">
+                <i class="{{ .icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+                <h5 class="card-title">{{ .name }}</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+
+  {{/* Call to Action Section */}}
+  {{ with .Params.call_to_action }}
+  {{ if .enable }}
+  <section class="cta py-5" style="background: linear-gradient(135deg, #00D9FF 0%, #00B8D4 100%);">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h2 class="display-6 fw-bold text-dark">{{ .title }}</h2>
+          <p class="lead text-dark mb-0">{{ .content }}</p>
+        </div>
+        <div class="col-lg-4 text-end">
+          {{ if .button.enable }}
+          <a href="{{ .button.link }}" class="btn btn-dark btn-lg">{{ .button.label }}</a>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+</main>
+{{ end }}
