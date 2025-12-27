@@ -41,6 +41,16 @@ hasCJKLanguage = false
 [outputs]
   home = ["HTML", "RSS", "JSON"]
 
+[sitemap]
+  changefreq = "monthly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+############################# Taxonomies ############################
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
 ############################# Imaging ############################
 [imaging]
   resampleFilter = "Lanczos"
