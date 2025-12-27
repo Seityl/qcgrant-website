@@ -17,72 +17,99 @@ DEPLOY_DIR="/var/www/qcgrant-website"
 
 timestamp() { date +%s; }
 
-echo "[1/12] Ensure Hugo is available"
+# Color helpers (only enable colors when output is a TTY)
+if [ -t 1 ]; then
+	RED='\033[0;31m'
+	GREEN='\033[0;32m'
+	YELLOW='\033[0;33m'
+	BLUE='\033[0;34m'
+	BOLD='\033[1m'
+	RESET='\033[0m'
+else
+	RED=''
+	GREEN=''
+	YELLOW=''
+	BLUE=''
+	BOLD=''
+	RESET=''
+fi
+
+info() { printf "%b\n" "${BLUE}[INFO]${RESET} $*"; }
+warn() { printf "%b\n" "${YELLOW}[WARN]${RESET} $*"; }
+success() { printf "%b\n" "${GREEN}[OK]${RESET} $*"; }
+error() { printf "%b\n" "${RED}[ERROR]${RESET} $*" >&2; }
+
+info "[1/12] Ensure Hugo is available"
 if ! command -v hugo >/dev/null 2>&1; then
-	echo "ERROR: hugo is not installed. Install Hugo and re-run." >&2
+	error "hugo is not installed. Install Hugo and re-run."
 	exit 1
 fi
 
-echo "[2/12] Build the Hugo site"
+info "[2/12] Build the Hugo site"
 hugo --gc --minify
 
-echo "[3/12] Ensure rsync is available (installing if necessary)"
-if ! command -v rsync >/dev/null 2>&1; then
-	echo "rsync not found; installing..."
-	sudo apt-get update -y && sudo apt-get install -y rsync
-fi
-
-echo "[4/12] Backup existing deployment (if present)"
+info "[3/11] Backup existing deployment (if present)"
+info "(using cp fallback; rsync not required)"
 ts=$(timestamp)
 if [ -d "$DEPLOY_DIR" ]; then
-	sudo tar -C "$(dirname "$DEPLOY_DIR")" -czf "/tmp/backup_qcgrant_www_$ts.tar.gz" "$(basename "$DEPLOY_DIR")" && echo "backup -> /tmp/backup_qcgrant_www_$ts.tar.gz"
+  sudo tar -C "$(dirname "$DEPLOY_DIR")" -czf "/tmp/backup_qcgrant_www_$ts.tar.gz" "$(basename "$DEPLOY_DIR")" && success "backup -> /tmp/backup_qcgrant_www_$ts.tar.gz"
 else
-	echo "no existing $DEPLOY_DIR to backup"
+  info "no existing $DEPLOY_DIR to backup"
 fi
 
-echo "[5/12] Ensure deployment directory exists"
+info "[4/11] Ensure deployment directory exists"
 sudo mkdir -p "$DEPLOY_DIR"
 
-echo "[6/12] Sync build to deployment directory"
-sudo rsync -a --delete --no-o --no-g --chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r "$BUILD_DIR/" "$DEPLOY_DIR/"
+info "[5/11] Sync build to deployment directory (cp fallback)"
+# Remove all existing contents (preserve the directory itself), then copy the new build
+sudo find "$DEPLOY_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+sudo cp -a "$BUILD_DIR/." "$DEPLOY_DIR/"
 
-echo "[7/12] Set ownership to root:caddy (fallback to root:www-data)"
+info "[6/11] Set ownership to root:caddy (fallback to root:www-data)"
 if getent group caddy >/dev/null 2>&1; then
 	sudo chown -R root:caddy "$DEPLOY_DIR"
 	grp="caddy"
+	success "chown -> root:caddy"
 else
 	sudo chown -R root:www-data "$DEPLOY_DIR"
 	grp="www-data"
+	success "chown -> root:www-data"
 fi
 
-echo "[8/12] Set secure permissions (dirs 0755, files 0644)"
+info "[7/11] Set secure permissions (dirs 0755, files 0644)"
 sudo find "$DEPLOY_DIR" -type d -exec chmod 0755 {} +
 sudo find "$DEPLOY_DIR" -type f -exec chmod 0644 {} +
+success "permissions set (dirs 0755, files 0644)"
 
-echo "[9/12] Ensure Caddy is configured to serve $DEPLOY_DIR"
+info "[8/11] Ensure Caddy is configured to serve $DEPLOY_DIR"
 if ! sudo grep -q "root \* $DEPLOY_DIR" /etc/caddy/Caddyfile 2>/dev/null; then
 	ts2=$(timestamp)
 	sudo cp /etc/caddy/Caddyfile "/etc/caddy/Caddyfile.bak.$ts2"
 	# Replace existing root directive pointing to any path with the deploy dir
 	sudo sed -i -E "s|root \* .*|root * $DEPLOY_DIR|g" /etc/caddy/Caddyfile
-	echo "Updated /etc/caddy/Caddyfile (backup at /etc/caddy/Caddyfile.bak.$ts2)"
+	success "Updated /etc/caddy/Caddyfile (backup at /etc/caddy/Caddyfile.bak.$ts2)"
 else
-	echo "Caddy already configured to serve $DEPLOY_DIR"
+	info "Caddy already configured to serve $DEPLOY_DIR"
 fi
 
-echo "[10/12] Validate Caddy configuration"
+info "[9/11] Validate Caddy configuration"
 if ! sudo caddy validate --config /etc/caddy/Caddyfile; then
-	echo "Caddy validation failed; aborting and restoring previous Caddyfile" >&2
+	error "Caddy validation failed; aborting and restoring previous Caddyfile"
 	sudo mv "/etc/caddy/Caddyfile.bak.$ts2" /etc/caddy/Caddyfile || true
 	exit 1
 fi
 
-echo "[11/12] Restart Caddy"
+info "[10/11] Restart Caddy"
 sudo systemctl restart caddy
 sleep 1
 
-echo "[12/12] Verify service and report"
-sudo systemctl is-active --quiet caddy && echo "caddy: active" || (echo "caddy: not active" >&2; sudo systemctl status --no-pager --full -l caddy -n 200 || true)
+info "[11/11] Verify service and report"
+if sudo systemctl is-active --quiet caddy; then
+	success "caddy: active"
+else
+	error "caddy: not active"
+	sudo systemctl status --no-pager --full -l caddy -n 200 || true
+fi
 
-echo "Deployment completed successfully! (owner: root:$grp, dirs:0755, files:0644)"
-echo "Backup (if any) at: /tmp/backup_qcgrant_www_*$ts.tar.gz"
+success "Deployment completed successfully! (owner: root:$grp, dirs:0755, files:0644)"
+info "Backup (if any) at: /tmp/backup_qcgrant_www_*$ts.tar.gz"
