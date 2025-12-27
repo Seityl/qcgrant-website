@@ -1,6 +1,7 @@
 ---
 title: "Cybersecurity Services | Q C Grant Ltd."
 description: "Comprehensive cybersecurity solutions for Caribbean organizations. Risk assessments, penetration testing, security operations, incident response, and security training."
+keywords: "cybersecurity services, penetration testing, risk assessment, managed detection response, security training, Caribbean cybersecurity"
 draft: false
 ---
 

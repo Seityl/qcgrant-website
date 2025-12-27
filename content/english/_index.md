@@ -1,6 +1,7 @@
 ---
 title: "Q C Grant Ltd. | Cybersecurity & IT Services"
 description: "Caribbean's leading cybersecurity and IT infrastructure provider. Enterprise-grade solutions for SMEs, financial institutions, and government agencies."
+keywords: "cybersecurity Caribbean, IT services Dominica, managed IT, cloud solutions, AI integration, penetration testing, risk assessment, IT consulting"
 draft: false
 
 # Banner section

@@ -126,5 +126,53 @@
   }
 }
 </script>
+{{- else if eq .Section "services" -}}
+<!-- Service Schema for Services -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "{{ .Title }}",
+  "description": "{{ .Description | default .Summary }}",
+  "provider": {
+    "@type": "Organization",
+    "name": "{{ site.Title }}",
+    "url": "{{ site.BaseURL }}",
+    "logo": "{{ (site.Params.logo | absURL) }}"
+  },
+  "url": "{{ .Permalink }}",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Dominica"
+  },
+  "serviceType": "{{ .Title }}"
+}
+</script>
+{{- end -}}
+
+<!-- BreadcrumbList Schema -->
+{{- $breadcrumbs := slice -}}
+{{- $current := . -}}
+{{- range $current.Ancestors.Reverse -}}
+{{- $breadcrumbs = $breadcrumbs | append (dict "name" .Title "url" .Permalink) -}}
+{{- end -}}
+{{- $breadcrumbs = $breadcrumbs | append (dict "name" $current.Title "url" $current.Permalink) -}}
+{{- if gt (len $breadcrumbs) 1 -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{- range $index, $crumb := $breadcrumbs -}}
+    {
+      "@type": "ListItem",
+      "position": {{ add $index 1 }},
+      "name": "{{ $crumb.name }}",
+      "item": "{{ $crumb.url }}"
+    }{{- if lt $index (sub (len $breadcrumbs) 1) -}},{{- end -}}
+    {{- end -}}
+  ]
+}
+</script>
 {{- end -}}
 {{- end -}}

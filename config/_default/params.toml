@@ -16,6 +16,12 @@ author = "Q C Grant Ltd."
 image = "images/og-image.png"
 email = "support@qcgrant.com"
 
+# Google Analytics
+google_analytics = "G-XXXXXXXXXX"  # Replace with actual GA4 ID
+
+# Google Search Console verification
+google_verification_tag = "your-verification-code-here"  # Replace with actual verification code
+
 # contact info
 phone = "+1 767 275 3290"
 address = "32 Kennedy Avenue, Roseau, Dominica"

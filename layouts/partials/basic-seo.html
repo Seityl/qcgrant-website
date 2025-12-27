@@ -1,7 +1,14 @@
 {{- $title := .Title -}}
 {{- $description := .Description | default .Summary | default site.Params.description -}}
+{{- $keywords := .Params.keywords | default site.Params.keywords -}}
 {{- $image := .Params.image | default site.Params.image | absURL -}}
 {{- $url := .Permalink -}}
+
+<!-- Basic Meta Tags -->
+<meta name="description" content="{{ $description }}" />
+{{- if $keywords }}
+<meta name="keywords" content="{{ $keywords }}" />
+{{- end }}
 
 <!-- Open Graph Meta Tags -->
 <meta property="og:title" content="{{ $title }}" />
