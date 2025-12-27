@@ -30,7 +30,8 @@ https://10.147.17.62 {
 		# Set server root
 		root * /var/www/qcgrant-website
 
-		# Enable file server
+		# Enable file server with try_files for 404 handling
+		try_files {path} {path}/ /404.html
 		file_server
 
 		# Enable gzip and Brotli compression
@@ -81,14 +82,5 @@ https://10.147.17.62 {
 			roll_keep 5
 		}
 		format json
-	}
-	
-	# Custom error page
-	handle_errors {
-		@404 expression `{http.error.status_code} == 404`
-		handle @404 {
-			rewrite * /404.html
-			file_server
-		}
 	}
 }
