@@ -14,4 +14,3 @@
   link = "https://unpkg.com/aos@2.3.1/dist/aos.js"
 [[plugins.js]]
   link = "https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"
-

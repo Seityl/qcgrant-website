@@ -13,7 +13,9 @@
     height="{{ $logo_height }}"
     src="{{ $logo | relURL }}" 
     alt="{{ .Site.Title }} Logo"
-    style="display: block;">
+    style="display: block;"
+    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+  <span style="display: none; font-weight: bold; color: var(--charcoal-dark);">{{ .Site.Title }}</span>
   {{- else if $logo_text }}
   <span>{{ $logo_text }}</span>
   {{- else }}

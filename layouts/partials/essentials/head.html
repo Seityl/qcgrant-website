@@ -12,14 +12,13 @@
   {{/* Favicon */}}
   <link rel="icon" href="{{ `favicon.ico` | relURL }}" sizes="any" />
   <link rel="apple-touch-icon" sizes="180x180" href="{{ `images/icon-192.png` | relURL }}" />
-  
-  {{/* Preload logo for faster rendering */}}
-  {{ with site.Params.logo }}
+
+  {{/* Preload banner image for home page */}}
+  {{ if .IsHome }}
+  {{ with .Params.banner.image }}
   <link rel="preload" href="{{ . | relURL }}" as="image" />
   {{ end }}
-
-  {{/* PWA Manifest */}}
-  <link rel="manifest" href="{{ `manifest.webmanifest` | absURL }}" />
+  {{ end }}
 
   {{/* SEO Meta Tags */}}
   {{ partial "basic-seo.html" . }}
@@ -31,11 +30,11 @@
   {{ with site.Params.google_verification_tag }}
   <meta name="google-site-verification" content="{{ . }}" />{{ end }}
 
-  {{/* Bootstrap CSS from CDN */}}
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  {{/* Bootstrap CSS from local assets */}}
+  <link href="{{ `css/bootstrap.min.css` | relURL }}" rel="stylesheet">
 
   {{/* Font Awesome */}}
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{{ `css/all.min.css` | relURL }}">
 
   {{/* Custom inline CSS for Cyber Teal theme */}}
   <style>
@@ -49,19 +48,15 @@
     
     html {
       height: 100%;
+      overflow-x: hidden;
     }
     
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       color: var(--charcoal-dark);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
       margin: 0;
-    }
-    
-    main {
-      flex: 1;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
     
     .btn-primary {
@@ -123,12 +118,27 @@
       box-shadow: 0 0.5rem 1rem rgba(8, 188, 176, 0.15) !important;
     }
     
+    /* Header Wrapper - Sticky Container */
+    .header-wrapper {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 1001 !important;
+      background-color: transparent;
+      width: 100% !important;
+      display: block !important;
+      overflow: visible !important;
+    }
+    
     /* Pre-header Styles */
     .pre-header {
       background-color: rgba(33, 37, 41, 0.95);
       border-bottom: 1px solid rgba(8, 188, 176, 0.2);
       font-size: 0.9rem;
       height: 35px;
+      position: relative !important;
     }
     
     .pre-header-contact {
@@ -277,20 +287,15 @@
     
     /* Enhanced Header Styles */
     .header-nav {
-      position: sticky;
-      top: 0;
       z-index: 1000;
       transition: all 0.3s ease;
+      position: relative;
+      background: linear-gradient(to bottom, rgba(253, 253, 253, 0.98) 0%, rgba(243, 243, 243, 0.95) 100%);
+      overflow: visible !important;
     }
     
     .header-sticky-top {
       box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-      background-color: rgba(66, 69, 75, 0.98) !important;
-      backdrop-filter: blur(10px);
-    }
-    
-    .header-unpinned {
-      transform: translateY(-100%);
     }
     
     .navbar {
@@ -298,6 +303,16 @@
       padding: 0;
       transition: padding 0.3s ease;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: relative !important;
+      overflow: visible !important;
+    }
+    
+    .navbar-collapse {
+      overflow: visible !important;
+    }
+    
+    .navbar-nav {
+      overflow: visible !important;
     }
     
     .header-sticky-top .navbar {
@@ -338,6 +353,33 @@
       
       .navbar-nav .btn {
         margin: 0;
+      }
+      
+      /* DESKTOP DROPDOWN STYLING */
+      .custom-dropdown-menu {
+        position: fixed;
+        background-color: rgba(253, 253, 253, 0.98);
+        border: 2px solid rgba(8, 188, 176, 0.3);
+        border-radius: 8px;
+        padding: 0.5rem 0;
+        min-width: 220px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+      }
+      
+      .custom-dropdown-item {
+        display: block;
+        padding: 0.75rem 1.5rem;
+        color: var(--charcoal-dark);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        width: 100%;
+      }
+      
+      .custom-dropdown-item:hover {
+        background-color: rgba(8, 188, 176, 0.15);
+        color: var(--cyber-teal);
+        padding-left: 2rem;
       }
       
       /* Desktop dropdown styling - only apply on desktop */
@@ -462,25 +504,83 @@
       width: 80%;
     }
     
+    /* Navbar dropdown positioning */
+    .navbar-nav .nav-item.dropdown {
+      position: relative !important;
+      overflow: visible !important;
+    }
+    
+    .navbar-nav .dropdown-menu {
+      background-color: rgba(253, 253, 253, 0.98) !important;
+      border: 1px solid rgba(8, 188, 176, 0.2) !important;
+      border-radius: 8px !important;
+      margin-top: 0.5rem !important;
+      padding: 0.5rem 0 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+      position: absolute !important;
+      display: none !important;
+      min-width: 220px !important;
+      z-index: 9999 !important;
+      top: 100% !important;
+      left: 0 !important;
+      transform: none !important;
+      float: none !important;
+      inset: auto !important;
+    }
+    
+    .navbar-nav .dropdown-menu.show {
+      display: block !important;
+    }
+    
+    .navbar-nav .dropdown-menu li {
+      display: block !important;
+      width: 100% !important;
+    }
+    
+    .navbar-nav .dropdown-item {
+      color: var(--charcoal-dark) !important;
+      padding: 0.75rem 1.5rem !important;
+      transition: all 0.3s ease !important;
+      display: block !important;
+      width: 100% !important;
+      background-color: transparent !important;
+    }
+    
+    .navbar-nav .dropdown-item:hover {
+      background-color: rgba(8, 188, 176, 0.1) !important;
+      color: var(--cyber-teal) !important;
+      padding-left: 2rem !important;
+    }
+    
     .dropdown-menu {
-      background-color: rgba(253, 253, 253, 0.98);
-      border: 1px solid rgba(8, 188, 176, 0.2);
-      border-radius: 8px;
-      margin-top: 0.5rem;
-      padding: 0.5rem 0;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      background-color: rgba(253, 253, 253, 0.98) !important;
+      border: 1px solid rgba(8, 188, 176, 0.2) !important;
+      border-radius: 8px !important;
+      margin-top: 0.5rem !important;
+      padding: 0.5rem 0 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+      position: absolute !important;
+      display: none !important;
+      min-width: 220px !important;
+      z-index: 1000 !important;
+    }
+    
+    .dropdown-menu.show {
+      display: block !important;
     }
     
     .dropdown-item {
-      color: var(--charcoal-dark);
-      padding: 0.75rem 1.5rem;
-      transition: all 0.3s ease;
+      color: var(--charcoal-dark) !important;
+      padding: 0.75rem 1.5rem !important;
+      transition: all 0.3s ease !important;
+      display: block !important;
+      width: 100% !important;
     }
     
     .dropdown-item:hover {
-      background-color: rgba(8, 188, 176, 0.1);
-      color: var(--cyber-teal);
-      padding-left: 2rem;
+      background-color: rgba(8, 188, 176, 0.1) !important;
+      color: var(--cyber-teal) !important;
+      padding-left: 2rem !important;
     }
     
     .btn-primary {
@@ -578,13 +678,19 @@
     }
     
     @media (max-width: 991px) {
+      .header-wrapper {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1001 !important;
+      }
+      
       .header-nav {
-        z-index: 998;
+        z-index: 1000;
       }
       
       .pre-header {
-        z-index: 998;
-        position: relative;
+        position: relative !important;
       }
       
       .sidebar-close-btn {
@@ -692,15 +798,4 @@
         margin-bottom: 0;
       }
   </style>
-
-  {{/* Service Worker Registration */}}
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then(reg => console.log('Service Worker registered'))
-          .catch(err => console.log('Service Worker registration failed', err));
-      });
-    }
-  </script>
 </head>

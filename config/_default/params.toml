@@ -3,15 +3,15 @@
 favicon = "images/favicon.png"
 
 # logo
-logo = "images/qc-grant-logo-text-wide.png"
-logo_darkmode = "images/qc-grant-logo-text-wide-dark.png"
+logo = "images/qc-grant-logo-text-wide.webp"
+logo_darkmode = "images/qc-grant-logo-text-wide-dark.webp"
 logo_width = "200px"
 logo_height = "32px"
 logo_text = "Q C Grant Ltd."
 
 # OpenGraph / Twitter Card
 title = "Q C Grant Ltd. - Cybersecurity & IT Services"
-description = "Caribbean's leading cybersecurity and IT infrastructure provider. Enterprise-grade solutions for SMEs, financial institutions, and government agencies across the Caribbean."
+description = "Leading cybersecurity and IT infrastructure provider. Enterprise-grade solutions for SMEs, financial institutions, and government agencies."
 author = "Q C Grant Ltd."
 image = "images/og-image.png"
 email = "support@qcgrant.com"
@@ -20,8 +20,8 @@ email = "support@qcgrant.com"
 phone = "+1 767 275 3290"
 address = "32 Kennedy Avenue, Roseau, Dominica"
 
-# contact form action
-contact_form_action = "#" # Will be configured with Formspree/Netlify Forms later
+# contact form action (handled by custom API)
+contact_form_action = "/api/contact"
 
 # Preloader
 [preloader]
@@ -32,7 +32,7 @@ contact_form_action = "#" # Will be configured with Formspree/Netlify Forms late
 [navigation_button]
   enable = true
   label = "Contact Us"
-  link = "contact"
+  link = "/contact/"
 
 # cookies
 [cookies]
@@ -50,18 +50,3 @@ contact_form_action = "#" # Will be configured with Formspree/Netlify Forms late
   show_description = true
   show_tags = true
   show_categories = true
-
-# PWA Configuration
-theme_color = "#08BCB0"
-background_color = "#42454B"
-
-# Social media links (footer)
-[[params.social]]
-  title = "LinkedIn"
-  icon = "fab fa-linkedin"
-  link = "https://www.linkedin.com/in/charles-d-grant-dom"
-
-[[params.social]]
-  title = "Facebook"
-  icon = "fab fa-facebook"
-  link = "#" # Client to provide

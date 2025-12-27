@@ -66,21 +66,3 @@ hasCJKLanguage = false
     startLevel = 2
     endLevel = 5
     ordered = false
-
-########################### Media types ###########################
-[mediaTypes]
-  [mediaTypes."text/netlify"]
-    delimiter = ""
-
-########################### Output Format ##########################
-[outputFormats]
-  [outputFormats.REDIRECTS]
-    mediaType = "text/netlify"
-    baseName = "_redirects"
-    isPlainText = true
-    notAlternative = true
-  [outputFormats.HEADERS]
-    mediaType = "text/netlify"
-    baseName = "_headers"
-    isPlainText = true
-    notAlternative = true

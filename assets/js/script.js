@@ -1,27 +1,21 @@
 // Custom JavaScript for QC Grant Website
 
 // Header scroll behavior
-const header = document.querySelector('.header-nav');
-if (header) {
+const headerWrapper = document.querySelector('.header-wrapper');
+if (headerWrapper) {
   let lastScroll = 0;
   
   window.onscroll = () => {
-    // Add sticky class on scroll
-    if (window.pageYOffset >= 50) {
+    // Add sticky class on scroll for visual effect
+    const header = headerWrapper.querySelector('.header-nav');
+    if (header && window.pageYOffset >= 50) {
       header.classList.add('header-sticky-top');
-    } else {
+    } else if (header) {
       header.classList.remove('header-sticky-top');
     }
     
-    // Hide/show header on scroll
-    const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
-    if (currentScroll > 300 && lastScroll <= currentScroll) {
-      lastScroll = currentScroll;
-      header.classList.add('header-unpinned');
-    } else {
-      lastScroll = currentScroll;
-      header.classList.remove('header-unpinned');
-    }
+    // Keep header always visible (no hide on scroll)
+    lastScroll = document.documentElement.scrollTop || document.body.scrollTop;
   };
 }
 

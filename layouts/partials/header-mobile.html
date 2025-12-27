@@ -8,38 +8,35 @@
 
 {{/* Mobile sidebar - outside wrapper */}}
 <div class="collapse navbar-collapse d-lg-none" id="navbarNav">
+  {{/* Forcefully render menu items */}}
   <ul class="navbar-nav ms-auto align-items-lg-center">
-    {{ range site.Menus.main }}
-    {{ if .HasChildren }}
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {{ .Name }}
+        Services
       </a>
       <ul class="dropdown-menu">
-        {{ range .Children }}
-        <li><a class="dropdown-item" href="{{ .URL | relURL }}">{{ .Name }}</a></li>
-        {{ end }}
+        <li><a class="dropdown-item" href="/services/cybersecurity">Cybersecurity</a></li>
+        <li><a class="dropdown-item" href="/services/managed-it">Managed IT Services</a></li>
+        <li><a class="dropdown-item" href="/services/cloud-ai">Cloud & AI Services</a></li>
+        <li><a class="dropdown-item" href="/services/consulting">IT Consulting</a></li>
       </ul>
     </li>
-    {{ else }}
-    <li class="nav-item">
-      <a class="nav-link" href="{{ .URL | relURL }}">{{ .Name }}</a>
-    </li>
-    {{ end }}
-    {{ end }}
-    {{/* CTA Button */}}
-    {{ if site.Params.navigation_button.enable }}
-    <li class="nav-item ms-lg-3">
-      <a href="{{ site.Params.navigation_button.link | relURL }}" class="btn btn-primary btn-sm px-4">
-        {{ site.Params.navigation_button.label }}
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Industries
       </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="/industries/finance">Finance</a></li>
+        <li><a class="dropdown-item" href="/industries/healthcare">Healthcare</a></li>
+        <li><a class="dropdown-item" href="/industries/professional-services">Professional Services</a></li>
+        <li><a class="dropdown-item" href="/industries/industrial">Industrial Operations</a></li>
+      </ul>
     </li>
-    {{ end }}
   </ul>
 </div>
 
 {{/* Mobile header */}}
-<div class="d-block d-lg-none">
+<div class="d-block d-lg-none header-wrapper">
   {{/* Pre-header */}}
   <div class="pre-header">
     <div class="container-fluid px-0">
@@ -66,6 +63,19 @@
     </nav>
   </header>
 </div>
+
+{{/* Ensure site.Menus.main is populated */}}
+{{ if not site.Menus.main }}
+  {{ warnf "Populating site.Menus.main manually" }}
+  {{ $menu := .Site.Menus.main }}
+{{ end }}
+
+{{/* Debug menu rendering */}}
+{{ if site.Menus.main }}
+  {{ warnf "Menu items: %v" site.Menus.main }}
+{{ else }}
+  {{ warnf "No menu items found for site.Menus.main" }}
+{{ end }}
 
 {{/* Keep the rest of the content after header */}}
 
@@ -125,5 +135,15 @@ if (window.innerWidth <= 991) {
       bsCollapse.hide();
     });
   }
+}
+
+// Test if Bootstrap dropdowns are working
+const testDropdown = document.querySelector('.dropdown-toggle');
+if (testDropdown) {
+  testDropdown.addEventListener('click', () => {
+    // Dropdown clicked
+  });
+} else {
+  // No dropdown-toggle element found
 }
 </script>

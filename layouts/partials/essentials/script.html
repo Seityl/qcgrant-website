@@ -19,3 +19,22 @@
   {{- $customJS = $customJS | js.Build }}
   <script src="{{ $customJS.RelPermalink }}"></script>
 {{- end }}
+
+<script>
+// Test if Bootstrap is loaded
+if (typeof bootstrap !== 'undefined') {
+  // Bootstrap is loaded
+} else {
+  console.error('Bootstrap is not loaded');
+}
+
+// Debug script execution on all pages
+document.addEventListener('DOMContentLoaded', () => {
+  const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+  if (dropdownToggles.length > 0) {
+    // Found dropdown-toggle elements
+  } else {
+    // No dropdown-toggle elements found on this page.
+  }
+});
+</script>

@@ -1,10 +1,67 @@
-{{/* Enhanced header with separate mobile and desktop versions */}}
+{{/* Mobile sidebar backdrop */}}
+<div class="mobile-sidebar-backdrop" id="sidebarBackdrop"></div>
 
-{{/* Desktop Header */}}
-{{ partial "header-desktop.html" . }}
+{{/* Mobile sidebar close button */}}
+<button class="sidebar-close-btn d-lg-none" type="button" aria-label="Close navigation">
+  <span aria-hidden="true">&times;</span>
+</button>
 
-{{/* Mobile Header */}}
-{{ partial "header-mobile.html" . }}
+{{/* Unified responsive header */}}
+<div class="header-wrapper">
+  {{/* Pre-header */}}
+  <div class="pre-header">
+    <div class="container-fluid px-0">
+      <div class="d-flex justify-content-end align-items-stretch">
+        <div class="pre-header-contact d-flex align-items-center px-4">
+          <i class="fas fa-phone-alt me-2"></i>
+          <a href="tel:{{ site.Params.phone | replaceRE `[^0-9+]` `` }}">{{ site.Params.phone }}</a>
+        </div>
+        <button class="btn btn-consultation" data-bs-toggle="modal" data-bs-target="#consultationModal">
+          BOOK A CONSULTATION
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <header class="header-nav">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        {{ partial "logo.html" . }}
+        
+        {{/* Mobile toggle button */}}
+        <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            {{ range site.Menus.main }}
+            {{ if .HasChildren }}
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="menu{{ .Name | urlize }}" data-menu="{{ .Name | urlize }}">
+                {{ .Name }} <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+              </a>
+            </li>
+            {{ else }}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ .URL | relURL }}">{{ .Name }}</a>
+            </li>
+            {{ end }}
+            {{ end }}
+            {{/* CTA Button */}}
+            {{ if site.Params.navigation_button.enable }}
+            <li class="nav-item ms-lg-3">
+              <a href="{{ site.Params.navigation_button.link | relURL }}" class="btn btn-primary btn-sm px-4">
+                {{ site.Params.navigation_button.label }}
+              </a>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+</div>
 
 {{/* Consultation Booking Modal */}}
 <div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel" aria-hidden="true">
@@ -214,63 +271,112 @@ document.getElementById('consultationForm')?.addEventListener('submit', async (e
 </script>
 
 <script>
+// Custom dropdown menu handler - creates dropdowns outside navbar
+document.addEventListener('DOMContentLoaded', function() {
+  // Build dropdown menus from site data
+  const menuData = {
+    {{ range site.Menus.main }}
+    {{ if .HasChildren }}
+    '{{ .Name | urlize }}': [
+      {{ range .Children }}
+      { name: '{{ .Name }}', url: '{{ .URL | relURL }}' },
+      {{ end }}
+    ],
+    {{ end }}
+    {{ end }}
+  };
+  
+  // Create dropdown containers and append to body
+  Object.keys(menuData).forEach(menuName => {
+    const dropdown = document.createElement('div');
+    dropdown.id = 'dropdown' + menuName;
+    dropdown.className = 'custom-dropdown-menu';
+    dropdown.style.display = 'none';
+    
+    menuData[menuName].forEach(item => {
+      const link = document.createElement('a');
+      link.href = item.url;
+      link.className = 'custom-dropdown-item';
+      link.textContent = item.name;
+      dropdown.appendChild(link);
+    });
+    
+    document.body.appendChild(dropdown);
+  });
+  
+  // Handle menu clicks
+  const menuLinks = document.querySelectorAll('[data-menu]');
+  
+  menuLinks.forEach(link => {
+    const menuName = link.getAttribute('data-menu');
+    const dropdown = document.getElementById('dropdown' + menuName);
+    
+    if (dropdown) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Close all other dropdowns
+        document.querySelectorAll('.custom-dropdown-menu').forEach(d => {
+          if (d !== dropdown) d.style.display = 'none';
+        });
+        
+        // Toggle this dropdown
+        if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+          const rect = link.getBoundingClientRect();
+          dropdown.style.display = 'block';
+          dropdown.style.position = 'fixed';
+          dropdown.style.top = (rect.bottom + 10) + 'px';
+          dropdown.style.left = rect.left + 'px';
+          dropdown.style.zIndex = '10000';
+        } else {
+          dropdown.style.display = 'none';
+        }
+      });
+    }
+  });
+  
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('[data-menu]') && !e.target.closest('.custom-dropdown-menu')) {
+      document.querySelectorAll('.custom-dropdown-menu').forEach(d => {
+        d.style.display = 'none';
+      });
+    }
+  });
+});
+</script>
+
+<script>
 // Mobile sidebar backdrop handler
 if (window.innerWidth <= 991) {
   const backdrop = document.getElementById('sidebarBackdrop');
   const navbarCollapse = document.getElementById('navbarNav');
-  const navbarToggler = document.querySelector('.navbar-toggler');
   const closeBtn = document.querySelector('.sidebar-close-btn');
   
-  // Show backdrop and close button when sidebar opens
-  navbarCollapse.addEventListener('show.bs.collapse', function () {
-    backdrop.classList.add('show');
-    document.body.style.overflow = 'hidden';
-    if (closeBtn) {
-      closeBtn.style.opacity = '1';
-      closeBtn.style.pointerEvents = 'all';
-    }
-  });
-  
-  // Hide backdrop and close button when sidebar closes
-  navbarCollapse.addEventListener('hide.bs.collapse', function () {
-    backdrop.classList.remove('show');
-    document.body.style.overflow = '';
-    if (closeBtn) {
-      closeBtn.style.opacity = '0';
-      closeBtn.style.pointerEvents = 'none';
-    }
-  });
-  
-  navbarCollapse.addEventListener('hidden.bs.collapse', function () {
-    backdrop.classList.remove('show');
-    document.body.style.overflow = '';
-    if (closeBtn) {
-      closeBtn.style.opacity = '0';
-      closeBtn.style.pointerEvents = 'none';
-    }
-  });
-  
-  // Prevent sidebar from closing when clicking inside it
-  navbarCollapse.addEventListener('click', function (e) {
-    // Only allow closing if clicking a direct link (not dropdown toggles)
-    if (e.target.classList.contains('nav-link') && !e.target.classList.contains('dropdown-toggle')) {
-      // Allow navigation links to close sidebar
-      return;
-    }
-    if (e.target.classList.contains('dropdown-item')) {
-      // Allow dropdown items to close sidebar
-      return;
-    }
-    // Prevent closing for everything else
-    e.stopPropagation();
-  });
-  
-  // Close sidebar when clicking backdrop
-  backdrop.addEventListener('click', function () {
-    const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-      toggle: false
+  if (backdrop && navbarCollapse && closeBtn) {
+    // Show backdrop and close button when sidebar opens
+    navbarCollapse.addEventListener('show.bs.collapse', function () {
+      backdrop.classList.add('show');
+      document.body.style.overflow = 'hidden';
     });
-    bsCollapse.hide();
-  });
+    
+    // Hide backdrop and close button when sidebar closes
+    navbarCollapse.addEventListener('hide.bs.collapse', function () {
+      backdrop.classList.remove('show');
+      document.body.style.overflow = '';
+    });
+    
+    // Close sidebar when clicking backdrop
+    backdrop.addEventListener('click', function () {
+      const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
+      bsCollapse.hide();
+    });
+    
+    // Close sidebar when clicking close button
+    closeBtn.addEventListener('click', function () {
+      const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
+      bsCollapse.hide();
+    });
+  }
 }
 </script>
