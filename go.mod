@@ -1,6 +1,6 @@
 module github.com/Seityl/qcgrant-website
 
-go 1.21.5
+go 1.21
 
 require (
 	github.com/gethugothemes/andromeda-light v0.0.0-20251013043622-aa27f1187d3e // indirect
