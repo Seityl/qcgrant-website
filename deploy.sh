@@ -81,7 +81,7 @@ sudo find "$DEPLOY_DIR" -type d -exec chmod 0755 {} +
 sudo find "$DEPLOY_DIR" -type f -exec chmod 0644 {} +
 success "permissions set (dirs 0755, files 0644)"
 
-info "[8/11] Ensure Caddy is configured to serve $DEPLOY_DIR"
+info "[8/12] Ensure Caddy is configured to serve $DEPLOY_DIR"
 if ! sudo grep -q "root \* $DEPLOY_DIR" /etc/caddy/Caddyfile 2>/dev/null; then
 	ts2=$(timestamp)
 	sudo cp /etc/caddy/Caddyfile "/etc/caddy/Caddyfile.bak.$ts2"
@@ -92,7 +92,18 @@ else
 	info "Caddy already configured to serve $DEPLOY_DIR"
 fi
 
-info "[9/11] Validate Caddy configuration"
+info "[9/12] Format Caddyfile for consistency (caddy fmt --overwrite)"
+if command -v caddy >/dev/null 2>&1; then
+	if sudo caddy fmt --overwrite /etc/caddy/Caddyfile >/dev/null 2>&1; then
+		success "Caddyfile formatted"
+	else
+		warn "caddy fmt failed or produced no changes; continuing to validation"
+	fi
+else
+	warn "caddy binary not found; skipping format"
+fi
+
+info "[10/12] Validate Caddy configuration"
 if ! sudo caddy validate --config /etc/caddy/Caddyfile; then
 	error "Caddy validation failed; aborting and restoring previous Caddyfile"
 	sudo mv "/etc/caddy/Caddyfile.bak.$ts2" /etc/caddy/Caddyfile || true
