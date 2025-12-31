@@ -1,0 +1,20 @@
+<section class="svc-hero my-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-7">
+        {{ with .kicker }}<div class="kicker mb-2">{{ . }}</div>{{ end }}
+        <h1 class="display-5 mb-3">{{ .title }}</h1>
+        {{ with .subtitle }}<p class="lead mb-3">{{ . }}</p>{{ end }}
+        <div class="d-flex gap-2">
+          <button class="svc-cta btn" data-bs-toggle="modal" data-bs-target="#consultationModal">Book a free assessment</button>
+          {{ with .alt_cta }}<a href="{{ .link }}" class="btn btn-outline-secondary">{{ .label }}</a>{{ end }}
+        </div>
+      </div>
+      <div class="col-md-5 text-center mt-4 mt-md-0">
+        {{ with .image }}
+          {{ partial "responsive-image.html" (dict "src" . "alt" $.title "class" "img-fluid rounded" "sizes" "(max-width: 768px) 100vw, 40vw" "loading" "eager") }}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>

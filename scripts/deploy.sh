@@ -11,7 +11,9 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$SCRIPT_DIR"
+# Treat the repository root as the parent directory of the scripts folder so
+# this wrapper can be executed directly from scripts/ or from the repo root.
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 BUILD_DIR="$REPO_ROOT/public"
 DEPLOY_DIR="/var/www/qcgrant-website"
 

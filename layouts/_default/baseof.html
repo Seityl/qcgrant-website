@@ -4,6 +4,7 @@
 <body>
   {{ partial "essentials/header.html" . }}
   {{ block "main" . }}{{ end }}
+  <link rel="stylesheet" href="{{ "css/services.css" | relURL }}">
   {{ partial "essentials/footer.html" . }}
   {{ partial "essentials/script.html" . }}
 </body>

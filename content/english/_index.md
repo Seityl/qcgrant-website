@@ -42,7 +42,7 @@ features:
 
   - title: "Cloud & AI Services"
     icon: "fas fa-cloud"
-    content: "Azure cloud solutions, AI integration with Copilot, sovereign cloud options, and data center services designed for Caribbean organizations seeking digital transformation."
+    content: "Cloud solutions, AI integration, sovereign cloud options, and data center services designed for Caribbean organizations seeking digital transformation."
     button:
       enable: true
       label: "Power Your Cloud Journey"

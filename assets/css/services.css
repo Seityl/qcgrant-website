@@ -1,0 +1,31 @@
+/* Services & Industries component styles */
+:root {
+  --svc-teal: #08BCB0;
+  --svc-charcoal: #42454B;
+}
+
+.svc-hero {
+  background: linear-gradient(180deg, rgba(8,188,176,0.06), rgba(8,188,176,0.03));
+  padding: 3.5rem 0;
+  border-radius: 12px;
+}
+.svc-hero .kicker { color: var(--svc-teal); font-weight: 600; }
+.svc-hero h1 { color: var(--svc-charcoal); font-weight: 800; }
+.svc-hero p.lead { color: #596069; }
+
+.svc-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.svc-card { background: white; border-radius: 12px; padding: 1.25rem; box-shadow: 0 6px 18px rgba(12,18,22,0.04); transition: transform .18s ease, box-shadow .18s ease; border: 1px solid rgba(4,9,11,0.04); }
+.svc-card:hover, .svc-card:focus { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(8,188,176,0.08); }
+.svc-icon { width: 64px; height: 64px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; background: rgba(8,188,176,0.08); color: var(--svc-teal); font-size: 1.4rem; }
+.svc-card h4 { color: var(--svc-charcoal); font-weight: 700; margin-top: .6rem; }
+.svc-card p { color: #556068; margin-bottom: .6rem; }
+.svc-card .meta { color: #78858C; font-size: .9rem; }
+
+.industry-card { background: linear-gradient(180deg,#fff,#fbfcfc); border-radius: 12px; padding: 1rem; text-align: left; }
+.industry-card .tag { font-size: .8rem; padding: .2rem .5rem; border-radius: 999px; background: rgba(4,9,11,0.04); color: var(--svc-charcoal); }
+
+.svc-cta { background: var(--svc-teal); color: #062025; padding: .75rem 1.1rem; border-radius: 10px; font-weight:700; }
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-card { transition: none; }
+}

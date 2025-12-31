@@ -24,6 +24,11 @@
 {{ $preload := .preload | default false }}
 
 {{ $res := resources.Get $clean }}
+{{ with .page }}
+  {{ with .Resources.GetMatch (print "*" (path.Base $clean)) }}
+    {{ $res = . }}
+  {{ end }}
+{{ end }}
 {{ if and $res $preload }}
   <link rel="preload" href="{{ $res.RelPermalink }}" as="image" fetchpriority="high">
 {{ end }}

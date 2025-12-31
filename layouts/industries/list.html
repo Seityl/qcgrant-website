@@ -1,0 +1,24 @@
+{{ define "main" }}
+<main class="py-5">
+  {{ partial "service-hero.html" (dict "kicker" "Industries" "title" "Industry-specific expertise" "subtitle" "We deliver solutions tailored for your industry's compliance and operational needs.") }}
+
+  <section class="container my-5">
+    <div class="row g-4">
+      {{ range .Site.Data.industries.list }}
+      <div class="col-md-4">
+        <div class="industry-card h-100">
+          <div class="d-flex align-items-start">
+            <div class="me-3"><span class="tag">{{ .tag }}</span></div>
+            <div>
+              <h4>{{ .title }}</h4>
+              <p class="text-muted">{{ .summary }}</p>
+              <a href="{{ .link }}" class="mt-2 d-inline-block">Learn more →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+</main>
+{{ end }}

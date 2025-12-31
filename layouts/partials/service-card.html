@@ -1,0 +1,10 @@
+<article class="svc-card h-100" tabindex="0" role="group" aria-label="{{ .title }}">
+  <div class="d-flex align-items-start">
+    <div class="svc-icon me-3">{{ with .icon }}<i class="{{ . }}"></i>{{ else }}<i class="fas fa-cog"></i>{{ end }}</div>
+    <div class="flex-grow-1">
+      <h4>{{ .title }}</h4>
+      <p class="mb-2">{{ .summary }}</p>
+      {{ if .meta }}<div class="meta">{{ .meta }}</div>{{ end }}
+    </div>
+  </div>
+</article>

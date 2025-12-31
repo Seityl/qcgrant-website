@@ -1,0 +1,25 @@
+{{ define "main" }}
+<main class="py-5">
+  {{ partial "service-hero.html" (dict "kicker" "Services" "title" "What we do" "subtitle" "Practical cybersecurity, managed IT, and cloud services that keep your business running.") }}
+
+  <section class="container my-5">
+    <div class="row">
+      <div class="col-12">
+        <div class="svc-grid">
+          {{ range .Site.Data.services.list }}
+            <div>
+              {{ partial "service-card.html" (dict "title" .title "summary" .summary "icon" .icon "meta" .meta) }}
+            </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container text-center my-5">
+    <h3 class="mb-3">Ready to take the next step?</h3>
+    <p class="mb-4 text-muted">Book a free assessment and get a tailored plan for your organisation.</p>
+    <button class="svc-cta btn" data-bs-toggle="modal" data-bs-target="#consultationModal">Book a free assessment</button>
+  </section>
+</main>
+{{ end }}
