@@ -5,13 +5,35 @@
 }
 
 .svc-hero {
-  background: linear-gradient(180deg, rgba(8,188,176,0.06), rgba(8,188,176,0.03));
   padding: 3.5rem 0;
   border-radius: 12px;
 }
 .svc-hero .kicker { color: var(--svc-teal); font-weight: 600; }
 .svc-hero h1 { color: var(--svc-charcoal); font-weight: 800; }
 .svc-hero p.lead { color: #596069; }
+
+/* Dark banner variant to match index hero 'bark' background */
+.svc-hero.banner {
+  background: linear-gradient(135deg, #1A1A1A 0%, #2C2C2C 100%);
+  color: #FFFFFF;
+}
+.svc-hero.banner h1, .svc-hero.banner h2 { color: #FFFFFF; }
+.svc-hero.banner .kicker { color: rgba(255,255,255,0.85); }
+.svc-hero.banner p.lead { color: rgba(255,255,255,0.85); }
+
+/* Boxy primary button that matches the index style */
+.btn-boxy {
+  border-radius: 6px;
+  padding: 0.85rem 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 18px rgba(8,188,176,0.08);
+}
+.svc-hero.banner .btn-boxy {
+  background: linear-gradient(135deg, #08BCB0 0%, #06A89E 100%);
+  color: #062025;
+  border: none;
+}
 
 .svc-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .svc-card { background: white; border-radius: 12px; padding: 1.25rem; box-shadow: 0 6px 18px rgba(12,18,22,0.04); transition: transform .18s ease, box-shadow .18s ease; border: 1px solid rgba(4,9,11,0.04); }
