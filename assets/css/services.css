@@ -90,3 +90,8 @@
 .cta + footer {
   padding-top: 0 !important;
 }
+
+/* Also remove the top padding on the footer's inner container for exact flush alignment */
+.cta + footer > .container {
+  padding-top: 0 !important;
+}
