@@ -25,10 +25,12 @@
             {{ range site.Menus.main }}
             {{ if .HasChildren }}
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="{{ .URL | relURL }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ .Name }}
               </a>
               <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ .URL | relURL }}">View all {{ .Name }}</a></li>
+                <li><hr class="dropdown-divider"></li>
                 {{ range .Children }}
                 <li><a class="dropdown-item" href="{{ .URL | relURL }}">{{ .Name }}</a></li>
                 {{ end }}
