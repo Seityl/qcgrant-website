@@ -16,6 +16,8 @@
 .svc-hero.banner {
   background: linear-gradient(135deg, #1A1A1A 0%, #2C2C2C 100%);
   color: #FFFFFF;
+  margin-top: 0; /* ensure it sits flush under the header */
+  border-radius: 0; /* squared corners */
 }
 .svc-hero.banner h1, .svc-hero.banner h2 { color: #FFFFFF; }
 .svc-hero.banner .kicker { color: rgba(255,255,255,0.85); }
@@ -23,16 +25,26 @@
 
 /* Boxy primary button that matches the index style */
 .btn-boxy {
-  border-radius: 6px;
+  border-radius: 2px; /* squared */
   padding: 0.85rem 1.25rem;
   font-weight: 800;
   letter-spacing: 0.02em;
   box-shadow: 0 6px 18px rgba(8,188,176,0.08);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn-boxy:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(8,188,176,0.12);
 }
 .svc-hero.banner .btn-boxy {
   background: linear-gradient(135deg, #08BCB0 0%, #06A89E 100%);
   color: #062025;
   border: none;
+}
+
+/* Keep reduced motion preference in mind */
+@media (prefers-reduced-motion: reduce) {
+  .btn-boxy { transition: none; transform: none; }
 }
 
 .svc-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
@@ -46,8 +58,20 @@
 .industry-card { background: linear-gradient(180deg,#fff,#fbfcfc); border-radius: 12px; padding: 1rem; text-align: left; }
 .industry-card .tag { font-size: .8rem; padding: .2rem .5rem; border-radius: 999px; background: rgba(4,9,11,0.04); color: var(--svc-charcoal); }
 
-.svc-cta { background: var(--svc-teal); color: #062025; padding: .75rem 1.1rem; border-radius: 10px; font-weight:700; }
+.svc-cta { background: var(--svc-teal); color: #062025; padding: .75rem 1.1rem; border-radius: 2px; font-weight:700; }
+.svc-cta:hover { background-color: #06A89E; color: #062025; }
+
+/* Consultation button in header */
+.btn-consultation { border-radius: 2px; padding: .5rem .9rem; font-weight:700; }
+.btn-consultation:hover { transform: translateY(-2px); }
 
 @media (prefers-reduced-motion: reduce) {
   .svc-card { transition: none; }
 }
+
+/* Highlight CTA section */
+.svc-cta-section { background: linear-gradient(135deg, rgba(8,188,176,0.06), rgba(8,188,176,0.03)); padding: 3rem 0; }
+.svc-cta-section h3 { color: var(--svc-charcoal); }
+.svc-cta-section p { color: #556068; }
+.svc-cta-section .svc-cta { background: var(--svc-charcoal); color: #FFFFFF; }
+.svc-cta-section .svc-cta:hover { background: #08BCB0; color: #062025; }

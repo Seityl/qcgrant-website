@@ -4,7 +4,13 @@
 <body>
   {{ partial "essentials/header.html" . }}
   {{ block "main" . }}{{ end }}
-  <link rel="stylesheet" href="{{ "css/services.css" | relURL }}">
+  {{/* Services stylesheet - use Hugo Pipes when available to ensure correct MIME and fingerprinting */}}
+  {{ with resources.Get "css/services.css" }}
+    {{ $svc := . | resources.Minify | resources.Fingerprint "sha384" }}
+    <link rel="stylesheet" href="{{ $svc.RelPermalink }}" integrity="{{ $svc.Data.Integrity }}" crossorigin="anonymous">
+  {{ else }}
+    <link rel="stylesheet" href="{{ "css/services.css" | relURL }}">
+  {{ end }}
   {{ partial "essentials/footer.html" . }}
   {{ partial "essentials/script.html" . }}
 </body>
