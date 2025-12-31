@@ -19,6 +19,20 @@
   margin-top: 0; /* ensure it sits flush under the header */
   border-radius: 0; /* squared corners */
 }
+
+/* Pull the hero up so it's visually flush with the header (matches index) */
+@media (min-width: 992px) {
+  .svc-hero.banner {
+    margin-top: -80px;
+    padding-top: calc(80px + 3.5rem);
+  }
+}
+@media (max-width: 991px) {
+  .svc-hero.banner {
+    margin-top: -70px;
+    padding-top: calc(70px + 3.5rem);
+  }
+}
 .svc-hero.banner h1, .svc-hero.banner h2 { color: #FFFFFF; }
 .svc-hero.banner .kicker { color: rgba(255,255,255,0.85); }
 .svc-hero.banner p.lead { color: rgba(255,255,255,0.85); }
