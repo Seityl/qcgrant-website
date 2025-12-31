@@ -84,8 +84,4 @@
 }
 
 /* Highlight CTA section */
-.svc-cta-section { background: linear-gradient(135deg, #08BCB0 0%, #06A89E 100%); padding: 3rem 0; }
-.svc-cta-section h3 { color: #FFFFFF; }
-.svc-cta-section p { color: rgba(255,255,255,0.92); }
-.svc-cta-section .svc-cta { background: transparent; color: #FFFFFF; }
-.svc-cta-section .svc-cta:hover { background: rgba(255,255,255,0.06); color: #FFFFFF; }
+.cta { margin-bottom: 0; }
