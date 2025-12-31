@@ -6,9 +6,9 @@
     <div class="row">
       <div class="col-12">
         <div class="svc-grid">
-          {{ range .Site.Data.services.list }}
-            <div>
-              {{ partial "service-card.html" (dict "title" .title "summary" .summary "icon" .icon "meta" .meta) }}
+          {{ range $i, $f := .Site.Data.services.list }}
+            <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="{{ mul $i 80 }}" data-aos-duration="700" data-aos-once="true">
+              {{ partial "service-card.html" (dict "title" $f.title "summary" $f.summary "icon" $f.icon "meta" $f.meta "link" $f.link) }}
             </div>
           {{ end }}
         </div>

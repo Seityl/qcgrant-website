@@ -1,10 +1,13 @@
-<article class="svc-card h-100" tabindex="0" role="group" aria-label="{{ .title }}">
-  <div class="d-flex align-items-start">
-    <div class="svc-icon me-3">{{ with .icon }}<i class="{{ . }}"></i>{{ else }}<i class="fas fa-cog"></i>{{ end }}</div>
-    <div class="flex-grow-1">
-      <h4>{{ .title }}</h4>
-      <p class="mb-2">{{ .summary }}</p>
-      {{ if .meta }}<div class="meta">{{ .meta }}</div>{{ end }}
-    </div>
+<article class="svc-card h-100 d-flex flex-column text-center" role="group" aria-label="{{ .title }}">
+  <div class="mb-3 text-center">
+    <div class="svc-icon mx-auto">{{ with .icon }}<i class="{{ . }}"></i>{{ else }}<i class="fas fa-cog"></i>{{ end }}</div>
+  </div>
+  <h4 class="mb-2">{{ .title }}</h4>
+  <p class="mb-3 text-muted small">{{ .summary }}</p>
+  {{ if .meta }}<div class="meta text-muted mb-3">{{ .meta }}</div>{{ end }}
+  <div class="mt-auto">
+    {{ if .link }}
+      <a href="{{ .link }}" class="btn btn-outline-primary btn-sm">See more</a>
+    {{ end }}
   </div>
 </article>
