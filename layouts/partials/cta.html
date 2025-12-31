@@ -1,0 +1,29 @@
+{{/*
+  Reusable CTA partial
+  Accepts a dict or page param with keys:
+    title, content, button: { enable, label, link, modal }
+*/}}
+{{ $cta := . }}
+{{ if and $cta (index $cta "enable") }}
+<section class="cta py-5 mb-0" style="background: linear-gradient(135deg, #08BCB0 0%, #06A89E 100%);">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h2 class="display-6 fw-bold text-white">{{ $cta.title }}</h2>
+        <p class="lead text-white mb-0">{{ $cta.content }}</p>
+      </div>
+      <div class="col-lg-4 text-end">
+        {{ with $cta.button }}
+          {{ if .enable }}
+            {{ if .modal }}
+              <button class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#{{ .modal }}">{{ .label }}</button>
+            {{ else }}
+              <a href="{{ .link }}" class="btn btn-dark btn-lg">{{ .label }}</a>
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

@@ -16,18 +16,6 @@
     </div>
   </section>
 
-  <section class="cta py-5 mb-0" style="background: linear-gradient(135deg, #08BCB0 0%, #06A89E 100%);">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-8">
-          <h2 class="display-6 fw-bold text-white">Ready to take the next step?</h2>
-          <p class="lead text-white mb-0">Book a free assessment and get a tailored plan for your organisation.</p>
-        </div>
-        <div class="col-lg-4 text-end">
-          <button class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#consultationModal">Book a free assessment</button>
-        </div>
-      </div>
-    </div>
-  </section>
+  {{ partial "cta.html" (dict "enable" true "title" "Ready to take the next step?" "content" "Book a free assessment and get a tailored plan for your organisation." "button" (dict "enable" true "label" "Book a free assessment" "modal" "consultationModal")) }}
 </main>
 {{ end }}

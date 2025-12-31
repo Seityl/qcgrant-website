@@ -85,3 +85,8 @@
 
 /* Highlight CTA section */
 .cta { margin-bottom: 0; }
+
+/* Ensure no gap between CTA and footer: zero out footer top padding when immediately following CTA */
+.cta + footer {
+  padding-top: 0 !important;
+}
