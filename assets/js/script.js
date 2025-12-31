@@ -19,24 +19,236 @@ if (headerWrapper) {
   };
 }
 
-// Initialize when page loads
-window.onload = () => {
-  // Hide preloader if it exists
-  const preloader = document.querySelector('.preloader');
-  if (preloader) {
-    setTimeout(() => {
-      preloader.classList.add('preloader-hide');
-    }, 150);
-  }
+// Mobile sidebar functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const navbarToggler = document.querySelector('.navbar-toggler');
+  const navbarCollapse = document.querySelector('#navbarNav');
+  const backdrop = document.querySelector('.mobile-sidebar-backdrop');
+  const closeBtn = document.querySelector('.sidebar-close-btn');
   
+  if (navbarToggler && navbarCollapse && backdrop && closeBtn) {
+    // Track the actual sidebar state
+    let sidebarIsOpen = false;
+    
+    // Function to show/hide sidebar elements
+    function toggleSidebar(show) {
+      sidebarIsOpen = show;
+      if (show) {
+        backdrop.classList.add('show');
+        closeBtn.classList.add('show');
+        navbarToggler.classList.add('hide-toggler'); // Hide hamburger icon
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      } else {
+        backdrop.classList.remove('show');
+        closeBtn.classList.remove('show');
+        navbarToggler.classList.remove('hide-toggler'); // Show hamburger icon
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+    }
+    
+    // Stop propagation of dropdown collapse events to prevent interference
+    const dropdownCollapses = navbarCollapse.querySelectorAll('.collapse');
+    dropdownCollapses.forEach(dropdown => {
+      dropdown.addEventListener('show.bs.collapse', function(e) {
+        e.stopPropagation();
+      });
+      dropdown.addEventListener('shown.bs.collapse', function(e) {
+        e.stopPropagation();
+      });
+      dropdown.addEventListener('hide.bs.collapse', function(e) {
+        e.stopPropagation();
+      });
+      dropdown.addEventListener('hidden.bs.collapse', function(e) {
+        e.stopPropagation();
+      });
+    });
+    
+    // Toggle sidebar when hamburger menu is clicked
+    navbarToggler.addEventListener('click', function() {
+      // Use Bootstrap's collapse events to detect when menu opens/closes
+      setTimeout(() => {
+        const isExpanded = navbarCollapse.classList.contains('show');
+        toggleSidebar(isExpanded);
+      }, 10);
+    });
+    
+    // Close sidebar when backdrop is clicked
+    backdrop.addEventListener('click', function() {
+      if (sidebarIsOpen) {
+        navbarToggler.click(); // Trigger the hamburger button to close
+      }
+    });
+    
+    // Close sidebar when close button is clicked
+    closeBtn.addEventListener('click', function() {
+      if (sidebarIsOpen) {
+        navbarToggler.click(); // Trigger the hamburger button to close
+      }
+    });
+    
+    // Listen for Bootstrap collapse events ONLY on the main navbar
+    navbarCollapse.addEventListener('shown.bs.collapse', function(e) {
+      // Only handle if this is the main navbar collapse, not dropdown submenus
+      if (e.target === navbarCollapse) {
+        toggleSidebar(true);
+      }
+    });
+    
+    navbarCollapse.addEventListener('hidden.bs.collapse', function(e) {
+      // Only handle if this is the main navbar collapse, not dropdown submenus
+      if (e.target === navbarCollapse) {
+        toggleSidebar(false);
+      }
+    });
+  }
+
+  // Observe stat-number elements and trigger count-up when they enter the viewport
+  const statEls = document.querySelectorAll('.stat-number');
+
+  if (statEls && statEls.length) {
+    if ('IntersectionObserver' in window) {
+      const statObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // stat entered view; trigger count up
+            startCountUp(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      statEls.forEach(el => statObserver.observe(el));
+    } else {
+      // Fallback: start all immediately
+      statEls.forEach(startCountUp);
+    }
+
+    // Final timed fallback: trigger countups for any visible stats still at 0
+    setTimeout(() => {
+      statEls.forEach(el => {
+        if (el.dataset.animated) return;
+        try {
+          const r = el.getBoundingClientRect();
+          const inView = r.top < (window.innerHeight || document.documentElement.clientHeight) * 0.85 && r.bottom > (window.innerHeight || document.documentElement.clientHeight) * 0.15;
+          if (inView) {
+            // fallback triggering countup
+            startCountUp(el);
+          }
+        } catch (e) {}
+      });
+    }, 700);
+  }
+
   // Initialize AOS (Animate On Scroll) if available
   if (typeof AOS !== 'undefined') {
     setTimeout(() => {
       AOS.init({
-        duration: 600,
-        once: true
+        duration: 700,
+        easing: 'ease-out-cubic',
+        once: true,
+        offset: 120,
+        // Respect reduced-motion preferences
+        disable: function() { return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+      });
+
+      // Debug: confirm AOS initialized in browser console
+      // AOS initialized (silent)
+
+      // Listen for AOS 'in' events to trigger animated behaviors (count-ups, etc.)
+      document.addEventListener('aos:in', function(e) {
+        const el = e.detail;
+        if (!el) return;
+        // Count-up numbers inside the element
+        const stats = el.querySelectorAll ? el.querySelectorAll('.stat-number') : [];
+        stats.forEach(startCountUp);
       });
     }, 50);
+  }
+
+  // Count-up helper
+  function formatNumber(val, format) {
+    if (format === 'currency-short') {
+      if (val >= 1000000) return '$' + (val / 1000000).toFixed(2).replace(/\.00$/, '') + 'M';
+      if (val >= 1000) return '$' + (val / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+      return '$' + val.toString();
+    }
+    return Math.round(val).toLocaleString();
+  }
+
+  function startCountUp(el) {
+    if (!el || el.dataset.animated) return;
+    // startCountUp triggered
+    const raw = (el.dataset.target || '').toString().trim();
+    const format = el.dataset.format || '';
+
+    // Parse numeric target and suffixes (percent, currency, short multipliers, trailing words)
+    function parseRaw(s) {
+      if (!s) return { numeric: false };
+      // percent e.g. "68%"
+      if (/^[-+]?\d[\d,\.]*\s*%$/.test(s)) {
+        const n = Number(s.replace(/[^0-9.\-]/g, ''));
+        return { numeric: true, target: n, style: 'percent' };
+      }
+      // currency with multiplier e.g. "$4.45M"
+      const currencyMatch = s.match(/^\$\s*([0-9,]+(?:\.[0-9]+)?)\s*([kKmM])?$/);
+      if (currencyMatch) {
+        let num = Number(currencyMatch[1].replace(/,/g, ''));
+        const suf = (currencyMatch[2] || '').toLowerCase();
+        if (suf === 'k') num *= 1e3;
+        if (suf === 'm') num *= 1e6;
+        return { numeric: true, target: num, style: 'currency' };
+      }
+      // plain leading number with optional trailing text e.g. "287 days" or "24/7"
+      const leadMatch = s.match(/^([0-9,]+(?:\.[0-9]+)?)(?:\s*(.*))?$/);
+      if (leadMatch) {
+        const num = Number(leadMatch[1].replace(/,/g, ''));
+        const tail = (leadMatch[2] || '').trim();
+        if (!isNaN(num)) return { numeric: true, target: num, style: tail ? 'suffix' : 'number', suffix: tail };
+      }
+      return { numeric: false };
+    }
+
+    const parsed = parseRaw(raw);
+    if (!parsed.numeric) {
+      // Non-numeric or complex string: display as-is (no animation)
+      el.textContent = raw;
+      el.dataset.animated = '1';
+      return;
+    }
+
+    el.dataset.animated = '1';
+    const target = parsed.target;
+    // Allow per-element override with data-duration (milliseconds), default to a slower 2500ms
+    const duration = (el.dataset && el.dataset.duration) ? Number(el.dataset.duration) : 2500;
+    // count-up duration: silently using -> duration
+    let startTime = null;
+
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / duration, 1);
+      const value = Math.floor(progress * target);
+
+      // Render based on style
+      if (parsed.style === 'percent') {
+        el.textContent = Math.round(value) + '%';
+      } else if (parsed.style === 'currency') {
+        el.textContent = formatNumber(value, 'currency-short');
+      } else if (parsed.style === 'suffix') {
+        el.textContent = Math.round(value).toLocaleString() + (parsed.suffix ? ' ' + parsed.suffix : '');
+      } else {
+        el.textContent = Math.round(value).toLocaleString();
+      }
+
+      if (progress < 1) requestAnimationFrame(step);
+      else {
+        // Final value
+        if (parsed.style === 'percent') el.textContent = Math.round(target) + '%';
+        else if (parsed.style === 'currency') el.textContent = formatNumber(target, 'currency-short');
+        else if (parsed.style === 'suffix') el.textContent = Math.round(target).toLocaleString() + (parsed.suffix ? ' ' + parsed.suffix : '');
+        else el.textContent = Math.round(target).toLocaleString();
+      }
+    }
+
+    requestAnimationFrame(step);
   }
   
   // Video play button handling
@@ -115,7 +327,7 @@ window.onload = () => {
       });
     }
   }
-};
+});
 
 // Form validation
 (function() {

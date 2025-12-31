@@ -1,5 +1,6 @@
 {{ define "main" }}
 <main>
+  {{ $page := . }}
   {{/* Banner Section */}}
   {{ with .Params.banner }}
   <section class="banner py-5" style="background: linear-gradient(135deg, #1A1A1A 0%, #2C2C2C 100%);">
@@ -12,12 +13,16 @@
           {{ end }}
           <p class="lead mb-4">{{ .content }}</p>
           {{ if .button.enable }}
+          {{ if .button.modal }}
+          <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#{{ .button.modal }}">{{ .button.label }}</button>
+          {{ else }}
           <a href="{{ .button.link }}" class="btn btn-primary btn-lg">{{ .button.label }}</a>
+          {{ end }}
           {{ end }}
         </div>
         <div class="col-lg-4">
           {{ if .image }}
-          <img src="{{ .image | relURL }}" alt="{{ .title }}" class="img-fluid">
+            {{ partial "responsive-image.html" (dict "src" .image "alt" .title "class" "img-fluid" "widths" (slice 320 640 1024) "sizes" "(max-width: 992px) 100vw, 33vw" "loading" "eager" "page" $page) }}
           {{ end }}
         </div>
       </div>
@@ -42,19 +47,19 @@
   <section class="features py-5">
     <div class="container">
       <div class="row g-4">
-        {{ range . }}
-        <div class="col-lg-3 col-md-6">
+        {{ range $i, $f := . }}
+        <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="{{ mul $i 80 }}" data-aos-duration="700" data-aos-once="true">
           <div class="card h-100 text-center">
             <div class="card-body">
-              {{ if .icon }}
-              <i class="{{ .icon }} fa-4x mb-3" style="color: var(--cyber-teal);"></i>
-              {{ else if .image }}
-              <img src="{{ .image | relURL }}" class="card-img-top mb-3" alt="{{ .title }}" style="max-height: 100px; object-fit: contain;">
+              {{ if $f.icon }}
+              <i class="{{ $f.icon }} fa-4x mb-3" style="color: var(--cyber-teal);"></i>
+              {{ else if $f.image }}
+              {{ partial "responsive-image.html" (dict "src" $f.image "alt" $f.title "class" "card-img-top mb-3" "widths" (slice 120 240) "loading" "lazy" "page" $page) }}
               {{ end }}
-              <h3 class="card-title h5 fw-bold">{{ .title }}</h3>
-              <p class="card-text">{{ .content }}</p>
-              {{ if .button.enable }}
-              <a href="{{ .button.link }}" class="btn btn-outline-primary mt-3">{{ .button.label }}</a>
+              <h3 class="card-title h5 fw-bold">{{ $f.title }}</h3>
+              <p class="card-text">{{ $f.content }}</p>
+              {{ if $f.button.enable }}
+              <a href="{{ $f.button.link }}" class="btn btn-outline-primary mt-3">{{ $f.button.label }}</a>
               {{ end }}
             </div>
           </div>
@@ -75,12 +80,12 @@
         <p class="lead">{{ .content }}</p>
       </div>
       <div class="row g-4">
-        {{ range .benefits }}
-        <div class="col-lg-4 col-md-6">
+        {{ range $i, $b := .benefits }}
+        <div class="col-lg-4 col-md-6" data-aos="fade-right" data-aos-delay="{{ mul $i 90 }}" data-aos-duration="700">
           <div class="text-center p-3">
-            <i class="{{ .icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
-            <h4>{{ .title }}</h4>
-            <p>{{ .content }}</p>
+            <i class="{{ $b.icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+            <h4>{{ $b.title }}</h4>
+            <p>{{ $b.content }}</p>
           </div>
         </div>
         {{ end }}
@@ -102,16 +107,35 @@
         {{ end }}
       </div>
       <div class="row g-4">
-        {{ range .steps }}
-        <div class="col-md-4">
-          <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body text-center">
-              <i class="{{ .icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
-              <h4 class="card-title">{{ .title }}</h4>
-              <p class="card-text">{{ .content }}</p>
+        {{/* First row: steps 1, 2, 3 */}}
+        {{ range $i, $step := .steps }}
+          {{ if lt $i 3 }}
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ mul $i 100 }}" data-aos-duration="800">
+              <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                  <i class="{{ $step.icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+                  <h4 class="card-title">{{ $step.title }}</h4>
+                  <p class="card-text">{{ $step.content }}</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          {{ end }}
+        {{ end }}
+      </div>
+      <div class="row g-4 justify-content-center mt-0">
+        {{/* Second row: steps 4, 5 centered */}}
+        {{ range $i, $step := .steps }}
+          {{ if ge $i 3 }}
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ mul (sub $i 3) 100 }}" data-aos-duration="800">
+              <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                  <i class="{{ $step.icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+                  <h4 class="card-title">{{ $step.title }}</h4>
+                  <p class="card-text">{{ $step.content }}</p>
+                </div>
+              </div>
+            </div>
+          {{ end }}
         {{ end }}
       </div>
     </div>
@@ -134,15 +158,15 @@
         {{ end }}
       </div>
       <div class="row g-4">
-        {{ range .industries_list }}
-        <div class="col-lg-3 col-md-6">
-          <a href="{{ .link }}" class="text-decoration-none">
+        {{ range $i, $ind := .industries_list }}
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ mul $i 80 }}" data-aos-duration="700">
+          <a href="{{ $ind.link }}" class="text-decoration-none">
             <div class="card text-center h-100 shadow-sm hover-lift">
               <div class="card-body">
-                <i class="{{ .icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
-                <h5 class="card-title fw-bold">{{ .title | default .name }}</h5>
-                {{ if .description }}
-                <p class="card-text text-muted small">{{ .description }}</p>
+                <i class="{{ $ind.icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+                <h5 class="card-title fw-bold">{{ $ind.title | default $ind.name }}</h5>
+                {{ if $ind.description }}
+                <p class="card-text text-muted small">{{ $ind.description }}</p>
                 {{ end }}
               </div>
             </div>
@@ -167,15 +191,15 @@
         {{ end }}
       </div>
       <div class="row g-4">
-        {{ range .testimonials_list }}
-        <div class="col-md-4">
+        {{ range $i, $t := .testimonials_list }}
+        <div class="col-md-4" data-aos="flip-left" data-aos-delay="{{ mul $i 90 }}" data-aos-duration="800">
           <div class="card h-100 border-0 shadow">
             <div class="card-body">
               <i class="fas fa-quote-left fa-2x mb-3" style="color: var(--cyber-teal); opacity: 0.3;"></i>
-              <p class="card-text mb-4">{{ .quote }}</p>
+              <p class="card-text mb-4">{{ $t.quote }}</p>
               <div class="border-top pt-3">
-                <p class="mb-0 fw-bold">{{ .author }}</p>
-                <small class="text-muted">{{ .role }}</small>
+                <p class="mb-0 fw-bold">{{ $t.author }}</p>
+                <small class="text-muted">{{ $t.role }}</small>
               </div>
             </div>
           </div>
@@ -199,11 +223,11 @@
         {{ end }}
       </div>
       <div class="row g-4 text-center">
-        {{ range .stats }}
-        <div class="col-md-3 col-sm-6">
-          <i class="{{ .icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
-          <h3 class="display-4 fw-bold" style="color: var(--cyber-teal);">{{ .number }}</h3>
-          <p class="lead">{{ .label }}</p>
+        {{ range $i, $s := .stats }}
+        <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="{{ mul $i 80 }}">
+          <i class="{{ $s.icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+          <h3 class="display-4 fw-bold" style="color: var(--cyber-teal);"><span class="stat-number" data-target="{{ $s.number }}" data-format="{{ $s.format | default "" }}">0</span></h3>
+          <p class="lead">{{ $s.label }}</p>
         </div>
         {{ end }}
       </div>
@@ -227,12 +251,12 @@
         {{ end }}
       </div>
       <div class="row g-4">
-        {{ range .partners }}
-        <div class="col-lg-3 col-md-6">
+        {{ range $i, $p := .partners }}
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ mul $i 80 }}">
           <div class="card text-center h-100 border-0 shadow-sm">
             <div class="card-body">
-              <h5 class="card-title fw-bold">{{ .name }}</h5>
-              <small class="text-muted">{{ .category }}</small>
+              <h5 class="card-title fw-bold">{{ $p.name }}</h5>
+              <small class="text-muted">{{ $p.category }}</small>
             </div>
           </div>
         </div>
@@ -281,13 +305,13 @@
         {{ end }}
       </div>
       <div class="row g-4">
-        {{ range .guarantees_list }}
-        <div class="col-lg-4 col-md-6">
+        {{ range $i, $g := .guarantees_list }}
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ mul $i 90 }}">
           <div class="card h-100 border-0 shadow-sm">
             <div class="card-body text-center">
-              <i class="{{ .icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
-              <h5 class="card-title fw-bold">{{ .title }}</h5>
-              <p class="card-text">{{ .content }}</p>
+              <i class="{{ $g.icon }} fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+              <h5 class="card-title fw-bold">{{ $g.title }}</h5>
+              <p class="card-text">{{ $g.content }}</p>
             </div>
           </div>
         </div>
@@ -309,14 +333,14 @@
       </div>
       {{ if .featured_resources }}
       <div class="row g-4">
-        {{ range .featured_resources }}
-        <div class="col-md-4">
+        {{ range $i, $r := .featured_resources }}
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ mul $i 80 }}">
           <div class="card h-100 shadow-sm">
             <div class="card-body">
-              <span class="badge bg-primary mb-3">{{ .category }}</span>
-              <h5 class="card-title fw-bold">{{ .title }}</h5>
-              <p class="card-text text-muted">{{ .excerpt }}</p>
-              <a href="{{ .link }}" class="btn btn-outline-primary mt-3">Read More</a>
+              <span class="badge bg-primary mb-3">{{ $r.category }}</span>
+              <h5 class="card-title fw-bold">{{ $r.title }}</h5>
+              <p class="card-text text-muted">{{ $r.excerpt }}</p>
+              <a href="{{ $r.link }}" class="btn btn-outline-primary mt-3">Read More</a>
             </div>
           </div>
         </div>
@@ -376,7 +400,11 @@
         </div>
         <div class="col-lg-4 text-end">
           {{ if .button.enable }}
-          <a href="{{ .button.link }}" class="btn btn-dark btn-lg">{{ .button.label }}</a>
+            {{ if .button.modal }}
+              <button class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#{{ .button.modal }}">{{ .button.label }}</button>
+            {{ else }}
+              <a href="{{ .button.link }}" class="btn btn-dark btn-lg">{{ .button.label }}</a>
+            {{ end }}
           {{ end }}
         </div>
       </div>

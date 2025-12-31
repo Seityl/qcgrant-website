@@ -115,12 +115,8 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   };
   
   try {
-    // Determine the API endpoint based on current location
-    const apiEndpoint = window.location.port === '8080' 
-      ? `${window.location.protocol}//${window.location.hostname}:8080`
-      : 'http://10.147.17.62:8080';
-    
-    const response = await fetch(`${apiEndpoint}/api/contact`, {
+    // Use relative path for API calls - will go to same domain
+    const response = await fetch('/api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

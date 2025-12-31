@@ -7,7 +7,8 @@
   {{- if $logo }}
   <img 
     loading="eager" 
-    decoding="async" 
+    decoding="sync"
+    fetchpriority="high"
     class="img-fluid" 
     width="{{ $logo_width }}" 
     height="{{ $logo_height }}"

@@ -5,12 +5,12 @@
   link = "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
   attributes = "media='screen'"
 [[plugins.css]]
-  link = "https://unpkg.com/aos@2.3.1/dist/aos.css"
+  link = "https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css"
 
 # JS Plugins
 [[plugins.js]]
   link = "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
 [[plugins.js]]
-  link = "https://unpkg.com/aos@2.3.1/dist/aos.js"
+  link = "https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"
 [[plugins.js]]
   link = "https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"

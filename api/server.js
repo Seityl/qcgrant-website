@@ -5,6 +5,9 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const nodemailer = require('nodemailer');
 
+// Set timezone
+process.env.TZ = 'America/Dominica';
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -57,7 +60,7 @@ transporter.verify((error, success) => {
 });
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 

@@ -1,0 +1,150 @@
+{{ define "main" }}
+<main>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1 class="display-4 fw-bold mb-3">{{ .Title }}</h1>
+          <p class="lead mb-4">{{ .Params.description }}</p>
+          <div class="d-flex justify-content-center gap-3">
+            <a href="/contact" class="btn btn-primary btn-lg px-4">
+              <i class="fas fa-shield-alt me-2"></i>Get Security Assessment
+            </a>
+            <a href="#services" class="btn btn-outline-light btn-lg px-4">
+              <i class="fas fa-arrow-down me-2"></i>Explore Services
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section id="services" class="py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center mb-5">
+          <h2 class="display-5 fw-bold mb-3">Our Cybersecurity Services</h2>
+          <p class="lead text-muted">Comprehensive protection for your organization</p>
+        </div>
+      </div>
+
+      {{ with .Params.features }}
+      <div class="row g-4">
+        {{ range . }}
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="card h-100 text-center border-0 shadow-sm hover-lift">
+            <div class="card-body p-4">
+              {{ if .icon }}
+              <div class="icon-wrapper mb-3">
+                <i class="{{ .icon }} fa-2x text-primary"></i>
+              </div>
+              {{ end }}
+              <h3 class="card-title h6 fw-bold">{{ .title }}</h3>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  {{ if .Content }}
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          <div class="content prose prose-lg">
+            {{ .Content }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+
+  <!-- CTA Section -->
+  <section class="bg-primary text-white py-5">
+    <div class="container text-center">
+      <h2 class="display-5 fw-bold mb-3">Ready to Secure Your Business?</h2>
+      <p class="lead mb-4">Contact us today for a comprehensive security assessment.</p>
+      <a href="/contact" class="btn btn-light btn-lg px-5">
+        <i class="fas fa-envelope me-2"></i>Contact Our Experts
+      </a>
+    </div>
+  </section>
+</main>
+
+<style>
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12) !important;
+}
+
+.icon-wrapper {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--bs-primary), var(--bs-info));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0,123,255,0.25);
+}
+
+.prose {
+  color: #374151;
+}
+
+.prose h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose h3 {
+  color: #1f2937;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.prose li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose li::before {
+  content: "✓";
+  color: var(--bs-primary);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.prose a {
+  color: var(--bs-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.prose a:hover {
+  text-decoration: underline;
+}
+</style>
+{{ end }}

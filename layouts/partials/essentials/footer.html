@@ -5,7 +5,7 @@
       {{/* Company Info */}}
       <div class="col-lg-4 mb-4">
         <div class="mb-3">
-          <img src="{{ "/images/qc-grant-logo-text-wide-light.png" | relURL }}" alt="Q C Grant Ltd." style="max-width: 200px; height: auto;">
+          {{ partial "responsive-image.html" (dict "src" "images/qc-grant-logo-text-wide-light.png" "alt" "Q C Grant Ltd." "class" "img-fluid" "widths" (slice 200 400) "loading" "eager") }}
         </div>
         <p class="mb-3">Caribbean's leading provider of cybersecurity, managed IT services, and technology consulting for businesses and institutions.</p>
       </div>
@@ -74,13 +74,13 @@
         </div>
         <div class="col-md-6 text-center text-md-end">
           <ul class="list-inline mb-0 small">
-            <li class="list-inline-item"><a href="/privacy-policy" class="text-white text-decoration-none">Privacy Policy</a></li>
+            <li class="list-inline-item"><a href="/privacy-policy" class="text-decoration-none footer-links">Privacy Policy</a></li>
             <li class="list-inline-item">|</li>
-            <li class="list-inline-item"><a href="/terms-and-conditions" class="text-white text-decoration-none">Terms of Service</a></li>
+            <li class="list-inline-item"><a href="/terms-and-conditions" class="text-decoration-none footer-links">Terms of Service</a></li>
             <li class="list-inline-item">|</li>
-            <li class="list-inline-item"><a href="/about" class="text-white text-decoration-none">About</a></li>
+            <li class="list-inline-item"><a href="/about" class="text-decoration-none footer-links">About</a></li>
             <li class="list-inline-item">|</li>
-            <li class="list-inline-item"><a href="/resources" class="text-white text-decoration-none">Resources</a></li>
+            <li class="list-inline-item"><a href="/resources" class="text-decoration-none footer-links">Resources</a></li>
           </ul>
         </div>
       </div>
@@ -90,11 +90,13 @@
 
 <style>
   footer .footer-links a {
+    color: #ffffff;
     transition: all 0.3s ease;
   }
   footer .footer-links a:hover {
     color: #08BCB0 !important;
     padding-left: 5px;
+    transform: translateX(2px);
   }
   footer a:hover i {
     transform: scale(1.2);

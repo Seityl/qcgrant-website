@@ -1,0 +1,52 @@
+{{/*
+  responsive-image.html
+  Parameters (passed as dict):
+    src: path to image (relative to assets/ or absolute /images/ .. will be used as fallback)
+    alt: alt text
+    class: CSS classes
+    sizes: sizes attribute for srcset (optional)
+    widths: slice of widths to generate (optional, defaults to 320,640,1024,1800)
+    loading: lazy|eager (optional)
+    decoding: async|sync|auto (optional)
+    preload: true|false (optional, if true outputs a preload link when resource exists)
+*/}}
+
+{{ $src := .src | default "" }}
+{{ if not $src }}{{ errorf "responsive-image: missing src" }}{{ end }}
+{{ $clean := $src | strings.TrimPrefix "/" }}
+{{ $alt := .alt | default "" }}
+{{ $class := .class | default "" }}
+{{ $sizes := .sizes | default "100vw" }}
+{{ $widths := .widths | default (slice 320 640 1024 1800) }}
+{{ $loading := .loading | default "lazy" }}
+{{ $decoding := .decoding | default "async" }}
+{{ $attrs := .attrs | default dict }}
+{{ $preload := .preload | default false }}
+
+{{ $res := resources.Get $clean }}
+{{ if and $res $preload }}
+  <link rel="preload" href="{{ $res.RelPermalink }}" as="image" fetchpriority="high">
+{{ end }}
+
+{{ if not $res }}
+  {{/* Fallback to static path if resource doesn't exist in assets */}}
+  <img src="{{ $src | relURL }}" alt="{{ $alt }}" class="{{ $class }}" loading="{{ $loading }}" decoding="{{ $decoding }}" />
+{{ else }}
+  {{/* Build srcsets for WebP and original format */}}
+  {{ $origType := $res.MediaType.Type }}
+  {{ $origSrcs := slice }}
+  {{ range $i, $w := $widths }}
+    {{ $img := $res.Resize (printf "%dx" $w) }}
+    {{ if $img }}
+      {{ $origSrcs = $origSrcs | append (printf "%s %dw" $img.RelPermalink $w) }}
+    {{ end }}
+  {{ end }}
+
+  {{ if gt (len $origSrcs) 0 }}
+    {{ $firstPair := index $origSrcs 0 }}
+    {{ $firstSrc := index (split $firstPair " ") 0 }}
+    <img src="{{ $firstSrc }}" srcset="{{ delimit $origSrcs ", " }}" sizes="{{ $sizes }}" alt="{{ $alt }}" class="{{ $class }}" loading="{{ $loading }}" decoding="{{ $decoding }}" {{ range $k, $v := $attrs }}{{ printf "%s=\"%s\"" $k $v }} {{ end }}>
+  {{ else }}
+    <img src="{{ $res.RelPermalink }}" alt="{{ $alt }}" class="{{ $class }}" loading="{{ $loading }}" decoding="{{ $decoding }}" {{ range $k, $v := $attrs }}{{ printf "%s=\"%s\"" $k $v }} {{ end }}>
+  {{ end }}
+{{ end }}

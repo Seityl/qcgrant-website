@@ -37,10 +37,19 @@
           <ul class="navbar-nav ms-auto align-items-lg-center">
             {{ range site.Menus.main }}
             {{ if .HasChildren }}
-            <li class="nav-item">
-              <a class="nav-link" href="#" id="menu{{ .Name | urlize }}" data-menu="{{ .Name | urlize }}">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle d-lg-none" href="#" id="mobile{{ .Name | urlize }}" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ .Name | urlize }}" aria-expanded="false">
+                {{ .Name }}
+              </a>
+              <a class="nav-link d-none d-lg-block" href="#" id="menu{{ .Name | urlize }}" data-menu="{{ .Name | urlize }}">
                 {{ .Name }} <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
               </a>
+              {{/* Mobile submenu */}}
+              <div class="collapse d-lg-none ms-3" id="collapse{{ .Name | urlize }}">
+                {{ range .Children }}
+                <a class="dropdown-item py-2" href="{{ .URL | relURL }}">{{ .Name }}</a>
+                {{ end }}
+              </div>
             </li>
             {{ else }}
             <li class="nav-item">
@@ -66,38 +75,38 @@
 {{/* Consultation Booking Modal */}}
 <div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content" style="background-color: #42454B; color: #ffffff;">
-      <div class="modal-header border-bottom" style="border-color: #08BCB0 !important; border-width: 3px !important; background-color: #2a2d31;">
-        <h3 class="modal-title text-center w-100" id="consultationModalLabel" style="color: #08BCB0; font-weight: 600;">
+    <div class="modal-content" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); color: #42454B; border-radius: 12px; border: none;">
+      <div class="modal-header border-bottom" style="border-color: rgba(8, 188, 176, 0.2) !important; border-width: 2px !important; background: transparent; padding: 2rem;">
+        <h3 class="modal-title text-center w-100" id="consultationModalLabel" style="color: #42454B; font-weight: 700;">
           Schedule Your Free Consultation
         </h3>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body px-4 py-4">
+      <div class="modal-body px-4 py-4" style="background: white; border-radius: 0 0 12px 12px;">
         <form id="consultationForm" class="needs-validation" novalidate>
           <div class="row g-3">
             <div class="col-md-6">
-              <label for="firstName" class="form-label fw-semibold" style="color: #ffffff !important;">First name <span style="color: #08BCB0;">*</span></label>
+              <label for="firstName" class="form-label fw-semibold" style="color: #42454B !important;">First name <span style="color: #08BCB0;">*</span></label>
               <input type="text" class="form-control" id="firstName" name="firstName" required>
               <div class="invalid-feedback">Please enter your first name.</div>
             </div>
             <div class="col-md-6">
-              <label for="lastName" class="form-label fw-semibold" style="color: #ffffff !important;">Last name <span style="color: #08BCB0;">*</span></label>
+              <label for="lastName" class="form-label fw-semibold" style="color: #42454B !important;">Last name <span style="color: #08BCB0;">*</span></label>
               <input type="text" class="form-control" id="lastName" name="lastName" required>
               <div class="invalid-feedback">Please enter your last name.</div>
             </div>
             <div class="col-md-6">
-              <label for="consultEmail" class="form-label fw-semibold" style="color: #ffffff !important;">Email <span style="color: #08BCB0;">*</span></label>
+              <label for="consultEmail" class="form-label fw-semibold" style="color: #42454B !important;">Email <span style="color: #08BCB0;">*</span></label>
               <input type="email" class="form-control" id="consultEmail" name="email" required>
               <div class="invalid-feedback">Please enter a valid email.</div>
             </div>
             <div class="col-md-6">
-              <label for="consultPhone" class="form-label fw-semibold" style="color: #ffffff !important;">Phone number <span style="color: #08BCB0;">*</span></label>
-              <input type="tel" class="form-control" id="consultPhone" name="phone" required>
-              <div class="invalid-feedback">Please enter your phone number.</div>
+              <label for="consultPhone" class="form-label fw-semibold" style="color: #42454B !important;">Phone number <span style="color: #08BCB0;">*</span></label>
+              <input type="tel" class="form-control" id="consultPhone" name="phone" pattern="[\d\s\(\)\+\-\.]+" title="Please enter a valid phone number (digits, spaces, and +()-. symbols only)" required>
+              <div class="invalid-feedback">Please enter a valid phone number.</div>
             </div>
             <div class="col-md-6">
-              <label for="jobRole" class="form-label fw-semibold" style="color: #ffffff !important;">Job role</label>
+              <label for="jobRole" class="form-label fw-semibold" style="color: #42454B !important;">Job role</label>
               <select class="form-select" id="jobRole" name="jobRole">
                 <option value="">Please Select</option>
                 <option value="C-Level Executive">C-Level Executive</option>
@@ -108,7 +117,7 @@
               </select>
             </div>
             <div class="col-md-6">
-              <label for="department" class="form-label fw-semibold" style="color: #ffffff !important;">Department</label>
+              <label for="department" class="form-label fw-semibold" style="color: #42454B !important;">Department</label>
               <select class="form-select" id="department" name="department">
                 <option value="">Please Select</option>
                 <option value="IT">IT</option>
@@ -120,11 +129,11 @@
               </select>
             </div>
             <div class="col-md-6">
-              <label for="companyName" class="form-label fw-semibold" style="color: #ffffff !important;">Company name</label>
+              <label for="companyName" class="form-label fw-semibold" style="color: #42454B !important;">Company name</label>
               <input type="text" class="form-control" id="companyName" name="companyName">
             </div>
             <div class="col-md-6">
-              <label for="numEmployees" class="form-label fw-semibold" style="color: #ffffff !important;">Number of employees</label>
+              <label for="numEmployees" class="form-label fw-semibold" style="color: #42454B !important;">Number of employees</label>
               <select class="form-select" id="numEmployees" name="numEmployees">
                 <option value="">Please Select</option>
                 <option value="1-10">1-10</option>
@@ -135,7 +144,7 @@
               </select>
             </div>
             <div class="col-12">
-              <label for="consultMessage" class="form-label fw-semibold" style="color: #ffffff !important;">How can we help you?</label>
+              <label for="consultMessage" class="form-label fw-semibold" style="color: #42454B !important;">How can we help you?</label>
               <textarea class="form-control" id="consultMessage" name="message" rows="4"></textarea>
             </div>
             <!-- Honeypot field (hidden from users, catches bots) -->
@@ -143,7 +152,7 @@
             <div class="col-12">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="salesCallback" name="salesCallback">
-                <label class="form-check-label" style="color: #ffffff !important; font-weight: 400;">
+                <label class="form-check-label" style="color: #42454B !important; font-weight: 400;">
                   I'd like to request a Sales callback
                 </label>
               </div>
@@ -151,7 +160,7 @@
             <div class="col-12">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="marketing" name="marketing">
-                <label class="form-check-label" style="color: #ffffff !important; font-weight: 400;">
+                <label class="form-check-label" style="color: #42454B !important; font-weight: 400;">
                   Yes! I would like to receive marketing communications from Q C Grant including special offers, articles and other content relating to IT and cyber security. I may unsubscribe at any time.
                 </label>
               </div>
@@ -222,12 +231,8 @@ document.getElementById('consultationForm')?.addEventListener('submit', async (e
   };
   
   try {
-    // Determine the API endpoint based on current location
-    const apiEndpoint = window.location.port === '8080' 
-      ? `${window.location.protocol}//${window.location.hostname}:8080`
-      : 'http://10.147.17.62:8080';
-    
-    const response = await fetch(`${apiEndpoint}/api/contact`, {
+    // Use relative path for API calls - will go to same domain
+    const response = await fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
@@ -262,12 +267,34 @@ document.getElementById('consultationForm')?.addEventListener('submit', async (e
     formStatus.className = 'alert alert-danger';
     formStatus.textContent = error.message || 'Failed to submit. Please call us directly at +1 767 275 3290';
     formStatus.classList.remove('d-none');
+    // Auto-hide the status alert after a short delay so it doesn't persist between modal opens
+    setTimeout(() => {
+      try { formStatus.className = 'alert d-none'; formStatus.textContent = ''; } catch (e) {}
+    }, 5000);
   } finally {
     submitBtn.disabled = false;
     btnText.textContent = 'SUBMIT';
     spinner.classList.add('d-none');
   }
 });
+
+// Ensure the status alert does not persist when the modal is reopened
+const consultationModalEl = document.getElementById('consultationModal');
+function clearConsultAlert() {
+  const fs = document.getElementById('consultFormStatus');
+  if (!fs) return;
+  fs.className = 'alert d-none';
+  fs.textContent = '';
+}
+if (consultationModalEl) {
+  consultationModalEl.addEventListener('show.bs.modal', function () {
+    clearConsultAlert();
+  });
+  consultationModalEl.addEventListener('hidden.bs.modal', function () {
+    // Also clear when hidden to ensure clean state if the modal is reopened
+    clearConsultAlert();
+  });
+}
 </script>
 
 <script>

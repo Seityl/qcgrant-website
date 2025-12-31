@@ -46,6 +46,19 @@ if ! command -v hugo >/dev/null 2>&1; then
 fi
 
 info "[2/12] Build the Hugo site"
+# If enabled in site params, sync static images into assets so Hugo can process them
+if grep -q "^enable_image_processing = true" "$REPO_ROOT/config/_default/params.toml" 2>/dev/null; then
+	info "Syncing static images to assets for Hugo processing"
+	mkdir -p "$REPO_ROOT/assets/images"
+	# Copy files but don't error the deploy if copy fails
+	cp -a "$REPO_ROOT/static/images/." "$REPO_ROOT/assets/images/" || true
+	# Move referenced content images into page bundles so Hugo can process them via .Resources
+	if [ -x "$REPO_ROOT/scripts/move_content_images.sh" ]; then
+		info "Moving content-referenced images into page bundles"
+		"$REPO_ROOT/scripts/move_content_images.sh"
+	fi
+fi
+
 hugo --gc --minify
 
 info "[3/11] Backup existing deployment (if present)"

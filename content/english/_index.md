@@ -9,11 +9,12 @@ banner:
   title: "Proactive IT & Cybersecurity Solutions Built for Caribbean Businesses"
   subtitle: "No Disruptions. No Delays. Just Business as Usual."
   content: "IT solutions designed to secure your operations, streamline workflows, and empower your growth."
-  image: "/images/qc-grant-logo-text-wide-light.png"
+  image: "qc-grant-logo-text-wide-light.png"
   button:
     enable: true
     label: "Book a Free Security Assessment"
-    link: "/contact"
+    link: "#"
+    modal: "consultationModal"
 
 # Value proposition
 value_prop:
@@ -181,20 +182,20 @@ security_stats:
       icon: "fas fa-shield-halved"
 
 # Technology partners
-tech_partners:
-  enable: true
-  title: "Trusted Technology Partners"
-  subtitle: "We work with industry-leading platforms and solutions"
-  content: "Our partnerships with global technology leaders ensure you get enterprise-grade solutions with local support."
-  partners:
-    - name: "Microsoft Azure"
-      category: "Cloud Infrastructure"
-    - name: "ERPNext"
-      category: "Open Source ERP"
-    - name: "Fortinet"
-      category: "Network Security"
-    - name: "Veeam"
-      category: "Backup & Recovery"
+# tech_partners:
+#   enable: true
+#   title: "Trusted Technology Partners"
+#   subtitle: "We work with industry-leading platforms and solutions"
+#   content: "Our partnerships with global technology leaders ensure you get enterprise-grade solutions with local support."
+#   partners:
+#     - name: "Microsoft Azure"
+#       category: "Cloud Infrastructure"
+#     - name: "ERPNext"
+#       category: "Open Source ERP"
+#     - name: "Fortinet"
+#       category: "Network Security"
+#     - name: "Veeam"
+#       category: "Backup & Recovery"
 
 # Company story
 our_story:
@@ -222,7 +223,7 @@ guarantees:
       content: "No hidden fees, no surprise charges. Fixed monthly pricing for predictable budgeting."
     
     - title: "Proactive Monitoring"
-      icon: "fas fa-radar"
+      icon: "fas fa-eye"
       content: "We identify and resolve issues before they impact your business operations."
     
     - title: "Regular Reporting"
@@ -290,5 +291,6 @@ call_to_action:
   button:
     enable: true
     label: "Book a Free Cybersecurity Health Assessment"
-    link: "/contact"
+    link: "#"
+    modal: "consultationModal"
 ---

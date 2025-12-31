@@ -16,8 +16,13 @@ author = "Q C Grant Ltd."
 image = "images/og-image.png"
 email = "support@qcgrant.com"
 
+# Image processing toggle: set to false to skip Hugo image processing and use static files
+enable_image_processing = true
+
 # Google Analytics
 google_analytics = "G-XXXXXXXXXX"  # Replace with actual GA4 ID
+# Toggle to enable or disable loading of Google Analytics (gtag) script
+enable_google_analytics = false
 
 # Google Search Console verification
 google_verification_tag = "your-verification-code-here"  # Replace with actual verification code

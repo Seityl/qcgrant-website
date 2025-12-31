@@ -231,9 +231,9 @@ location /api/ {
 }
 ```
 
-## Caddy Reverse Proxy (Current Setup)
+## Caddy Reverse Proxy (Development Setup)
 
-The project currently uses Caddy as a reverse proxy. Configuration in `Caddyfile`:
+For development, you can use Caddy as a reverse proxy. Create a `Caddyfile` with the following configuration:
 
 ```caddy
 :8080 {
