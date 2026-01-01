@@ -1,20 +1,29 @@
-<section class="svc-hero banner">
+<section class="svc-hero banner py-5">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-md-7">
-        {{ with .kicker }}<div class="kicker mb-2">{{ . }}</div>{{ end }}
-        <h1 class="display-5 mb-3">{{ .title }}</h1>
-        {{ with .subtitle }}<h2 class="h5 mb-3" style="color: var(--cyber-teal);">{{ . }}</h2>{{ end }}
-        <p class="lead mb-3 text-white-75">{{ .summary }}</p>
-        <div class="d-flex gap-2">
-          <button class="btn btn-boxy" data-bs-toggle="modal" data-bs-target="#consultationModal">Book a free assessment</button>
-          {{ with .alt_cta }}<a href="{{ .link }}" class="btn btn-outline-light">{{ .label }}</a>{{ end }}
+      <div class="col-lg-12">
+        <h1 class="display-5 fw-bold mb-4 text-white" style="line-height: 1.2; max-width: 100%; margin-top: 3rem;">{{ .title }}</h1>
+        
+        {{ with .subtitle }}
+        <div class="mb-4">
+          <p class="lead text-white" style="font-size: 1.125rem; line-height: 1.6; max-width: 900px; opacity: 0.95;">{{ . }}</p>
         </div>
-      </div>
-      <div class="col-md-5 text-center mt-4 mt-md-0">
-        {{ with .image }}
-          {{ partial "responsive-image.html" (dict "src" . "alt" $.title "class" "img-fluid rounded" "sizes" "(max-width: 768px) 100vw, 40vw" "loading" "eager") }}
         {{ end }}
+        
+        {{ with .summary }}
+        <p class="mb-4 text-white-75" style="font-size: 1rem; line-height: 1.6; max-width: 800px; opacity: 0.85;">{{ . }}</p>
+        {{ end }}
+        
+        <div class="d-flex flex-column flex-sm-row gap-3 mt-4">
+          {{ if .cta.enable }}
+          <button class="btn btn-lg" style="background: var(--cyber-teal); color: var(--charcoal-dark); font-weight: 700; padding: 0.875rem 2rem; border: none; border-radius: 0; transition: all 0.3s ease;" data-bs-toggle="modal" data-bs-target="#{{ .cta.modal }}" onmouseover="this.style.background='#06a89e'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(8,188,176,0.3)'" onmouseout="this.style.background='var(--cyber-teal)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+            <i class="fas fa-calendar-check me-2"></i>{{ .cta.label | default "Book a Free Assessment" }}
+          </button>
+          {{ end }}
+          {{ with .alt_cta }}
+          <a href="{{ .link }}" class="btn btn-outline-light btn-lg" style="padding: 0.875rem 2rem; border-width: 2px; border-radius: 0; font-weight: 600;">{{ .label }}</a>
+          {{ end }}
+        </div>
       </div>
     </div>
   </div>

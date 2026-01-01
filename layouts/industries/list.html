@@ -1,24 +1,17 @@
 {{ define "main" }}
-<main class="py-5">
-  {{ partial "service-hero.html" (dict "kicker" "Industries" "title" "Industry-specific expertise" "subtitle" "We deliver solutions tailored for your industry's compliance and operational needs.") }}
+<main class="pb-0">
+  {{ partial "service-hero.html" (dict "kicker" "Industries" "title" "Industry expertise" "subtitle" "Tailored solutions for your industry's unique compliance and operational requirements.") }}
 
   <section class="container my-5">
     <div class="row g-4">
-      {{ range .Site.Data.industries.list }}
-      <div class="col-md-4">
-        <div class="industry-card h-100">
-          <div class="d-flex align-items-start">
-            <div class="me-3"><span class="tag">{{ .tag }}</span></div>
-            <div>
-              <h4>{{ .title }}</h4>
-              <p class="text-muted">{{ .summary }}</p>
-              <a href="{{ .link }}" class="mt-2 d-inline-block">Learn more →</a>
-            </div>
-          </div>
+      {{ range $i, $f := .Site.Data.industries.list }}
+        <div class="col-12 d-flex justify-content-center" data-aos="zoom-in" data-aos-delay="{{ mul $i 80 }}" data-aos-duration="700" data-aos-once="true">
+          {{ partial "industry-card.html" (dict "title" $f.title "summary" $f.summary "icon" $f.icon "meta" $f.meta "link" $f.link) }}
         </div>
-      </div>
       {{ end }}
     </div>
   </section>
+
+  {{ partial "cta.html" (dict "enable" true "title" "Ready to take the next step?" "content" "Book a free assessment and get a tailored plan for your organisation." "button" (dict "enable" true "label" "BOOK A FREE ASSESSMENT" "modal" "consultationModal")) }}
 </main>
 {{ end }}

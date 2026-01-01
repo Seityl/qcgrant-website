@@ -1,11 +1,9 @@
 -
--
   title: "Cybersecurity"
   summary: "Risk assessment, continuous monitoring and incident response tailored to your organisation."
   icon: "fas fa-shield-halved"
   meta: "24/7 monitoring • Compliance support"
   link: "/services/cybersecurity/"
--
 -
   title: "Managed IT"
   summary: "Proactive IT management, help desk, and infrastructure reliability designed to minimize downtime."
@@ -13,13 +11,11 @@
   meta: "24/7 support • SLA-backed"
   link: "/services/managed-it/"
 -
--
   title: "Cloud & AI"
   summary: "Cloud migrations, Copilot integrations, and sovereign cloud options for secure, scalable platforms."
   icon: "fas fa-cloud"
   meta: "Azure & cloud-native expertise"
   link: "/services/cloud-ai/"
--
 -
   title: "Consulting"
   summary: "Strategic roadmaps, risk-based prioritization and technical advisory for long-term outcomes."

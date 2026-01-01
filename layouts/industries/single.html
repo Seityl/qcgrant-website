@@ -1,0 +1,55 @@
+{{ define "main" }}
+<main class="pb-0">
+  {{/* Hero Section - matches services list page style */}}
+  {{ partial "service-hero.html" (dict "kicker" "Industry" "title" .Title "subtitle" .Params.description "cta" (dict "enable" true "label" "Get started" "modal" "consultationModal")) }}
+
+  {{/* Main Content */}}
+  <div class="service-detail-wrapper">
+    {{/* Features/Offerings Section */}}
+    {{ with .Params.features }}
+    <section class="container my-5">
+      <div class="row mb-4">
+        <div class="col-12 text-center">
+          <h2 class="display-6 fw-bold mb-2" style="color: var(--svc-charcoal);">How we help</h2>
+          <p class="lead text-muted">Specialized solutions for your industry</p>
+        </div>
+      </div>
+      
+      <div class="row g-4">
+        {{ range $i, $feature := . }}
+        <div class="col-12" data-aos="fade-up" data-aos-delay="{{ mul $i 60 }}" data-aos-duration="600" data-aos-once="true">
+          <div class="feature-card">
+            <div class="feature-icon">
+              {{ with $feature.icon }}<i class="{{ . }}"></i>{{ else }}<i class="fas fa-check-circle"></i>{{ end }}
+            </div>
+            <div class="feature-content">
+              <h3 class="feature-title">{{ $feature.title }}</h3>
+              <p class="feature-description">{{ $feature.content }}</p>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+
+    {{/* Additional Content from Markdown */}}
+    {{ if .Content }}
+    <section class="content-section py-5" style="background: #F8F9FA;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <div class="prose-content">
+              {{ .Content }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {{ end }}
+  </div>
+
+  {{/* CTA Section */}}
+  {{ partial "cta.html" (dict "enable" true "title" "Ready to take the next step?" "content" "Book a free assessment and get a tailored plan for your organisation." "button" (dict "enable" true "label" "BOOK A FREE ASSESSMENT" "modal" "consultationModal")) }}
+</main>
+{{ end }}

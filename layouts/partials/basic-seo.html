@@ -3,12 +3,25 @@
 {{- $keywords := .Params.keywords | default site.Params.keywords -}}
 {{- $image := .Params.image | default site.Params.image | absURL -}}
 {{- $url := .Permalink -}}
+{{- $siteName := site.Title -}}
 
 <!-- Basic Meta Tags -->
 <meta name="description" content="{{ $description }}" />
 {{- if $keywords }}
+{{- if reflect.IsSlice $keywords }}
+<meta name="keywords" content="{{ delimit $keywords ", " }}" />
+{{- else }}
 <meta name="keywords" content="{{ $keywords }}" />
 {{- end }}
+{{- end }}
+<meta name="author" content="{{ site.Params.author | default "Q C Grant Ltd." }}" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+<!-- Geographic Meta Tags -->
+<meta name="geo.region" content="DM" />
+<meta name="geo.placename" content="Roseau, Dominica" />
+<meta name="geo.position" content="15.3092;-61.3790" />
+<meta name="ICBM" content="15.3092, -61.3790" />
 
 <!-- Open Graph Meta Tags -->
 <meta property="og:title" content="{{ $title }}" />
@@ -18,8 +31,26 @@
 <meta property="og:image" content="{{ $image }}" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:site_name" content="{{ site.Title }}" />
-<meta property="og:locale" content="{{ .Lang }}" />
+<meta property="og:site_name" content="{{ $siteName }}" />
+<meta property="og:locale" content="en_DM" />
+{{- if .IsPage }}
+{{- with .PublishDate }}
+<meta property="article:published_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}" />
+{{- end }}
+{{- with .Lastmod }}
+<meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}" />
+{{- end }}
+{{- with .Params.categories }}
+{{- range first 1 . }}
+<meta property="article:section" content="{{ . }}" />
+{{- end }}
+{{- end }}
+{{- with .Params.tags }}
+{{- range . }}
+<meta property="article:tag" content="{{ . }}" />
+{{- end }}
+{{- end }}
+{{- end }}
 
 <!-- Twitter Card Meta Tags -->
 <meta name="twitter:card" content="summary_large_image" />
@@ -28,6 +59,7 @@
 <meta name="twitter:image" content="{{ $image }}" />
 {{- with site.Params.twitter_handle }}
 <meta name="twitter:site" content="@{{ . }}" />
+<meta name="twitter:creator" content="@{{ . }}" />
 {{- end }}
 
 <!-- Canonical URL -->
@@ -37,7 +69,13 @@
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 <link rel="dns-prefetch" href="//fonts.gstatic.com" />
 <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+<link rel="preconnect" href="//cdn.jsdelivr.net" crossorigin />
 
 <!-- Theme Color -->
 <meta name="theme-color" content="{{ site.Params.theme_color | default "#08BCB0" }}" />
 <meta name="msapplication-TileColor" content="{{ site.Params.theme_color | default "#08BCB0" }}" />
+
+<!-- Apple Mobile Web App -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="{{ $siteName }}" />

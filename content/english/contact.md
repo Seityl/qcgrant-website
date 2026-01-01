@@ -1,6 +1,7 @@
 ---
-title: "Contact Q C Grant Ltd."
-description: "Get in touch with Q C Grant Ltd. for cybersecurity, managed IT, and technology consulting services. Based in Roseau, Dominica, serving the Caribbean."
+title: "Contact Q C Grant Ltd. | Cybersecurity & IT Services in Dominica and across the Caribbean region"
+description: "Get in touch with Q C Grant Ltd. for cybersecurity consulting, managed IT services, cloud solutions, and technology consulting. Based in Roseau, Dominica, serving the Caribbean. Call +1 767 275 3290 or email support@qcgrant.com for a free security assessment."
+keywords: "contact Q C Grant, cybersecurity consultation Caribbean, IT services inquiry Dominica, security assessment, managed IT contact, Caribbean IT consultant"
 draft: false
 ---
 

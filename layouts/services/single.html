@@ -1,150 +1,126 @@
 {{ define "main" }}
-<main>
-  <!-- Hero Section -->
-  <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-5">
+<main class="pb-0">
+  {{/* Hero Section - matches services list page style */}}
+  {{ partial "service-hero.html" (dict "kicker" "Service" "title" .Title "subtitle" .Params.description "cta" (dict "enable" true "label" "Get started" "modal" "consultationModal")) }}
+
+  {{/* Trust Bar - Quick wins */}}
+  <section class="py-3" style="background: #f8f9fa; border-bottom: 1px solid #e9ecef;">
     <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-8 mx-auto text-center">
-          <h1 class="display-4 fw-bold mb-3">{{ .Title }}</h1>
-          <p class="lead mb-4">{{ .Params.description }}</p>
-          <div class="d-flex justify-content-center gap-3">
-            <a href="/contact" class="btn btn-primary btn-lg px-4">
-              <i class="fas fa-shield-alt me-2"></i>Get Security Assessment
-            </a>
-            <a href="#services" class="btn btn-outline-light btn-lg px-4">
-              <i class="fas fa-arrow-down me-2"></i>Explore Services
-            </a>
+      <div class="row align-items-center justify-content-center text-center g-4">
+        <div class="col-md-4">
+          <div class="d-flex align-items-center justify-content-center gap-2">
+            <i class="fas fa-shield-halved" style="color: var(--cyber-teal); font-size: 1.5rem;"></i>
+            <div class="text-start">
+              <div class="fw-bold" style="color: var(--charcoal-dark);">Enterprise-Grade</div>
+              <small class="text-muted">Security Standards</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex align-items-center justify-content-center gap-2">
+            <i class="fas fa-clock" style="color: var(--cyber-teal); font-size: 1.5rem;"></i>
+            <div class="text-start">
+              <div class="fw-bold" style="color: var(--charcoal-dark);">24/7 Support</div>
+              <small class="text-muted">Always Available</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex align-items-center justify-content-center gap-2">
+            <i class="fas fa-certificate" style="color: var(--cyber-teal); font-size: 1.5rem;"></i>
+            <div class="text-start">
+              <div class="fw-bold" style="color: var(--charcoal-dark);">Certified Team</div>
+              <small class="text-muted">Industry Experts</small>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Services Grid -->
-  <section id="services" class="py-5 bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center mb-5">
-          <h2 class="display-5 fw-bold mb-3">Our Cybersecurity Services</h2>
-          <p class="lead text-muted">Comprehensive protection for your organization</p>
+  {{/* Main Content */}}
+  <div class="service-detail-wrapper">
+    {{/* Features/Offerings Section */}}
+    {{ with .Params.features }}
+    <section class="container my-5">
+      <div class="row mb-4">
+        <div class="col-12 text-center">
+          <h2 class="display-6 fw-bold mb-2" style="color: var(--svc-charcoal);">What we offer</h2>
+          <p class="lead text-muted">Comprehensive solutions tailored to your needs</p>
         </div>
       </div>
-
-      {{ with .Params.features }}
+      
       <div class="row g-4">
-        {{ range . }}
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="card h-100 text-center border-0 shadow-sm hover-lift">
-            <div class="card-body p-4">
-              {{ if .icon }}
-              <div class="icon-wrapper mb-3">
-                <i class="{{ .icon }} fa-2x text-primary"></i>
-              </div>
-              {{ end }}
-              <h3 class="card-title h6 fw-bold">{{ .title }}</h3>
+        {{ range $i, $feature := . }}
+        <div class="col-12" data-aos="fade-up" data-aos-delay="{{ mul $i 60 }}" data-aos-duration="600" data-aos-once="true">
+          <div class="feature-card">
+            <div class="feature-icon">
+              {{ with $feature.icon }}<i class="{{ . }}"></i>{{ else }}<i class="fas fa-check-circle"></i>{{ end }}
+            </div>
+            <div class="feature-content">
+              <h3 class="feature-title">{{ $feature.title }}</h3>
+              <p class="feature-description">{{ $feature.content }}</p>
             </div>
           </div>
         </div>
         {{ end }}
       </div>
-      {{ end }}
-    </div>
-  </section>
+    </section>
+    {{ end }}
 
-  <!-- Content Section -->
-  {{ if .Content }}
-  <section class="py-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-10 mx-auto">
-          <div class="content prose prose-lg">
-            {{ .Content }}
+    {{/* Additional Content from Markdown */}}
+    {{ if .Content }}
+    <section class="content-section py-5" style="background: #F8F9FA;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <div class="prose-content">
+              {{ .Content }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  {{ end }}
+    </section>
+    {{ end }}
+    
+    {{/* Benefits Section */}}
+    <section class="py-5">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <h2 class="display-6 fw-bold mb-3" style="color: var(--charcoal-dark);">Why Caribbean Organizations Choose Us</h2>
+            <p class="lead text-muted">Local expertise, global standards, proven results</p>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+            <div class="text-center p-4">
+              <i class="fas fa-handshake fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+              <h4 class="fw-bold mb-3">Caribbean-Focused</h4>
+              <p class="text-muted">We understand the unique challenges of operating in the Caribbean—from connectivity constraints to regulatory requirements. Our solutions are built for this region.</p>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center p-4">
+              <i class="fas fa-chart-line fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+              <h4 class="fw-bold mb-3">Proven Track Record</h4>
+              <p class="text-muted">Caribbean organizations across multiple sectors trust us to protect their critical systems and data. Our clients experience fewer incidents and faster recovery times.</p>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="text-center p-4">
+              <i class="fas fa-dollar-sign fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+              <h4 class="fw-bold mb-3">Transparent Pricing</h4>
+              <p class="text-muted">No hidden fees or surprise charges. Our pricing is clear and predictable, with flexible packages that scale with your business needs and budget.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  </div>
 
-  <!-- CTA Section -->
-  <section class="bg-primary text-white py-5">
-    <div class="container text-center">
-      <h2 class="display-5 fw-bold mb-3">Ready to Secure Your Business?</h2>
-      <p class="lead mb-4">Contact us today for a comprehensive security assessment.</p>
-      <a href="/contact" class="btn btn-light btn-lg px-5">
-        <i class="fas fa-envelope me-2"></i>Contact Our Experts
-      </a>
-    </div>
-  </section>
+  {{/* CTA Section */}}
+  {{ partial "cta.html" (dict "enable" true "title" "Ready to take the next step?" "content" "Book a free assessment and get a tailored plan for your organisation." "button" (dict "enable" true "label" "BOOK A FREE ASSESSMENT" "modal" "consultationModal")) }}
 </main>
-
-<style>
-.hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12) !important;
-}
-
-.icon-wrapper {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, var(--bs-primary), var(--bs-info));
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  box-shadow: 0 4px 12px rgba(0,123,255,0.25);
-}
-
-.prose {
-  color: #374151;
-}
-
-.prose h2 {
-  color: #1f2937;
-  font-weight: 700;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-}
-
-.prose h3 {
-  color: #1f2937;
-  font-weight: 600;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-}
-
-.prose ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.prose li {
-  position: relative;
-  padding-left: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.prose li::before {
-  content: "✓";
-  color: var(--bs-primary);
-  font-weight: bold;
-  position: absolute;
-  left: 0;
-}
-
-.prose a {
-  color: var(--bs-primary);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.prose a:hover {
-  text-decoration: underline;
-}
-</style>
 {{ end }}

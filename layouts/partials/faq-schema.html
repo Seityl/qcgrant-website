@@ -1,0 +1,22 @@
+{{- $faq := .faq -}}
+{{- if and $faq $faq.enable $faq.questions -}}
+<!-- FAQ Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{- range $index, $item := $faq.questions -}}
+    {
+      "@type": "Question",
+      "name": "{{ $item.question }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ $item.answer }}"
+      }
+    }{{- if lt $index (sub (len $faq.questions) 1) -}},{{- end -}}
+    {{- end -}}
+  ]
+}
+</script>
+{{- end -}}

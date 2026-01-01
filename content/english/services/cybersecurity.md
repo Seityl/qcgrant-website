@@ -1,7 +1,7 @@
 ---
-title: "Cybersecurity Services"
-description: "Comprehensive cybersecurity solutions for Caribbean organizations. Risk assessments, penetration testing, security operations, incident response, and security training."
-keywords: "cybersecurity services, penetration testing, risk assessment, managed detection response, security training, Caribbean cybersecurity"
+title: "Cybersecurity Services | Penetration Testing & Security Audits in Caribbean"
+description: "Comprehensive cybersecurity solutions for Caribbean organizations. Professional penetration testing, risk assessments, managed detection & response (MDR), security operations (SOC), incident response, vulnerability management, and compliance support. Protect your business from cyber threats with enterprise-grade security services in Dominica and across the Caribbean."
+keywords: "cybersecurity services Caribbean, penetration testing Dominica, risk assessment Caribbean, managed detection response MDR, security operations center SOC, incident response Caribbean, security training, HIPAA compliance Caribbean, ISO 27001 Caribbean, vulnerability management"
 draft: false
 type: "services"
 
@@ -69,9 +69,3 @@ Different sectors face unique security challenges. Our cybersecurity services ar
 ## Partnership and Support
 
 Beyond individual services, we offer ongoing partnership and support to ensure your cybersecurity program evolves with your business and the threat landscape. Our team provides regular security health checks, threat intelligence briefings, and strategic guidance to help you stay ahead of emerging risks.
-
-## Get Started Today
-
-Don't wait for a security incident to invest in cybersecurity. Contact our team today for a comprehensive security assessment and discover how we can protect your organization from cyber threats while supporting your business success.
-
-[Contact Us](/contact) to schedule your security consultation.

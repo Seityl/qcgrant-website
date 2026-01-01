@@ -1,12 +1,49 @@
 {{ define "main" }}
-<main class="py-3">
+<main class="py-5">
   <div class="container">
-    <article>
-      <h1 class="display-4 mb-4">{{ .Title }}</h1>
-      <div class="content">
-        {{ .Content }}
+    <!-- Page Header -->
+    <div class="text-center mb-5">
+      <h1 class="display-4 fw-bold mb-3">{{ .Title }}</h1>
+      {{ with .Description }}
+      <p class="lead text-muted">{{ . }}</p>
+      {{ end }}
+    </div>
+    
+    <!-- Page Content (if any additional content) -->
+    {{ if .Content }}
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-10">
+        <div class="prose-content">
+          {{ .Content }}
+        </div>
       </div>
-    </article>
+    </div>
+    {{ end }}
+    
+    <!-- Resources Gallery -->
+    {{ $pages := where .Site.RegularPages "Section" "resources" }}
+    {{ $pages = where $pages "Draft" false }}
+    {{ $pages = $pages.ByDate.Reverse }}
+    
+    {{ if gt (len $pages) 0 }}
+    <div class="row g-4">
+      {{ range $i, $page := $pages }}
+      <div class="col-12 col-sm-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ mul $i 60 }}">
+        {{ partial "resource-card.html" $page }}
+      </div>
+      {{ end }}
+    </div>
+    {{ else }}
+    <!-- No resources yet message -->
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <div class="alert alert-info">
+          <h4>Coming Soon</h4>
+          <p class="mb-0">We're preparing in-depth articles and resources. Check back soon for cybersecurity insights, IT best practices, and technology guidance for Caribbean organizations.</p>
+        </div>
+      </div>
+    </div>
+    {{ end }}
   </div>
 </main>
 {{ end }}

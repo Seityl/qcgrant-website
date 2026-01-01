@@ -43,9 +43,9 @@ hasCJKLanguage = false
   home = ["HTML", "RSS", "JSON"]
 
 [sitemap]
-  changefreq = "monthly"
+  changefreq = "weekly"
   filename = "sitemap.xml"
-  priority = 0.5
+  priority = -1  # Let Hugo calculate priority based on page importance
 
 ############################# Taxonomies ############################
 [taxonomies]

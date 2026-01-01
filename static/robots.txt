@@ -1,4 +1,19 @@
+# Robots.txt for Q C Grant Ltd. - Cybersecurity & IT Services
+# https://qcgrant.com
+
 User-agent: *
 Allow: /
+
+# Sitemaps
+Sitemap: https://qcgrant.com/sitemap.xml
+
+# Disallow admin/api endpoints (if any)
+Disallow: /api/
+Disallow: /admin/
+
+# Allow all resources
+Allow: /images/
+Allow: /js/
+Allow: /css/
 
 Sitemap: https://qcgrant.com/sitemap.xml

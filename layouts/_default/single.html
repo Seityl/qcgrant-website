@@ -1,12 +1,145 @@
 {{ define "main" }}
-<main class="py-3">
-  <div class="container">
+<main class="py-0">
+  {{/* Hero Section for About/Contact pages */}}
+  {{ if in .RelPermalink "about" }}
+  <section class="py-5" style="background: linear-gradient(135deg, #1A1A1A 0%, #2C2C2C 100%);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center text-white">
+          <h1 class="display-4 fw-bold mb-3">{{ .Title }}</h1>
+          <p class="lead">Trusted cybersecurity and IT consulting for Caribbean organizations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+  
+  <div class="container py-5">
     <article>
+      {{ if not (in .RelPermalink "about") }}
       <h1 class="display-4 mb-4">{{ .Title }}</h1>
-      <div class="content">
-        {{ .Content }}
+      {{ end }}
+      
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          <div class="content prose-content">
+            {{ .Content }}
+          </div>
+          
+          {{/* About page enhancements */}}
+          {{ if in .RelPermalink "about" }}
+          {{/* Trust Indicators */}}
+          <section class="mt-5 py-5 border-top">
+            <h2 class="display-6 fw-bold text-center mb-5">Our Credentials & Expertise</h2>
+            <div class="row g-4">
+              <div class="col-md-4" data-aos="fade-up">
+                <div class="text-center p-4">
+                  <i class="fas fa-graduation-cap fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+                  <h4 class="fw-bold mb-3">Certified Professionals</h4>
+                  <p class="text-muted">Industry-recognized certifications in cybersecurity, cloud architecture, and IT service management</p>
+                </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-center p-4">
+                  <i class="fas fa-calendar-check fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+                  <h4 class="fw-bold mb-3">20+ Years Experience</h4>
+                  <p class="text-muted">Deep expertise spanning infrastructure, security operations, and digital transformation</p>
+                </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-center p-4">
+                  <i class="fas fa-globe-americas fa-3x mb-3" style="color: var(--cyber-teal);"></i>
+                  <h4 class="fw-bold mb-3">Caribbean Focus</h4>
+                  <p class="text-muted">Solutions designed specifically for Caribbean business environments and regulatory requirements</p>
+                </div>
+              </div>
+            </div>
+          </section>
+          {{ end }}
+          
+        </div>
       </div>
     </article>
   </div>
+  
+  {{/* Resources page CTA - Full width */}}
+  {{ if eq .Section "resources" }}
+  <section class="py-5 mb-0" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+    <div class="container text-center">
+      <i class="fas fa-book-open fa-3x mb-4" style="color: var(--cyber-teal);"></i>
+      <h3 class="fw-bold mb-3" style="color: var(--charcoal-dark);">Explore More Resources</h3>
+      <p class="lead text-muted mb-4">Discover more insights, guides, and best practices for Caribbean organizations</p>
+      <a href="/resources/" class="btn btn-lg" style="background: var(--cyber-teal); color: var(--charcoal-dark); font-weight: 700; border-radius: 0; padding: 0.875rem 2rem;">
+        <i class="fas fa-arrow-left me-2"></i>View All Resources
+      </a>
+    </div>
+  </section>
+  {{ end }}
+  
+  {{/* Values Section - Full width background */}}
+  {{ if in .RelPermalink "about" }}
+  <section class="py-5" style="background: #f8f9fa;">
+    <div class="container">
+      <h2 class="display-6 fw-bold text-center mb-5">Our Core Values</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="d-flex gap-3 p-3">
+            <div>
+              <i class="fas fa-shield-halved fa-2x" style="color: var(--cyber-teal);"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold mb-2">Security First</h5>
+              <p class="text-muted mb-0">Every solution we design and implement prioritizes security from the ground up, not as an afterthought.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex gap-3 p-3">
+            <div>
+              <i class="fas fa-lightbulb fa-2x" style="color: var(--cyber-teal);"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold mb-2">Transparency</h5>
+              <p class="text-muted mb-0">Clear communication, honest assessments, and no hidden agendas. You always know what we're doing and why.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex gap-3 p-3">
+            <div>
+              <i class="fas fa-users fa-2x" style="color: var(--cyber-teal);"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold mb-2">Partnership</h5>
+              <p class="text-muted mb-0">We succeed when you succeed. Our team becomes an extension of yours, invested in your long-term growth.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex gap-3 p-3">
+            <div>
+              <i class="fas fa-rocket fa-2x" style="color: var(--cyber-teal);"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold mb-2">Innovation</h5>
+              <p class="text-muted mb-0">Leveraging emerging technologies and best practices to deliver cutting-edge solutions that drive results.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  {{/* CTA for About page - Full width */}}
+  <section class="py-5" style="background: linear-gradient(135deg, #08BCB0 0%, #06A094 100%);">
+    <div class="container text-center">
+      <h3 class="display-6 fw-bold text-white mb-3">Ready to Work Together?</h3>
+      <p class="lead text-white mb-4">Let's discuss how we can help secure and optimize your technology infrastructure.</p>
+      <button class="btn btn-light btn-lg" style="border-radius: 0;" data-bs-toggle="modal" data-bs-target="#consultationModal">
+        <i class="fas fa-calendar-check me-2"></i>Schedule a Consultation
+      </button>
+    </div>
+  </section>
+  {{ end }}
 </main>
 {{ end }}

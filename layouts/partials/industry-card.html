@@ -1,13 +1,13 @@
 <article class="svc-card h-100 d-flex flex-column text-center" role="group" aria-label="{{ .title }}">
   <div class="mb-2 text-center">
-    <div class="svc-icon mx-auto">{{ with .icon }}<i class="{{ . }}"></i>{{ else }}<i class="fas fa-cog"></i>{{ end }}</div>
+    <div class="svc-icon mx-auto">{{ with .icon }}<i class="{{ . }}"></i>{{ else }}<i class="fas fa-building"></i>{{ end }}</div>
   </div>
   <h4 class="mb-2">{{ .title }}</h4>
   <p class="mb-2 text-muted">{{ .summary }}</p>
   {{ if .meta }}<div class="meta text-muted mb-2">{{ .meta }}</div>{{ end }}
   <div class="mt-auto pt-2">
     {{ if .link }}
-      <a href="{{ .link }}" class="btn btn-outline-primary">See more</a>
+      <a href="{{ .link }}" class="btn btn-outline-primary">Learn more</a>
     {{ end }}
   </div>
 </article>

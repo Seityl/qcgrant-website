@@ -11,10 +11,19 @@ logo_text = "Q C Grant Ltd."
 
 # OpenGraph / Twitter Card
 title = "Q C Grant Ltd. - Cybersecurity & IT Services"
-description = "Leading cybersecurity and IT infrastructure provider. Enterprise-grade solutions for SMEs, financial institutions, and government agencies."
+description = "Leading cybersecurity and IT infrastructure provider in the Caribbean. Enterprise-grade security solutions, managed IT services, and cloud/AI integration for SMEs, financial institutions, and government agencies."
 author = "Q C Grant Ltd."
 image = "images/og-image.png"
 email = "support@qcgrant.com"
+
+# SEO Keywords for site-wide use
+keywords = ["Caribbean cybersecurity", "IT services Dominica", "managed IT Caribbean", "cybersecurity consulting", "penetration testing", "cloud services Caribbean", "IT security", "HIPAA compliance", "data sovereignty", "ERPNext Caribbean"]
+
+# Social Media
+twitter_handle = "qcgrantltd"  # Add actual handle if available
+
+# Theme color for mobile browsers
+theme_color = "#08BCB0"
 
 # Image processing toggle: set to false to skip Hugo image processing and use static files
 enable_image_processing = true

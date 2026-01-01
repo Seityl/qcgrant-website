@@ -1,0 +1,46 @@
+{{/*
+  Resource Card Partial
+  Usage: {{ partial "resource-card.html" . }}
+  Context: Page object for resource/post
+*/}}
+
+<article class="resource-card h-100 d-flex flex-column">
+  <!-- Category Badge -->
+  {{ with .Params.categories }}
+  {{ if gt (len .) 0 }}
+  <div class="mb-3">
+    <span class="badge bg-primary">{{ index . 0 }}</span>
+  </div>
+  {{ end }}
+  {{ end }}
+  
+  <!-- Title -->
+  <h3 class="resource-card-title mb-2">
+    {{ .Title }}
+  </h3>
+  
+  <!-- Excerpt/Description -->
+  <p class="resource-card-summary mb-3 flex-grow-1">
+    {{ with .Description }}
+      {{ . }}
+    {{ else }}
+      {{ .Summary }}
+    {{ end }}
+  </p>
+  
+  <!-- Meta: Date and Reading Time -->
+  <div class="resource-card-meta text-muted small mb-3">
+    <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+    {{ with .ReadingTime }}
+    <span class="mx-1">•</span>
+    <span>{{ . }} min</span>
+    {{ end }}
+  </div>
+  
+  <!-- Read More Button -->
+  <div class="mt-auto">
+    <a href="{{ .RelPermalink }}" class="btn btn-outline-primary w-100">
+      Read More
+    </a>
+  </div>
+</article>

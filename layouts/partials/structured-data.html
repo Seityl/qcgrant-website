@@ -65,6 +65,7 @@
     "@type": "PostalAddress",
     "streetAddress": "32 Kennedy Avenue",
     "addressLocality": "Roseau",
+    "addressRegion": "Saint George Parish",
     "addressCountry": "DM"
   },
   "geo": {
@@ -84,15 +85,23 @@
     "opens": "09:00",
     "closes": "17:00"
   },
-  "areaServed": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": 15.3092,
-      "longitude": -61.3790
+  "areaServed": [
+    {
+      "@type": "Country",
+      "name": "Dominica"
     },
-    "geoRadius": "500"
-  }
+    {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": 15.3092,
+        "longitude": -61.3790
+      },
+      "geoRadius": "500000"
+    }
+  ],
+  "knowsAbout": ["Cybersecurity", "IT Services", "Managed IT", "Cloud Computing", "Penetration Testing", "Security Audits", "Compliance"],
+  "slogan": "Proactive IT & Cybersecurity Solutions Built for Caribbean Businesses"
 }
 </script>
 
@@ -138,14 +147,56 @@
     "@type": "Organization",
     "name": "{{ site.Title }}",
     "url": "{{ site.BaseURL }}",
-    "logo": "{{ (site.Params.logo | absURL) }}"
+    "logo": "{{ (site.Params.logo | absURL) }}",
+    "telephone": "{{ site.Params.phone }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "32 Kennedy Avenue",
+      "addressLocality": "Roseau",
+      "addressCountry": "DM"
+    }
   },
   "url": "{{ .Permalink }}",
-  "areaServed": {
-    "@type": "Country",
-    "name": "Dominica"
+  "areaServed": [
+    {
+      "@type": "Country",
+      "name": "Dominica"
+    },
+    {
+      "@type": "Place",
+      "name": "Caribbean"
+    }
+  ],
+  "serviceType": "{{ .Title }}",
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "{{ .Permalink }}",
+    "servicePhone": {
+      "@type": "ContactPoint",
+      "telephone": "{{ site.Params.phone }}",
+      "contactType": "Customer Service"
+    }
+  }
+}
+</script>
+{{- else if eq .Section "industries" -}}
+<!-- ItemPage Schema for Industries -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemPage",
+  "name": "{{ .Title }}",
+  "description": "{{ .Description | default .Summary }}",
+  "url": "{{ .Permalink }}",
+  "about": {
+    "@type": "Thing",
+    "name": "{{ .Title }}"
   },
-  "serviceType": "{{ .Title }}"
+  "provider": {
+    "@type": "Organization",
+    "name": "{{ site.Title }}",
+    "url": "{{ site.BaseURL }}"
+  }
 }
 </script>
 {{- end -}}

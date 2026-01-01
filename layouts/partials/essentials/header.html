@@ -72,116 +72,291 @@
   </header>
 </div>
 
-{{/* Consultation Booking Modal */}}
+{{/* Enhanced Multi-Step Consultation Modal */}}
 <div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); color: #42454B; border-radius: 12px; border: none;">
-      <div class="modal-header border-bottom" style="border-color: rgba(8, 188, 176, 0.2) !important; border-width: 2px !important; background: transparent; padding: 2rem;">
-        <h3 class="modal-title text-center w-100" id="consultationModalLabel" style="color: #42454B; font-weight: 700;">
-          Schedule Your Free Consultation
-        </h3>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content" style="background: white; border-radius: 16px; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+      <div class="modal-header border-0 pb-0" style="padding: 2rem 2rem 1rem;">
+        <div class="w-100">
+          <h3 class="modal-title text-center mb-2" id="consultationModalLabel" style="color: #42454B; font-weight: 700; font-size: 1.75rem;">
+            Get Your Free Security Audit
+          </h3>
+          
+          {{/* Progress Steps */}}
+          <div class="progress-steps mt-4 d-flex justify-content-between align-items-center position-relative" style="padding: 0 1rem;">
+            <div class="progress-line" style="position: absolute; top: 15px; left: 10%; right: 10%; height: 2px; background: #e0e0e0; z-index: 0;"></div>
+            <div class="progress-line-active" style="position: absolute; top: 15px; left: 10%; width: 0%; height: 2px; background: var(--cyber-teal); z-index: 1; transition: width 0.3s ease;"></div>
+            
+            <div class="step-indicator active" data-step="1" style="position: relative; z-index: 2;">
+              <div class="step-circle" style="width: 32px; height: 32px; border-radius: 50%; background: var(--cyber-teal); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; transition: all 0.3s ease;">1</div>
+              <div class="step-label" style="font-size: 0.75rem; color: var(--cyber-teal); margin-top: 0.5rem; font-weight: 600;">Contact</div>
+            </div>
+            <div class="step-indicator" data-step="2" style="position: relative; z-index: 2;">
+              <div class="step-circle" style="width: 32px; height: 32px; border-radius: 50%; background: #e0e0e0; color: #666; display: flex; align-items: center; justify-content: center; font-weight: 600; transition: all 0.3s ease;">2</div>
+              <div class="step-label" style="font-size: 0.75rem; color: #999; margin-top: 0.5rem;">Company</div>
+            </div>
+            <div class="step-indicator" data-step="3" style="position: relative; z-index: 2;">
+              <div class="step-circle" style="width: 32px; height: 32px; border-radius: 50%; background: #e0e0e0; color: #666; display: flex; align-items: center; justify-content: center; font-weight: 600; transition: all 0.3s ease;">3</div>
+              <div class="step-label" style="font-size: 0.75rem; color: #999; margin-top: 0.5rem;">Service</div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close" style="top: 1.5rem; right: 1.5rem;"></button>
       </div>
-      <div class="modal-body px-4 py-4" style="background: white; border-radius: 0 0 12px 12px;">
+      
+      <div class="modal-body px-4 py-4">
         <form id="consultationForm" class="needs-validation" novalidate>
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="firstName" class="form-label fw-semibold" style="color: #42454B !important;">First name <span style="color: #08BCB0;">*</span></label>
-              <input type="text" class="form-control" id="firstName" name="firstName" required>
-              <div class="invalid-feedback">Please enter your first name.</div>
-            </div>
-            <div class="col-md-6">
-              <label for="lastName" class="form-label fw-semibold" style="color: #42454B !important;">Last name <span style="color: #08BCB0;">*</span></label>
-              <input type="text" class="form-control" id="lastName" name="lastName" required>
-              <div class="invalid-feedback">Please enter your last name.</div>
-            </div>
-            <div class="col-md-6">
-              <label for="consultEmail" class="form-label fw-semibold" style="color: #42454B !important;">Email <span style="color: #08BCB0;">*</span></label>
-              <input type="email" class="form-control" id="consultEmail" name="email" required>
-              <div class="invalid-feedback">Please enter a valid email.</div>
-            </div>
-            <div class="col-md-6">
-              <label for="consultPhone" class="form-label fw-semibold" style="color: #42454B !important;">Phone number <span style="color: #08BCB0;">*</span></label>
-              <input type="tel" class="form-control" id="consultPhone" name="phone" pattern="[\d\s\(\)\+\-\.]+" title="Please enter a valid phone number (digits, spaces, and +()-. symbols only)" required>
-              <div class="invalid-feedback">Please enter a valid phone number.</div>
-            </div>
-            <div class="col-md-6">
-              <label for="jobRole" class="form-label fw-semibold" style="color: #42454B !important;">Job role</label>
-              <select class="form-select" id="jobRole" name="jobRole">
-                <option value="">Please Select</option>
-                <option value="C-Level Executive">C-Level Executive</option>
-                <option value="IT Manager">IT Manager</option>
-                <option value="Business Owner">Business Owner</option>
-                <option value="Operations Manager">Operations Manager</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label for="department" class="form-label fw-semibold" style="color: #42454B !important;">Department</label>
-              <select class="form-select" id="department" name="department">
-                <option value="">Please Select</option>
-                <option value="IT">IT</option>
-                <option value="Security">Security</option>
-                <option value="Operations">Operations</option>
-                <option value="Finance">Finance</option>
-                <option value="Executive">Executive</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label for="companyName" class="form-label fw-semibold" style="color: #42454B !important;">Company name</label>
-              <input type="text" class="form-control" id="companyName" name="companyName">
-            </div>
-            <div class="col-md-6">
-              <label for="numEmployees" class="form-label fw-semibold" style="color: #42454B !important;">Number of employees</label>
-              <select class="form-select" id="numEmployees" name="numEmployees">
-                <option value="">Please Select</option>
-                <option value="1-10">1-10</option>
-                <option value="11-50">11-50</option>
-                <option value="51-200">51-200</option>
-                <option value="201-500">201-500</option>
-                <option value="500+">500+</option>
-              </select>
-            </div>
-            <div class="col-12">
-              <label for="consultMessage" class="form-label fw-semibold" style="color: #42454B !important;">How can we help you?</label>
-              <textarea class="form-control" id="consultMessage" name="message" rows="4"></textarea>
-            </div>
-            <!-- Honeypot field (hidden from users, catches bots) -->
-            <input type="text" id="consultWebsite" name="honeypot" style="display:none" tabindex="-1" autocomplete="off" />
-            <div class="col-12">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="salesCallback" name="salesCallback">
-                <label class="form-check-label" style="color: #42454B !important; font-weight: 400;">
-                  I'd like to request a Sales callback
-                </label>
+          {{/* Step 1: Contact Information */}}
+          <div class="form-step active" data-step="1">
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="consultEmail" class="form-label fw-semibold">Email Address <span style="color: var(--cyber-teal);">*</span></label>
+                <input type="email" class="form-control form-control-lg" id="consultEmail" name="email" placeholder="your@email.com" required style="border-radius: 8px;">
+                <div class="invalid-feedback">Please enter a valid email.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="firstName" class="form-label fw-semibold">First Name <span style="color: var(--cyber-teal);">*</span></label>
+                <input type="text" class="form-control form-control-lg" id="firstName" name="firstName" required style="border-radius: 8px;">
+                <div class="invalid-feedback">Please enter your first name.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="lastName" class="form-label fw-semibold">Last Name <span style="color: var(--cyber-teal);">*</span></label>
+                <input type="text" class="form-control form-control-lg" id="lastName" name="lastName" required style="border-radius: 8px;">
+                <div class="invalid-feedback">Please enter your last name.</div>
+              </div>
+              <div class="col-12">
+                <label for="consultPhone" class="form-label fw-semibold">Phone Number <span style="color: var(--cyber-teal);">*</span></label>
+                <input type="tel" class="form-control form-control-lg" id="consultPhone" name="phone" placeholder="+1 767 XXX XXXX" pattern="[\d\s\(\)\+\-\.]+" required style="border-radius: 8px;">
+                <div class="invalid-feedback">Please enter a valid phone number.</div>
               </div>
             </div>
-            <div class="col-12">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="marketing" name="marketing">
-                <label class="form-check-label" style="color: #42454B !important; font-weight: 400;">
-                  Yes! I would like to receive marketing communications from Q C Grant including special offers, articles and other content relating to IT and cyber security. I may unsubscribe at any time.
-                </label>
+          </div>
+          
+          {{/* Step 2: Company Information */}}
+          <div class="form-step" data-step="2" style="display: none;">
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="companyName" class="form-label fw-semibold">Company Name</label>
+                <input type="text" class="form-control form-control-lg" id="companyName" name="companyName" style="border-radius: 8px;">
+              </div>
+              <div class="col-md-6">
+                <label for="numEmployees" class="form-label fw-semibold">Company Size</label>
+                <select class="form-select form-select-lg" id="numEmployees" name="numEmployees" style="border-radius: 8px;">
+                  <option value="">Please Select</option>
+                  <option value="1-10">1-10 employees</option>
+                  <option value="11-50">11-50 employees</option>
+                  <option value="51-200">51-200 employees</option>
+                  <option value="201-500">201-500 employees</option>
+                  <option value="500+">500+ employees</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="jobRole" class="form-label fw-semibold">Your Role</label>
+                <select class="form-select form-select-lg" id="jobRole" name="jobRole" style="border-radius: 8px;">
+                  <option value="">Please Select</option>
+                  <option value="C-Level Executive">C-Level Executive</option>
+                  <option value="IT Manager">IT Manager</option>
+                  <option value="Business Owner">Business Owner</option>
+                  <option value="Operations Manager">Operations Manager</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
             </div>
-            <div class="col-12">
-              <div id="consultFormStatus" class="alert d-none" role="alert"></div>
+          </div>
+          
+          {{/* Step 3: Service Interest */}}
+          <div class="form-step" data-step="3" style="display: none;">
+            <div class="mb-3">
+              <label class="form-label fw-semibold d-block mb-3">What services interest you?</label>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="service-option p-3" style="border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s ease;" onclick="toggleServiceOption(this, 'cybersecurity')">
+                    <div class="d-flex align-items-center gap-3">
+                      <i class="fas fa-shield-halved" style="font-size: 2rem; color: var(--cyber-teal);"></i>
+                      <div>
+                        <div class="fw-bold">Cybersecurity</div>
+                        <small class="text-muted">Protection & monitoring</small>
+                      </div>
+                    </div>
+                    <input type="checkbox" name="service_cybersecurity" style="display: none;">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="service-option p-3" style="border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s ease;" onclick="toggleServiceOption(this, 'managed-it')">
+                    <div class="d-flex align-items-center gap-3">
+                      <i class="fas fa-server" style="font-size: 2rem; color: var(--cyber-teal);"></i>
+                      <div>
+                        <div class="fw-bold">Managed IT</div>
+                        <small class="text-muted">24/7 support</small>
+                      </div>
+                    </div>
+                    <input type="checkbox" name="service_managed_it" style="display: none;">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="service-option p-3" style="border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s ease;" onclick="toggleServiceOption(this, 'cloud-ai')">
+                    <div class="d-flex align-items-center gap-3">
+                      <i class="fas fa-cloud" style="font-size: 2rem; color: var(--cyber-teal);"></i>
+                      <div>
+                        <div class="fw-bold">Cloud & AI</div>
+                        <small class="text-muted">Digital transformation</small>
+                      </div>
+                    </div>
+                    <input type="checkbox" name="service_cloud_ai" style="display: none;">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="service-option p-3" style="border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s ease;" onclick="toggleServiceOption(this, 'consulting')">
+                    <div class="d-flex align-items-center gap-3">
+                      <i class="fas fa-lightbulb" style="font-size: 2rem; color: var(--cyber-teal);"></i>
+                      <div>
+                        <div class="fw-bold">IT Consulting</div>
+                        <small class="text-muted">Strategic guidance</small>
+                      </div>
+                    </div>
+                    <input type="checkbox" name="service_consulting" style="display: none;">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="consultMessage" class="form-label fw-semibold">Tell us about your needs (optional)</label>
+              <textarea class="form-control" id="consultMessage" name="message" rows="3" style="border-radius: 8px;" placeholder="What challenges are you facing?"></textarea>
+            </div>
+            
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="marketing" name="marketing">
+              <label class="form-check-label small" for="marketing">
+                I'd like to receive cybersecurity insights and IT tips from Q C Grant Ltd.
+              </label>
             </div>
           </div>
-          <div class="modal-footer border-0 px-0 pb-0 pt-4">
-            <button type="submit" class="btn btn-lg px-5" id="consultSubmitBtn" style="background-color: #08BCB0; border-color: #08BCB0; color: white;">
-              <span class="btn-text">SUBMIT</span>
-              <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-            </button>
-          </div>
+          
+          <!-- Honeypot field -->
+          <input type="text" id="consultWebsite" name="honeypot" style="display:none" tabindex="-1" autocomplete="off" />
+          
+          <div id="consultFormStatus" class="alert d-none mt-3" role="alert"></div>
         </form>
+      </div>
+      
+      <div class="modal-footer border-0 px-4 pb-4 pt-2">
+        <div class="d-flex justify-content-between w-100 gap-2">
+          <button type="button" class="btn btn-outline-secondary btn-lg px-4" id="prevStepBtn" style="display: none; border-radius: 8px;" onclick="previousStep()">
+            <i class="fas fa-arrow-left me-2"></i> Back
+          </button>
+          <button type="button" class="btn btn-lg px-4 ms-auto" id="nextStepBtn" style="background: var(--cyber-teal); color: white; border: none; border-radius: 8px; font-weight: 600;" onclick="nextStep()">
+            Next <i class="fas fa-arrow-right ms-2"></i>
+          </button>
+          <button type="submit" form="consultationForm" class="btn btn-lg px-5" id="consultSubmitBtn" style="display: none; background: var(--cyber-teal); color: white; border: none; border-radius: 8px; font-weight: 600;">
+            <span class="btn-text">Get My Free Audit</span>
+            <span class="spinner-border spinner-border-sm d-none ms-2" role="status" aria-hidden="true"></span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+let currentStep = 1;
+const totalSteps = 3;
+
+function toggleServiceOption(element, service) {
+  const checkbox = element.querySelector('input[type="checkbox"]');
+  checkbox.checked = !checkbox.checked;
+  
+  if (checkbox.checked) {
+    element.style.borderColor = 'var(--cyber-teal)';
+    element.style.background = 'rgba(8,188,176,0.05)';
+  } else {
+    element.style.borderColor = '#e0e0e0';
+    element.style.background = 'white';
+  }
+}
+
+function updateProgress() {
+  const progressLine = document.querySelector('.progress-line-active');
+  const percentage = ((currentStep - 1) / (totalSteps - 1)) * 80; // 80% because of padding
+  progressLine.style.width = percentage + '%';
+  
+  document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+    const stepNum = index + 1;
+    const circle = indicator.querySelector('.step-circle');
+    const label = indicator.querySelector('.step-label');
+    
+    if (stepNum < currentStep) {
+      circle.style.background = 'var(--cyber-teal)';
+      circle.style.color = 'white';
+      circle.innerHTML = '<i class="fas fa-check"></i>';
+      label.style.color = 'var(--cyber-teal)';
+    } else if (stepNum === currentStep) {
+      circle.style.background = 'var(--cyber-teal)';
+      circle.style.color = 'white';
+      circle.textContent = stepNum;
+      label.style.color = 'var(--cyber-teal)';
+      label.style.fontWeight = '600';
+      indicator.classList.add('active');
+    } else {
+      circle.style.background = '#e0e0e0';
+      circle.style.color = '#666';
+      circle.textContent = stepNum;
+      label.style.color = '#999';
+      label.style.fontWeight = 'normal';
+      indicator.classList.remove('active');
+    }
+  });
+}
+
+function showStep(step) {
+  document.querySelectorAll('.form-step').forEach(s => s.style.display = 'none');
+  const currentStepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+  if (currentStepEl) {
+    currentStepEl.style.display = 'block';
+  }
+  
+  document.getElementById('prevStepBtn').style.display = step > 1 ? 'block' : 'none';
+  document.getElementById('nextStepBtn').style.display = step < totalSteps ? 'block' : 'none';
+  document.getElementById('consultSubmitBtn').style.display = step === totalSteps ? 'block' : 'none';
+  
+  updateProgress();
+}
+
+function validateCurrentStep() {
+  const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+  const inputs = currentStepEl.querySelectorAll('input[required], select[required], textarea[required]');
+  let isValid = true;
+  
+  inputs.forEach(input => {
+    if (!input.checkValidity()) {
+      isValid = false;
+      input.classList.add('is-invalid');
+    } else {
+      input.classList.remove('is-invalid');
+    }
+  });
+  
+  return isValid;
+}
+
+function nextStep() {
+  if (currentStep < totalSteps) {
+    if (validateCurrentStep()) {
+      currentStep++;
+      showStep(currentStep);
+    } else {
+      document.getElementById('consultationForm').classList.add('was-validated');
+    }
+  }
+}
+
+function previousStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+  }
+}
+
 // Consultation form handler
 document.getElementById('consultationForm')?.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -205,27 +380,32 @@ document.getElementById('consultationForm')?.addEventListener('submit', async (e
   const firstName = document.getElementById('firstName').value;
   const lastName = document.getElementById('lastName').value;
   const jobRole = document.getElementById('jobRole').value;
-  const department = document.getElementById('department').value;
   const numEmployees = document.getElementById('numEmployees').value;
   const consultMessage = document.getElementById('consultMessage').value;
-  const salesCallback = document.getElementById('salesCallback').checked;
   const marketing = document.getElementById('marketing').checked;
   
+  // Collect selected services
+  const selectedServices = [];
+  if (document.querySelector('input[name="service_cybersecurity"]')?.checked) selectedServices.push('Cybersecurity');
+  if (document.querySelector('input[name="service_managed_it"]')?.checked) selectedServices.push('Managed IT');
+  if (document.querySelector('input[name="service_cloud_ai"]')?.checked) selectedServices.push('Cloud & AI');
+  if (document.querySelector('input[name="service_consulting"]')?.checked) selectedServices.push('IT Consulting');
+  
   // Build detailed message
-  let detailedMessage = 'Consultation Request\n\n';
+  let detailedMessage = 'Free Security Audit Request\n\n';
+  if (selectedServices.length > 0) detailedMessage += `Services of Interest: ${selectedServices.join(', ')}\n`;
   if (jobRole) detailedMessage += `Job Role: ${jobRole}\n`;
-  if (department) detailedMessage += `Department: ${department}\n`;
-  if (numEmployees) detailedMessage += `Number of Employees: ${numEmployees}\n`;
-  if (consultMessage) detailedMessage += `\nMessage:\n${consultMessage}`;
+  if (numEmployees) detailedMessage += `Company Size: ${numEmployees}\n`;
+  if (consultMessage) detailedMessage += `\nAdditional Information:\n${consultMessage}`;
   
   const formData = {
     name: `${firstName} ${lastName}`,
     company: document.getElementById('companyName').value,
     email: document.getElementById('consultEmail').value,
     phone: document.getElementById('consultPhone').value,
-    service: 'consultation',
+    service: selectedServices.length > 0 ? selectedServices.join(', ') : 'General Consultation',
     message: detailedMessage,
-    requestCallback: salesCallback,
+    requestCallback: true,
     marketingConsent: marketing,
     honeypot: document.getElementById('consultWebsite').value
   };
@@ -289,6 +469,17 @@ function clearConsultAlert() {
 if (consultationModalEl) {
   consultationModalEl.addEventListener('show.bs.modal', function () {
     clearConsultAlert();
+    // Reset to step 1 when modal opens
+    currentStep = 1;
+    showStep(currentStep);
+    // Reset form
+    document.getElementById('consultationForm')?.reset();
+    document.getElementById('consultationForm')?.classList.remove('was-validated');
+    // Reset service option styling
+    document.querySelectorAll('.service-option').forEach(option => {
+      option.style.borderColor = '#e0e0e0';
+      option.style.background = 'white';
+    });
   });
   consultationModalEl.addEventListener('hidden.bs.modal', function () {
     // Also clear when hidden to ensure clean state if the modal is reopened
@@ -373,37 +564,227 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+{{/* Exit Intent Modal - Lead Magnet */}}
+<div class="modal fade" id="exitIntentModal" tabindex="-1" aria-labelledby="exitIntentModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
+      <div class="modal-header border-0 pb-0" style="background: linear-gradient(135deg, #1A1A1A 0%, #2C2C2C 100%);">
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="row g-0">
+          {{/* Left side - Value prop */}}
+          <div class="col-md-6 p-5" style="background: linear-gradient(135deg, #1A1A1A 0%, #2C2C2C 100%);">
+            <div class="text-white">
+              <i class="fas fa-download fa-3x mb-4" style="color: var(--cyber-teal);"></i>
+              <h3 class="fw-bold mb-3">Before You Go...</h3>
+              <h4 class="mb-4">Get Your Free Caribbean Cybersecurity Checklist</h4>
+              <ul class="list-unstyled mb-4">
+                <li class="mb-3">
+                  <i class="fas fa-check-circle me-2" style="color: var(--cyber-teal);"></i>
+                  20-point security assessment for Caribbean businesses
+                </li>
+                <li class="mb-3">
+                  <i class="fas fa-check-circle me-2" style="color: var(--cyber-teal);"></i>
+                  Compliance requirements for your industry
+                </li>
+                <li class="mb-3">
+                  <i class="fas fa-check-circle me-2" style="color: var(--cyber-teal);"></i>
+                  Actionable steps to improve security posture
+                </li>
+                <li class="mb-3">
+                  <i class="fas fa-check-circle me-2" style="color: var(--cyber-teal);"></i>
+                  Budget planning guide for IT security
+                </li>
+              </ul>
+              <p class="small text-muted mb-0">
+                <i class="fas fa-lock me-1"></i> Your information is secure. We never share your data.
+              </p>
+            </div>
+          </div>
+          
+          {{/* Right side - Form */}}
+          <div class="col-md-6 p-5 bg-white">
+            <form id="exitIntentForm">
+              <h5 class="fw-bold mb-4" style="color: var(--charcoal-dark);">Download Your Free Checklist</h5>
+              
+              <div class="mb-3">
+                <label for="exitName" class="form-label">First Name *</label>
+                <input type="text" class="form-control" id="exitName" name="name" required>
+              </div>
+              
+              <div class="mb-3">
+                <label for="exitEmail" class="form-label">Email Address *</label>
+                <input type="email" class="form-control" id="exitEmail" name="email" required>
+              </div>
+              
+              <div class="mb-3">
+                <label for="exitCompany" class="form-label">Company Name</label>
+                <input type="text" class="form-control" id="exitCompany" name="company">
+              </div>
+              
+              <div class="mb-3">
+                <label for="exitIndustry" class="form-label">Industry</label>
+                <select class="form-select" id="exitIndustry" name="industry">
+                  <option value="">Select your industry</option>
+                  <option value="Healthcare">Healthcare</option>
+                  <option value="Finance">Finance & Banking</option>
+                  <option value="Professional Services">Professional Services</option>
+                  <option value="Industrial">Industrial & Manufacturing</option>
+                  <option value="Retail">Retail</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="exitNewsletter" name="newsletter" checked>
+                <label class="form-check-label small" for="exitNewsletter">
+                  Yes, send me security tips and updates (you can unsubscribe anytime)
+                </label>
+              </div>
+              
+              <button type="submit" class="btn btn-lg w-100" style="background: var(--cyber-teal); color: white; border: none; border-radius: 8px; font-weight: 600;">
+                <i class="fas fa-download me-2"></i> Get My Free Checklist
+              </button>
+              
+              <div id="exitFormStatus" class="alert d-none mt-3" role="alert"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-// Mobile sidebar backdrop handler
-if (window.innerWidth <= 991) {
-  const backdrop = document.getElementById('sidebarBackdrop');
-  const navbarCollapse = document.getElementById('navbarNav');
-  const closeBtn = document.querySelector('.sidebar-close-btn');
-  
-  if (backdrop && navbarCollapse && closeBtn) {
-    // Show backdrop and close button when sidebar opens
-    navbarCollapse.addEventListener('show.bs.collapse', function () {
-      backdrop.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    });
-    
-    // Hide backdrop and close button when sidebar closes
-    navbarCollapse.addEventListener('hide.bs.collapse', function () {
-      backdrop.classList.remove('show');
-      document.body.style.overflow = '';
-    });
-    
-    // Close sidebar when clicking backdrop
-    backdrop.addEventListener('click', function () {
-      const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
-      bsCollapse.hide();
-    });
-    
-    // Close sidebar when clicking close button
-    closeBtn.addEventListener('click', function () {
-      const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
-      bsCollapse.hide();
-    });
+// Exit Intent Detection - DISABLED
+// Uncomment the code below to re-enable exit intent modal
+/*
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if Bootstrap is available
+  if (typeof bootstrap === 'undefined') {
+    console.error('Bootstrap not loaded');
+    return;
   }
-}
+  
+  let exitIntentShown = false;
+  const exitIntentModal = new bootstrap.Modal(document.getElementById('exitIntentModal'));
+
+  document.addEventListener('mouseout', function(e) {
+    // Check if mouse is leaving from top of page and modal hasn't been shown
+    if (!exitIntentShown && e.clientY <= 0 && e.relatedTarget == null) {
+      // Check if user has been on page for at least 10 seconds
+      if (performance.now() > 10000) {
+        exitIntentShown = true;
+        exitIntentModal.show();
+        
+        // Store in sessionStorage to prevent showing again this session
+        sessionStorage.setItem('exitIntentShown', 'true');
+      }
+    }
+  });
+
+  // Check if already shown this session
+  if (sessionStorage.getItem('exitIntentShown')) {
+    exitIntentShown = true;
+  }
+
+  // Exit Intent Form Handler
+  document.getElementById('exitIntentForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const statusDiv = document.getElementById('exitFormStatus');
+    const btnText = submitBtn.querySelector('.fas').parentElement;
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    btnText.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Sending...';
+    
+    // Collect form data
+    const formData = {
+      name: form.name.value,
+      email: form.email.value,
+      company: form.company.value || 'Not provided',
+      industry: form.industry.value || 'Not specified',
+      newsletter: form.newsletter.checked,
+      type: 'exit_intent_download',
+      message: 'User requested Caribbean Cybersecurity Checklist download'
+    };
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+      
+      if (response.ok) {
+        statusDiv.className = 'alert alert-success mt-3';
+        statusDiv.textContent = 'Success! Check your email for the download link.';
+        statusDiv.classList.remove('d-none');
+        form.reset();
+        
+        // Close modal after 2 seconds
+        setTimeout(() => {
+          exitIntentModal.hide();
+        }, 2000);
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (error) {
+      statusDiv.className = 'alert alert-danger mt-3';
+      statusDiv.textContent = 'Something went wrong. Please try again or email us directly at support@qcgrant.com';
+      statusDiv.classList.remove('d-none');
+    } finally {
+      submitBtn.disabled = false;
+      btnText.innerHTML = '<i class="fas fa-download me-2"></i> Get My Free Checklist';
+    }
+  });
+});
+*/
+</script>
+
+<script>
+// Mobile sidebar backdrop handler - Wait for DOM and Bootstrap
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.innerWidth <= 991) {
+    const backdrop = document.getElementById('sidebarBackdrop');
+    const navbarCollapse = document.getElementById('navbarNav');
+    const closeBtn = document.querySelector('.sidebar-close-btn');
+    
+    if (backdrop && navbarCollapse && closeBtn) {
+      // Show backdrop and close button when sidebar opens
+      navbarCollapse.addEventListener('show.bs.collapse', function () {
+        backdrop.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      });
+      
+      // Hide backdrop and close button when sidebar closes
+      navbarCollapse.addEventListener('hide.bs.collapse', function () {
+        backdrop.classList.remove('show');
+        document.body.style.overflow = '';
+      });
+      
+      // Close sidebar when clicking backdrop
+      backdrop.addEventListener('click', function () {
+        if (typeof bootstrap !== 'undefined') {
+          const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
+          bsCollapse.hide();
+        }
+      });
+      
+      // Close sidebar when clicking close button
+      closeBtn.addEventListener('click', function () {
+        if (typeof bootstrap !== 'undefined') {
+          const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
+          bsCollapse.hide();
+        }
+      });
+    }
+  }
+});
 </script>

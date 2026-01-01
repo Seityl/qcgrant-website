@@ -1,50 +1,41 @@
 ---
-title: "Industrial & Manufacturing IT Solutions | Q C Grant Ltd."
-description: "Cybersecurity and IT services for Caribbean industrial operations. OT security, SCADA systems, industrial IoT, and operational technology protection."
+title: "Industrial & Manufacturing IT Security | SCADA & OT Security Caribbean"
+description: "Operational technology (OT) cybersecurity for Caribbean industrial and manufacturing operations. SCADA protection, industrial control system (ICS) security, OT/IT convergence, network segmentation, and Industrial IoT security. Protect manufacturing systems in Dominica and across the Caribbean region."
+keywords: "industrial cybersecurity Caribbean, OT security Dominica, SCADA protection Caribbean, manufacturing IT security, industrial IoT security Caribbean, ICS security, operational technology Caribbean, PLC security, industrial control systems Dominica"
 draft: false
+type: "industries"
+
+features:
+  - title: "OT Security Assessments"
+    icon: "fas fa-industry"
+    content: "Comprehensive security evaluations of operational technology environments including supervisory control and data acquisition (SCADA) systems, distributed control systems (DCS), programmable logic controllers (PLCs), and industrial control systems (ICS). Our assessments examine network architecture, access controls, patch management challenges, vendor access procedures, and incident response capabilities specific to OT environments. We identify risks including exposed industrial protocols, lack of network segmentation, outdated firmware on legacy equipment, and insufficient monitoring of operational networks. Assessment methodology follows standards including IEC 62443, NIST Special Publication 800-82, and industry-specific frameworks. Deliverables include prioritized recommendations that balance security improvements with operational safety and production requirements."
+  - title: "SCADA & Industrial Control System Security"
+    icon: "fas fa-gears"
+    content: "Specialized security implementation for SCADA systems and industrial control networks that manage critical processes including manufacturing lines, utilities, water treatment, and energy production. We implement security hardening for SCADA servers and HMI workstations, configure firewalls with industrial protocol inspection capabilities, and deploy intrusion detection systems tuned for OT traffic patterns. Security measures include application whitelisting to prevent unauthorized software execution, removal of unnecessary services, and secure remote access for vendors and operators. We work within operational constraints including 24/7 production schedules, legacy equipment limitations, and safety-critical process requirements. Regular security reviews ensure controls remain effective as systems are modified or expanded."
+  - title: "Network Segmentation for OT/IT Convergence"
+    icon: "fas fa-network-wired"
+    content: "Design and implementation of network segmentation strategies that isolate operational technology from enterprise IT networks while enabling necessary data exchanges. We architect layered security zones following Purdue Model principles, implement firewalls with industrial protocol awareness at zone boundaries, and deploy data diodes or unidirectional gateways for high-security applications. Segmentation strategies enable secure integration for business intelligence, maintenance systems, and remote monitoring while protecting critical control systems. We configure VLANs, routing policies, and firewall rules that prevent lateral movement between zones. Regular reviews ensure segmentation remains effective as new systems are integrated or operational requirements evolve."
+  - title: "Industrial IoT & Smart Manufacturing Security"
+    icon: "fas fa-microchip"
+    content: "Security implementation for Industrial Internet of Things (IIoT) deployments including connected sensors, predictive maintenance systems, quality monitoring devices, and asset tracking solutions. We secure IoT gateways and edge computing platforms, implement device authentication and encryption, and establish network segmentation for IoT devices. Security architecture addresses unique IIoT challenges including resource-constrained devices, diverse communication protocols, and remote deployment locations. Monitoring capabilities detect anomalous device behavior, unauthorized access attempts, and potential security compromises. Implementation balances security requirements with operational benefits including predictive maintenance, quality improvements, and operational efficiency gains."
+  - title: "Vendor & Contractor Access Management"
+    icon: "fas fa-user-gear"
+    content: "Secure management of remote access for equipment vendors, maintenance contractors, and system integrators who require connectivity to industrial systems. We implement vendor access portals with multi-factor authentication, time-limited access grants, and session monitoring capabilities. Jump servers and privileged access management solutions control vendor activities, prevent direct internet connections to control systems, and provide audit trails of all vendor actions. Policies define approval workflows, access justification requirements, and supervision expectations for high-risk activities. Regular reviews ensure only current vendors retain access and credentials are rotated appropriately. These controls reduce risks while enabling timely vendor support for equipment maintenance and troubleshooting."
+  - title: "Industrial Incident Response"
+    icon: "fas fa-helmet-safety"
+    content: "Specialized incident response capabilities for operational technology environments where security incidents may impact production operations, product quality, worker safety, or environmental compliance. We develop OT-specific incident response plans that address scenarios including malware infections on control systems, unauthorized access to industrial networks, ransomware targeting manufacturing operations, and manipulation of process control systems. Response procedures coordinate IT security teams with operations personnel, engineering staff, and safety managers. Forensic capabilities preserve evidence while prioritizing operational recovery and safety. Tabletop exercises prepare teams for coordinated response, and post-incident reviews identify security improvements. Plans address regulatory notification requirements for safety-critical incidents."
+  - title: "Operational Technology Asset Management"
+    icon: "fas fa-list-check"
+    content: "Comprehensive inventory and lifecycle management of operational technology assets including control systems, industrial networking equipment, sensors, actuators, and safety systems. We discover and document OT assets using passive network monitoring and active scanning techniques appropriate for industrial environments. Asset inventory includes equipment details, firmware versions, network connections, maintenance schedules, and end-of-life timelines. Vulnerability management identifies security issues in OT assets, prioritizes remediation based on operational risk, and tracks patch deployment. Asset management supports incident response, change management, and upgrade planning while providing visibility into aging equipment that may pose security or reliability risks."
+  - title: "Manufacturing Business Continuity"
+    icon: "fas fa-arrow-rotate-right"
+    content: "Business continuity planning and disaster recovery capabilities specifically designed for manufacturing and industrial operations where downtime results in lost production, customer penalties, and potential safety risks. We develop recovery strategies for critical control systems, establish backup procedures for controller programs and HMI configurations, and implement redundancy for single points of failure. Plans address various scenarios including control system failures, cyberattacks targeting production systems, equipment failures, and facility damage. Recovery procedures prioritize safety-critical systems and sequence system restart to prevent equipment damage. Regular testing validates recovery capabilities and recovery time objectives. Documentation supports insurance requirements, customer audits, and regulatory compliance obligations."
 ---
 
-## Industrial & Manufacturing Operations
+## Why Industrial Organizations Choose Us
 
-**Securing operational technology and industrial control systems across the Caribbean.**
+Industrial and manufacturing operations face unique cybersecurity challenges including legacy equipment without modern security features, 24/7 production schedules that limit security update windows, convergence of OT and IT networks, and safety-critical processes where security failures can result in injuries or environmental incidents. Our specialized services provide industrial-grade security with deep understanding of operational technology environments and manufacturing operations.
 
----
+## Our Comprehensive Approach
 
-### Our Expertise in Industrial Operations
-
-Industrial and manufacturing organizations face unique cybersecurity challenges as they integrate traditional operational technology (OT) with modern IT systems and connect critical infrastructure to the internet. Q C Grant Ltd. provides specialized security and IT services for industrial facilities, manufacturing plants, utilities, and other organizations with operational technology environments.
-
-Our industrial expertise includes securing SCADA systems, protecting programmable logic controllers (PLCs), implementing network segmentation between IT and OT environments, and ensuring the resilience of critical industrial processes. We understand that in industrial settings, safety and operational continuity are paramount—downtime can result in significant financial losses and safety risks.
-
-With knowledge of industrial protocols, legacy equipment constraints, and operational requirements, we help industrial organizations modernize their technology securely while maintaining production efficiency and worker safety.
-
----
-
-### Services for Industrial Operations
-
-- **OT Security Assessments** - Evaluation of operational technology security posture
-- **SCADA & ICS Security** - Protection of supervisory control and industrial control systems
-- **Network Segmentation** - Isolation of critical OT networks from corporate IT systems
-- **Industrial IoT Security** - Securing connected sensors and industrial IoT devices
-- **Vendor Access Management** - Secure remote access for equipment vendors and contractors
-- **Incident Response for OT** - Specialized response for industrial security incidents
-- **Business Continuity** - Resilience planning for critical industrial processes
-
----
-
-### Industrial Technology Challenges We Address
-
-- Securing legacy industrial equipment without modern security features
-- Implementing network segmentation between IT and OT environments
-- Managing vendor and contractor access to critical systems
-- Protecting against ransomware targeting industrial operations
-- Ensuring safety-critical systems remain operational during incidents
-- Balancing security controls with production efficiency requirements
-
----
-
-## Secure Your Industrial Operations
-
-Contact us to discuss how we can help protect your operational technology infrastructure.
-
-[Schedule a Consultation](/contact)
+We recognize that industrial security must prioritize safety, maintain production operations, and work within the constraints of legacy equipment and operational schedules. Our team combines cybersecurity expertise with operational technology knowledge to deliver solutions that protect critical systems, ensure production continuity, and maintain worker safety—all while supporting industrial organizations' operational efficiency and continuous improvement initiatives.

@@ -1,6 +1,7 @@
 ---
-title: "About Q C Grant Ltd."
-description: "Learn about Q C Grant Ltd., Dominica's trusted cybersecurity and IT consulting firm. Led by Charles D. Grant, delivering enterprise-grade security solutions."
+title: "About Q C Grant Ltd. | Caribbean Cybersecurity & IT Consulting Leader"
+description: "Learn about Q C Grant Ltd., Dominica's trusted cybersecurity and IT consulting firm. Led by Charles D. Grant with 20+ years experience, delivering enterprise-grade security solutions, managed IT services, and digital transformation across the Caribbean region."
+keywords: "Q C Grant Ltd, Charles D Grant, Caribbean cybersecurity company, IT consulting Dominica, cybersecurity expert Caribbean, IT services provider Dominica, enterprise security Caribbean"
 draft: false
 ---
 

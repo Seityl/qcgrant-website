@@ -1,21 +1,17 @@
 {{ define "main" }}
-<main class="py-5">
+<main class="pb-0">
   {{ partial "service-hero.html" (dict "kicker" "Services" "title" "What we do" "subtitle" "Practical cybersecurity, managed IT, and cloud services that keep your business running.") }}
 
   <section class="container my-5">
-    <div class="row">
-      <div class="col-12">
-        <div class="svc-grid">
-          {{ range $i, $f := .Site.Data.services.list }}
-            <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="{{ mul $i 80 }}" data-aos-duration="700" data-aos-once="true">
-              {{ partial "service-card.html" (dict "title" $f.title "summary" $f.summary "icon" $f.icon "meta" $f.meta "link" $f.link) }}
-            </div>
-          {{ end }}
+    <div class="row g-4">
+      {{ range $i, $f := .Site.Data.services.list }}
+        <div class="col-12 d-flex justify-content-center" data-aos="zoom-in" data-aos-delay="{{ mul $i 80 }}" data-aos-duration="700" data-aos-once="true">
+          {{ partial "service-card.html" (dict "title" $f.title "summary" $f.summary "icon" $f.icon "meta" $f.meta "link" $f.link) }}
         </div>
-      </div>
+      {{ end }}
     </div>
   </section>
 
-  {{ partial "cta.html" (dict "enable" true "title" "Ready to take the next step?" "content" "Book a free assessment and get a tailored plan for your organisation." "button" (dict "enable" true "label" "Book a free assessment" "modal" "consultationModal")) }}
+  {{ partial "cta.html" (dict "enable" true "title" "Ready to take the next step?" "content" "Book a free assessment and get a tailored plan for your organisation." "button" (dict "enable" true "label" "BOOK A FREE ASSESSMENT" "modal" "consultationModal")) }}
 </main>
 {{ end }}
